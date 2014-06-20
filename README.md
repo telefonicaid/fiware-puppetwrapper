@@ -7,3 +7,13 @@ Requisites:
 - MongoDB
 - Tomcat 7.X.X
 
+## Building instructions
+It is a a maven application:
+
+- Compile, launch test and build all modules
+
+        $ mvn clean install
+- Create a zip with distribution in target/sdc-server-dist.zip
+
+        $ mvn assembly:assembly -DskipTests
+
