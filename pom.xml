@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.telefonica.euro_iaas</groupId>
-    <artifactId>puppet-wrapper</artifactId>
+    <artifactId>puppetwrapper</artifactId>
     <packaging>war</packaging>
     <version>3.0.0-SNAPSHOT</version>
 
@@ -24,7 +24,7 @@
         <compilerOptimize>false</compilerOptimize>
         <compilerShowWarnings>true</compilerShowWarnings>
         <compilerShowDeprecation>true</compilerShowDeprecation>
-        <jvm.version>1.7</jvm.version>
+        <!--jvm.version>1.7</jvm.version-->
 
         <!-- repositories for distribution -->
         <!-- snapshots -->
@@ -75,12 +75,6 @@
     </scm>
 
     <dependencies>
-        <dependency>
-            <groupId>com.telefonica.euro_iaas</groupId>
-            <artifactId>sdc-server-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
