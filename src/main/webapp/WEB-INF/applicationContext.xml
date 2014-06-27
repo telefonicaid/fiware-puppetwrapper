@@ -32,8 +32,9 @@
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="useDefaultSuffixPattern" value="false" />
 	</bean>
+	
 
-	<mongo:mongo host="127.0.0.1" port="27017" />
+	<mongo:mongo host="${mongo.host}" port="${mongo.port}" />
 	<mongo:db-factory dbname="puppetWrapper" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
