@@ -3,7 +3,7 @@
     <groupId>com.telefonica.euro_iaas</groupId>
     <artifactId>puppetwrapper</artifactId>
     <packaging>war</packaging>
-    <version>3.4.3</version>
+    <version>3.0.0</version>
 
     <properties>
 
@@ -11,7 +11,7 @@
         <!-- This properties will be added to sonar as manual measures -->
         <product.area.name>Industrial IoT</product.area.name>
         <product.name>FIWARE</product.name>
-        <product.release>3.2.3</product.release>
+        <product.release>3.4.3</product.release>
 
         <repoName>fiware-puppetwrapper</repoName>
 
