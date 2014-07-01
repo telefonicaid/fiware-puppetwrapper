@@ -9,7 +9,6 @@ puppet-wrapper/acceptance_tests/testreport
 .settings
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
