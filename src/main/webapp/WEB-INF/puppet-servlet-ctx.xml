@@ -16,9 +16,24 @@
 	<context:annotation-config />
 	<context:component-scan
 		base-package="com.telefonica.euro_iaas.sdc.puppetwrapper.controllers" />
-	
 
 
+
+	<!--bean id="handlerMapping"
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="mdcInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="mdcInterceptor"
+		class="com.telefonica.euro_iaas.sdc.puppetwrapper.controllers.interceptors.MdcInterceptor" /-->
+
+	<mvc:interceptors>
+		<bean class="com.telefonica.euro_iaas.sdc.puppetwrapper.controllers.interceptors.MdcInterceptor" />
+	</mvc:interceptors>
 
 
 </beans>
