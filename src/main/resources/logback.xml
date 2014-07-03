@@ -22,7 +22,7 @@
 	
 	<!-- SpringFramework logger -->
      <logger name="org.springframework" additivity="false">
-        <level value="info" />
+        <level value="warn" />
         <appender-ref ref="puppetWrapperAppender" />
     </logger>
 

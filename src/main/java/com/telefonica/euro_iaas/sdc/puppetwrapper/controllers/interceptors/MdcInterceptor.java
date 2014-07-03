@@ -28,10 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.MDC;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-//@Component
 public class MdcInterceptor extends HandlerInterceptorAdapter{
 
     @Override
