@@ -344,6 +344,28 @@
                 </configuration>
             </plugin>
         </plugins>
+
+
+          <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.12.1</version>
+                    <configuration>
+                        <configLocation>telefonica_checkstyle.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <failsOnViolations>true</failsOnViolations>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
     </build>
 
     <profiles>
@@ -417,7 +439,7 @@
             </build>
         </profile>
     </profiles>
-    
+
     <repositories>
         <!-- ci-cpr02 Nexus Repositories -->
         <repository>
