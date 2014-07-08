@@ -8,6 +8,8 @@ puppet-wrapper/acceptance_tests/testreport
 .project
 .settings
 
+jetty.base_IS_UNDEFINED
+
 # Package Files #
 *.war
 *.ear

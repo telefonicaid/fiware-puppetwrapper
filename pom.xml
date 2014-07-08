@@ -23,7 +23,7 @@
         <compilerOptimize>false</compilerOptimize>
         <compilerShowWarnings>true</compilerShowWarnings>
         <compilerShowDeprecation>true</compilerShowDeprecation>
-        <!--jvm.version>1.7</jvm.version-->
+        <jvm.version>1.7</jvm.version>
 
         <!-- repositories for distribution -->
         <!-- snapshots -->
@@ -300,29 +300,6 @@
                     <optimize>${compilerOptimize}</optimize>
                     <showWarnings>${compilerShowWarnings}</showWarnings>
                     <showDeprecation>${compilerShowDeprecation}</showDeprecation>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${cobertura-maven-plugin.version}</version>
-                <configuration>
-                    <format>xml</format>
-                    <maxmem>256m</maxmem>
-                    <!-- aggregated reports for multi-module projects -->
-                    <aggregate>true</aggregate>
-                    <instrumentation>
-                        <ignores>
-                            <ignore>org.openstack.docs.common.api.v1.*</ignore>
-                        </ignores>
-                        <excludes>
-                            <exclude>**/*Test*.class</exclude>
-                            <exclude>**/model/**.class</exclude>
-                            <exclude>org/openstack/**/*</exclude>
-                            <exclude>org/w3/**/*</exclude>
-                        </excludes>
-                    </instrumentation>
                 </configuration>
             </plugin>
             <!--plugin>
