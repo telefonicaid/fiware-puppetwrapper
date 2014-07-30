@@ -35,7 +35,7 @@ in this section
         ## Same thing without a password
         # %wheel        ALL=(ALL)       NOPASSWD: ALL
 
-        comment out the following line 
+comment out the following line 
 
         #Defaults    requiretty
 
