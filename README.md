@@ -7,6 +7,9 @@ Requisites:
 - MongoDB
 - Tomcat 7.X.X
 
+## mongo configuration
+  add to /etc/mongod.conf -> smallfiles=true
+  
 ## Building instructions
 It is a a maven application:
 
