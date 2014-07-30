@@ -14,6 +14,10 @@ It is a a maven application:
 
         $ mvn clean install
         
+        
+## mongo configuration
+  add to /etc/mongod.conf -> smallfiles=true
+  
 ## Configurations instructions
 file puppetwrapper.properties contains all necessary parameters.
 
