@@ -22,7 +22,7 @@
  * </p>
  */
 
-package com.telefonica.euro_iaas.sdc.puppetwrapper.controllers.interceptors;
+package com.telefonica.euro_iaas.sdc.puppetwrapper.aspects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

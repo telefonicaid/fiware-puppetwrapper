@@ -10,15 +10,33 @@
             <fileNamePattern>${jetty.base}/logs/puppetwrapper.%d{yyyy-MM-dd}.gz</fileNamePattern>
         </rollingPolicy>
         <encoder>
-            <pattern>time=%d{yyyy-MM-dd HH:mm:ss.SSS} | lvl=%-5p | trans=%X{txId} | comp=PuppetWrapper - %C{0} | op=%M | msg=%m%n
+            <pattern>time=%d{yyyy-MM-dd HH:mm:ss.SSS} | lvl=%-5p | trans=%X{txId} | comp=PuppetWrapper - %c{0} | op=%M | msg=%m%n
+            </pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="aspectAppender"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${jetty.base}/logs/puppetwrapper.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${jetty.base}/logs/puppetwrapper.%d{yyyy-MM-dd}.gz</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>time=%d{yyyy-MM-dd HH:mm:ss.SSS} | lvl=%-5p | trans=%X{txId} | %m%n
             </pattern>
         </encoder>
     </appender>
 	
 	<logger name="com.telefonica.euro_iaas.sdc" additivity="false">
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="puppetWrapperAppender" />
 	</logger>
+	
+	<logger name="aspectLogger" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="aspectAppender"/>
+    </logger>
 	
 	<!-- SpringFramework logger -->
      <logger name="org.springframework" additivity="false">
@@ -27,7 +45,7 @@
     </logger>
 
 	<root>
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="puppetWrapperAppender" />
 	</root>
 
