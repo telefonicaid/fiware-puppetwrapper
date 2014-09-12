@@ -51,10 +51,14 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
+/**
+ * Class PuppetController.
+ * @author Albert Sinfreu Alay
+ */
 @Controller
-public class PuppetController extends GenericController{
+public class PuppetController extends GenericController {
 
-    private static final Logger log = LoggerFactory.getLogger(PuppetController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PuppetController.class);
 
     @Resource
     private ActionsService actionsService;
@@ -71,109 +75,145 @@ public class PuppetController extends GenericController{
     @Resource
     private ModuleDownloader svnExporterService;
 
-    @RequestMapping(value = "/install/{group}/{nodeName}/{softwareName}/{version:.*}", method = RequestMethod.POST,consumes="application/json",produces="application/json")
-    public @ResponseBody
-    Node install(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
-            @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
-            HttpServletRequest request) {
+    /**
+     * The request mapping.
+     * @param group
+     * @param nodeName
+     * @param softwareName
+     * @param version
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/install/{group}/{nodeName}/{softwareName}/{version:.*}",
+            method = RequestMethod.POST,
+            consumes = "application/json",
+            produces = "application/json")
 
-        log.info("install group:" + group + " nodeName: " + nodeName + " soft: " + softwareName + " version: "
+
+    @ResponseBody
+    public Node install(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
+                 @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
+                 HttpServletRequest request) {
+
+        LOG.info("install group:" + group + " nodeName: " + nodeName + " soft: " + softwareName + " version: "
                 + version);
 
         if (group == null || "".equals(group)) {
-            log.debug("Group is not set");
+            LOG.debug("Group is not set");
             throw new IllegalArgumentException("Group is not set");
         }
 
         if (nodeName == null || "".equals(nodeName)) {
-            log.debug("Node name is not set");
+            LOG.debug("Node name is not set");
             throw new IllegalArgumentException("Node name is not set");
         }
 
         if (softwareName == null || "".equals(softwareName)) {
-            log.debug("Software Name is not set");
+            LOG.debug("Software Name is not set");
             throw new IllegalArgumentException("Software name is not set");
         }
 
         if (version == null || "".equals(version)) {
-            log.debug("version is not set");
+            LOG.debug("version is not set");
             throw new IllegalArgumentException("Version is not set");
         }
 
         Node node = actionsService.action(Action.INSTALL, group, nodeName, softwareName, version);
 
-        log.debug("node " + node);
+        LOG.debug("node " + node);
 
         return node;
     }
 
+    /**
+     * Request mapping for generate node names.
+     * @param nodeName
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/generate/{nodeName}", method = RequestMethod.POST)
-    public @ResponseBody
-    Node generateManifest(@PathVariable("nodeName") String nodeName) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+
+    @ResponseBody
+    public Node generateManifest(@PathVariable("nodeName") String nodeName) throws IOException {
 
         if (nodeName == null || "".equals(nodeName)) {
             throw new IllegalArgumentException("Node name is not set");
         }
-        log.info("generating files for node:" + nodeName);
+        LOG.info("generating files for node:" + nodeName);
 
         Node node = fileAccessService.generateManifestFile(nodeName);
-        log.debug("nodes pp files OK");
+        LOG.debug("nodes pp files OK");
 
         fileAccessService.generateSiteFile();
-        log.debug("site.pp OK");
+        LOG.debug("site.pp OK");
 
         return node;
     }
 
+    /**
+     * Request mapping for uninstall operations.
+     * @param group
+     * @param nodeName
+     * @param softwareName
+     * @param version
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/uninstall/{group}/{nodeName}/{softwareName}/{version:.*}", method = RequestMethod.POST)
-    public @ResponseBody
-    Node uninstall(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
-            @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
-            HttpServletRequest request)  {
 
-        log.info("install group:" + group + " nodeName: " + nodeName + " soft: " + softwareName + " version: "
+    @ResponseBody
+    public Node uninstall(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
+                   @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
+                   HttpServletRequest request) {
+
+        LOG.info("install group:" + group + " nodeName: " + nodeName + " soft: " + softwareName + " version: "
                 + version);
 
         if (group == null || "".equals(group)) {
-            log.debug("Group is not set");
+            LOG.debug("Group is not set");
             throw new IllegalArgumentException("Group is not set");
         }
 
         if (nodeName == null || "".equals(nodeName)) {
-            log.debug("Node name is not set");
+            LOG.debug("Node name is not set");
             throw new IllegalArgumentException("Node name is not set");
         }
 
         if (softwareName == null || "".equals(softwareName)) {
-            log.debug("Software Name is not set");
+            LOG.debug("Software Name is not set");
             throw new IllegalArgumentException("Software name is not set");
         }
 
         if (version == null || "".equals(version)) {
-            log.debug("version is not set");
+            LOG.debug("version is not set");
             throw new IllegalArgumentException("Version is not set");
         }
 
         Node node = actionsService.action(Action.UNINSTALL, group, nodeName, softwareName, version);
 
-        log.debug("node " + node);
+        LOG.debug("node " + node);
 
         return node;
 
     }
 
+    /**
+     * Request mapping for delete nodes.
+     * @param nodeName
+     * @throws IOException
+     */
     @RequestMapping(value = "/delete/node/{nodeName}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteNode(@PathVariable("nodeName") String nodeName) throws IOException {
 
         if (nodeName == null || "".equals(nodeName)) {
-            log.debug("Node name is not set");
+            LOG.debug("Node name is not set");
             throw new IllegalArgumentException("Node name is not set");
         }
-        
-        log.info("Deleting node: " + nodeName);
+
+        LOG.info("Deleting node: " + nodeName);
         actionsService.deleteNode(nodeName);
-        log.info("Node: " + nodeName + " deleted.");
+        LOG.info("Node: " + nodeName + " deleted.");
     }
 
     @RequestMapping(value = "/download/git/{softwareName}", method = RequestMethod.POST)
@@ -193,21 +233,21 @@ public class PuppetController extends GenericController{
         svnExporterService.download(url.getUrl(), softwareName);
 
     }
-    
+
     @RequestMapping(value = "/delete/module/{moduleName}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteModule(@PathVariable("moduleName") String moduleName) throws IOException{
-    
+    public void deleteModule(@PathVariable("moduleName") String moduleName) throws IOException {
+
         if (moduleName == null || "".equals(moduleName)) {
-            log.debug("Module name is not set");
+            LOG.debug("Module name is not set");
             throw new IllegalArgumentException("Module name is not set");
         }
-        
-        log.info("Deleting module: " + moduleName);
+
+        LOG.info("Deleting module: " + moduleName);
         actionsService.deleteModule(moduleName);
-        log.info("Module: " + moduleName + " deleted.");
+        LOG.info("Module: " + moduleName + " deleted.");
     }
-    
+
     public void setActionsService(ActionsService actionsService) {
         this.actionsService = actionsService;
     }

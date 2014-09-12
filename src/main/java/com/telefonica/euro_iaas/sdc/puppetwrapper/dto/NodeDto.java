@@ -24,16 +24,29 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.dto;
 
+/**
+ * Class NodeDto.
+ * @author Albert Sinfreu Alay
+ */
 public class NodeDto {
     
     private String group;
     private String softwareName;
     private String version;
-    
-    public NodeDto(){
+
+    /**
+     * Constructor.
+     */
+    public NodeDto() {
         
     }
-    
+
+    /**
+     * Constructor.
+     * @param group
+     * @param softwareName
+     * @param version
+     */
     public NodeDto(String group, String softwareName, String version) {
         super();
         this.group = group;

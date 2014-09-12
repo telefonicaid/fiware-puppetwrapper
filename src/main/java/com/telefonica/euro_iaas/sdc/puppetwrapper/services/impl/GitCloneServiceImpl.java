@@ -46,7 +46,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 @Service("gitCloneService")
 public class GitCloneServiceImpl implements ModuleDownloader {
 
-    private static final Logger log = LoggerFactory.getLogger(GitCloneServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GitCloneServiceImpl.class);
     
     private String modulesCodeDownloadPath;
     
@@ -62,7 +62,7 @@ public class GitCloneServiceImpl implements ModuleDownloader {
         }
 
         // then clone
-        log.debug("Cloning from " + url + " to " + localPath);
+        LOG.debug("Cloning from " + url + " to " + localPath);
         try {
             Git.cloneRepository()
                     .setURI(url)
@@ -88,7 +88,7 @@ public class GitCloneServiceImpl implements ModuleDownloader {
             throw new ModuleDownloaderException(e);
         }
 
-        log.debug("Having repository: " + repository.getDirectory());
+        LOG.debug("Having repository: " + repository.getDirectory());
 
         repository.close();
     }

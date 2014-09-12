@@ -39,23 +39,23 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.GitCloneServiceI
 @ContextConfiguration(locations = { "classpath:testContext.xml" })
 @Ignore
 public class GitCloneServiceTest {
-    
+
     private GitCloneServiceImpl gitCloneServiceImpl;
-    
+
     @Value("${modulesCodeDownloadPath}")
     private String modulesCodeDownloadPath;
-    
+
     @Before
-    public void setUp(){
-        gitCloneServiceImpl=new GitCloneServiceImpl();
+    public void setUp() {
+        gitCloneServiceImpl = new GitCloneServiceImpl();
         gitCloneServiceImpl.setModulesCodeDownloadPath(modulesCodeDownloadPath);
     }
-    
+
     @Test
-    public void exportTest() throws ModuleDownloaderException{
-        
+    public void exportTest() throws ModuleDownloaderException {
+
         gitCloneServiceImpl.download("https://github.com/opscode-cookbooks/powershell.git", "test");
-        
+
     }
 
 }
