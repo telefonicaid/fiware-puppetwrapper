@@ -24,21 +24,28 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.dto;
 
+import java.util.List;
+
+import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Attribute;
+
+
 public class NodeDto {
     
     private String group;
     private String softwareName;
     private String version;
+    private List<Attribute> attibutes;
     
     public NodeDto(){
         
     }
-    
-    public NodeDto(String group, String softwareName, String version) {
+
+    public NodeDto(String group, String softwareName, String version, List<Attribute> attibutes) {
         super();
         this.group = group;
         this.softwareName = softwareName;
         this.version = version;
+        this.attibutes = attibutes;
     }
 
     public String getGroup() {
@@ -64,7 +71,31 @@ public class NodeDto {
     public void setVersion(String version) {
         this.version = version;
     }
-    
+
+    public List<Attribute> getAttibutes() {
+        return attibutes;
+    }
+
+    public void setAttibutes(List<Attribute> attibutes) {
+        this.attibutes = attibutes;
+    }
+
+    /**
+     * Constructs a <code>String</code> with all attributes
+     * in name = value format.
+     *
+     * @return a <code>String</code> representation 
+     * of this object.
+     */
+    public String toString() {
+       StringBuilder sb = new StringBuilder("[[NodeDto]");
+       sb.append("[group = ").append(this.group).append("]");
+       sb.append("[softwareName = ").append(this.softwareName).append("]");
+       sb.append("[version = ").append(this.version).append("]");
+       sb.append("[attibutes = ").append(this.attibutes).append("]");
+       sb.append("]");
+       return sb.toString();
+    }
     
     
 

@@ -28,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Resource;
@@ -37,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action;
+import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Attribute;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Software;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService;
@@ -58,7 +60,7 @@ public class ActionsServiceImpl implements ActionsService {
     @Resource
     protected ProcessBuilderFactory processBuilderFactory;
 
-    public Node action(Action action, String group, String nodeName, String softName, String version) {
+    public Node action(Action action, String group, String nodeName, String softName, String version, List<Attribute> attributes) {
 
         log.info("action: " + action + "group:" + group + " nodeName: " + nodeName + " soft: " + softName
                 + " version: " + version);
@@ -81,6 +83,7 @@ public class ActionsServiceImpl implements ActionsService {
             soft = node.getSoftware(softName);
             soft.setVersion(version);
             soft.setAction(action);
+            soft.setAttributes(attributes);
         } catch (NoSuchElementException e) {
             if (Action.UNINSTALL.equals(action)) {
                 throw e;
@@ -89,6 +92,7 @@ public class ActionsServiceImpl implements ActionsService {
             soft.setName(softName);
             soft.setVersion(version);
             soft.setAction(action);
+            soft.setAttributes(attributes);
             node.addSoftware(soft);
         }
 
