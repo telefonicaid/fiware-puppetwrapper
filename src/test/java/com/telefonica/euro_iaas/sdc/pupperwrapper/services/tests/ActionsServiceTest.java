@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 Telefonica Investigaci��n y Desarrollo, S.A.U <br>
+ * Copyright 2014 Telefonica Investigación y Desarrollo, S.A.U <br>
  * This file is part of FI-WARE project.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -25,19 +25,19 @@
 package com.telefonica.euro_iaas.sdc.pupperwrapper.services.tests;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.eclipse.jgit.lib.AnyObjectId;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -97,7 +97,7 @@ public class ActionsServiceTest {
         node1.addSoftware(soft1Modified);
         
         attribute1=new Attribute("user", "pepito");
-        
+        attributeList=new ArrayList<Attribute>();
         attributeList.add(attribute1);
 
     }

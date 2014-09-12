@@ -25,6 +25,7 @@
 package com.telefonica.euro_iaas.sdc.puppetwrapper.data;
 
 
+
 public class Attribute {
 
     private Long id;
@@ -33,45 +34,80 @@ public class Attribute {
     private String value;
     private String description;
 
- 
+
+    /**
+     */
     public Attribute() {
     }
 
+    /**
+     * @param key
+     * @param value
+     */
     public Attribute(String key, String value) {
         this.key = key;
         this.value = value;
     }
 
+    /**
+     * @param key
+     * @param value
+     * @param description
+     */
     public Attribute(String key, String value, String description) {
         this.key = key;
         this.value = value;
         this.description = description;
     }
 
+    /**
+     * @return the key
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     * @return the value
+     */
     public String getValue() {
         return value;
     }
 
+    /**
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * @param key
+     *            the key to set
+     */
     public void setKey(String key) {
         this.key = key;
     }
 
+    /**
+     * @param value
+     *            the value to set
+     */
     public void setValue(String value) {
         this.value = value;
     }
 
+    /**
+     * @param description
+     *            the description to set
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * @return the id.
+     */
     public Long getId() {
         return id;
     }

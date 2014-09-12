@@ -30,22 +30,22 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Attribute;
 
 
 public class NodeDto {
-    
+
     private String group;
     private String softwareName;
     private String version;
-    private List<Attribute> attibutes;
-    
-    public NodeDto(){
-        
+    private List<Attribute> attributes;
+
+    public NodeDto() {
+
     }
 
-    public NodeDto(String group, String softwareName, String version, List<Attribute> attibutes) {
+    public NodeDto(String group, String softwareName, String version,List<Attribute> attributes) {
         super();
         this.group = group;
         this.softwareName = softwareName;
         this.version = version;
-        this.attibutes = attibutes;
+        this.attributes=attributes;
     }
 
     public String getGroup() {
@@ -72,29 +72,18 @@ public class NodeDto {
         this.version = version;
     }
 
-    public List<Attribute> getAttibutes() {
-        return attibutes;
+    public List<Attribute> getAttributes() {
+        return attributes;
     }
 
-    public void setAttibutes(List<Attribute> attibutes) {
-        this.attibutes = attibutes;
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
-    /**
-     * Constructs a <code>String</code> with all attributes
-     * in name = value format.
-     *
-     * @return a <code>String</code> representation 
-     * of this object.
-     */
+    @Override
     public String toString() {
-       StringBuilder sb = new StringBuilder("[[NodeDto]");
-       sb.append("[group = ").append(this.group).append("]");
-       sb.append("[softwareName = ").append(this.softwareName).append("]");
-       sb.append("[version = ").append(this.version).append("]");
-       sb.append("[attibutes = ").append(this.attibutes).append("]");
-       sb.append("]");
-       return sb.toString();
+        return "NodeDto [group=" + group + ", softwareName=" + softwareName + ", version=" + version + ", attributes="
+                + attributes + "]";
     }
     
     

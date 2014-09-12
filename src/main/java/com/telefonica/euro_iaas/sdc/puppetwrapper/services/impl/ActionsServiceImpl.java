@@ -224,7 +224,7 @@ public class ActionsServiceImpl implements ActionsService {
 
     }
 
-    @Override
+//    @Override
     public void deleteModule(String moduleName) throws IOException {
         fileAccessService.deleteModuleFiles(moduleName);
 
