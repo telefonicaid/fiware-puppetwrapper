@@ -28,19 +28,35 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.springframework.aop.interceptor.CustomizableTraceInterceptor;
 
+/**
+ * Class TraceInterceptor.
+ * @author Albert Sinfreu Alay
+ */
 @SuppressWarnings("serial")
 public class TraceInterceptor extends CustomizableTraceInterceptor {
 
+    /**
+     * Write the message or the exception into the log system.
+     * @param logger
+     * @param message
+     * @param ex
+     */
     protected void writeToLog(Log logger, String message, Throwable ex) {
-        if(ex!=null){
+        if (ex != null) {
             logger.error(ex);
-        }else if (message.contains("ENTER")) {
+        } else if (message.contains("ENTER")) {
             logger.info(message);
         } else if (message.contains("EXIT")) {
             logger.debug(message);
         }
     }
 
+    /**
+     * Check if the interceptor is enabled or not.
+     * @param invocation
+     * @param logger
+     * @return
+     */
     protected boolean isInterceptorEnabled(MethodInvocation invocation, Log logger) {
         return true;
     }

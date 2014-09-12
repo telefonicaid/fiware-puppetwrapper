@@ -27,8 +27,15 @@ package com.telefonica.euro_iaas.sdc.pupperwrapper.services.tests;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.FileAccessServiceImpl;
 
+/**
+ * Test FileAccessServiceImpl4 class.
+ * @author Albert Sinfreu Alay
+ */
 public class FileAccessServiceImpl4Test extends FileAccessServiceImpl {
 
+    /**
+     * Constructor.
+     */
     public FileAccessServiceImpl4Test() {
         super();
     }

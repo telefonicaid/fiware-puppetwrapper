@@ -216,10 +216,16 @@ public class PuppetController extends GenericController {
         LOG.info("Node: " + nodeName + " deleted.");
     }
 
+    /**
+     * RequestMapping for download from git repository.
+     * @param softwareName
+     * @param url
+     * @throws ModuleDownloaderException
+     */
     @RequestMapping(value = "/download/git/{softwareName}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void downloadModuleFromGit(@PathVariable("softwareName") String softwareName, @RequestBody UrlDto url)
-            throws ModuleDownloaderException {
+        throws ModuleDownloaderException {
 
         gitCloneService.download(url.getUrl(), softwareName);
 

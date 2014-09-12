@@ -46,10 +46,14 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.ModuleDownloaderException;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
+/**
+ * Class SvnExporterServiceImpl.
+ * @author Albert Sinfreu Alay
+ */
 @Service("svnExporterService")
 public class SvnExporterServiceImpl implements ModuleDownloader {
 
-    private static final Logger log = LoggerFactory.getLogger(SvnExporterServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SvnExporterServiceImpl.class);
 
     private String modulesCodeDownloadPath;
 
@@ -74,11 +78,11 @@ public class SvnExporterServiceImpl implements ModuleDownloader {
             ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(username, password);
             repository.setAuthenticationManager(authManager);
             // output some data to verify connection
-            log.debug("Repository Root: " + repository.getRepositoryRoot(true));
-            log.debug("Repository UUID: " + repository.getRepositoryUUID(true));
+            LOG.debug("Repository Root: " + repository.getRepositoryRoot(true));
+            LOG.debug("Repository UUID: " + repository.getRepositoryUUID(true));
             // need to identify latest revision
             long latestRevision = repository.getLatestRevision();
-            log.debug("Repository Latest Revision: " + latestRevision);
+            LOG.debug("Repository Latest Revision: " + latestRevision);
 
             // create client manager and set authentication
             SVNClientManager ourClientManager = SVNClientManager.newInstance();
@@ -95,7 +99,7 @@ public class SvnExporterServiceImpl implements ModuleDownloader {
         } catch (Exception ex) {
             throw new ModuleDownloaderException(ex);
         }
-        log.debug("Done");
+        LOG.debug("Done");
     }
 
     @Value(value = "${modulesCodeDownloadPath}")

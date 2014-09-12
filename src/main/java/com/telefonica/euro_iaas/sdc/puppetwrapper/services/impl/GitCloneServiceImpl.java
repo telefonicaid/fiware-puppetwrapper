@@ -42,7 +42,10 @@ import org.springframework.stereotype.Service;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.ModuleDownloaderException;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
-
+/**
+ * Class GitCloneServiceImpl.
+ * @author Albert Sinfreu Alay
+ */
 @Service("gitCloneService")
 public class GitCloneServiceImpl implements ModuleDownloader {
 

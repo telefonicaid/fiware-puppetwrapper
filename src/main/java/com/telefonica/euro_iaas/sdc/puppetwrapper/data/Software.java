@@ -26,6 +26,11 @@ package com.telefonica.euro_iaas.sdc.puppetwrapper.data;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action;
 
+/**
+ * Class Software.
+ *
+ * @author Albert Sinfrey Alay
+ */
 public class Software {
 
     private String eol = System.getProperty("line.separator");
@@ -34,8 +39,11 @@ public class Software {
     private String version;
     private Action action;
 
+    /**
+     * Constructor.
+     */
     public Software() {
-        
+
     }
 
     public String getName() {
@@ -62,6 +70,10 @@ public class Software {
         this.action = action;
     }
 
+    /**
+     * Generate file string.
+     * @return
+     */
     public String generateFileStr() {
         StringBuffer sb = new StringBuffer();
         sb.append("  class{'" + this.name + "::" + action.getActionString(action.getCode()) + "':");
@@ -79,18 +91,17 @@ public class Software {
      * Constructs a <code>String</code> with all attributes
      * in name = value format.
      *
-     * @return a <code>String</code> representation 
+     * @return a <code>String</code> representation
      * of this object.
      */
     public String toString() {
-       StringBuilder sb = new StringBuilder("[[Software]");
-       sb.append("[name = ").append(this.name).append("]");
-       sb.append("[version = ").append(this.version).append("]");
-       sb.append("[action = ").append(this.action).append("]");
-       sb.append("]");
-       return sb.toString();
+        StringBuilder sb = new StringBuilder("[[Software]");
+        sb.append("[name = ").append(this.name).append("]");
+        sb.append("[version = ").append(this.version).append("]");
+        sb.append("[action = ").append(this.action).append("]");
+        sb.append("]");
+        return sb.toString();
     }
-    
-    
+
 
 }
