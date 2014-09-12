@@ -29,22 +29,28 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.ActionsServiceImpl;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.ProcessBuilderFactory;
 
+/**
+ * Test class of the AstionServiceImpl.
+ */
 public class ActionServiceImpl4Test extends ActionsServiceImpl {
-    
-    public ActionServiceImpl4Test(){
+
+    /**
+     * Constructor.
+     */
+    public ActionServiceImpl4Test() {
         super();
     }
-    
-    public void setCatalogManager(CatalogManager catalogManager){
-        this.catalogManager=catalogManager;
+
+    public void setCatalogManager(CatalogManager catalogManager) {
+        this.catalogManager = catalogManager;
     }
-    
-    public void setFileAccessService(FileAccessService fileAccessService){
-        this.fileAccessService=fileAccessService;
+
+    public void setFileAccessService(FileAccessService fileAccessService) {
+        this.fileAccessService = fileAccessService;
     }
-    
-    public void setProcessBuilderFactory(ProcessBuilderFactory processBuilderFactory){
-        this.processBuilderFactory=processBuilderFactory;
+
+    public void setProcessBuilderFactory(ProcessBuilderFactory processBuilderFactory) {
+        this.processBuilderFactory = processBuilderFactory;
     }
 
 }

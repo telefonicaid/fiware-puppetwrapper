@@ -56,34 +56,34 @@ import de.flapdoodle.embed.process.runtime.Network;
 @Ignore
 public class CatalogManagerMongoIntegrationTest {
 
-    
+
     private static CatalogManagerMongoImpl4Test catalogManagerMongo;
 
     private static final String LOCALHOST = "127.0.0.1";
     private static final String DB_NAME = "itest";
-//    private static final int MONGO_TEST_PORT = 12345;
+    //    private static final int MONGO_TEST_PORT = 12345;
     private static MongodProcess mongoProcess;
     private static Mongo mongo;
-    
+
     private MongoTemplate template;
-    
+
     @BeforeClass
     public static void initializeDB() throws IOException {
-        
-        
+
+
         RuntimeConfig config = new RuntimeConfig();
         config.setExecutableNaming(new UserTempNaming());
-        
+
         MongodStarter starter = MongodStarter.getInstance(config);
-        
+
         int port = Network.getFreeServerPort();
 
         MongodExecutable mongoExecutable = starter.prepare(new MongodConfig(Version.V2_0_5, port, false));
         mongoProcess = mongoExecutable.start();
-        
+
         mongo = new Mongo(LOCALHOST, port);
         mongo.getDB(DB_NAME);
-        
+
     }
 
     @AfterClass
@@ -92,10 +92,10 @@ public class CatalogManagerMongoIntegrationTest {
         mongoProcess.stop();
     }
 
-    
+
     @Before
     public void setUp() throws Exception {
-        catalogManagerMongo=new CatalogManagerMongoImpl4Test();
+        catalogManagerMongo = new CatalogManagerMongoImpl4Test();
         template = new MongoTemplate(mongo, DB_NAME);
         catalogManagerMongo.setMongoTemplate(template);
     }

@@ -116,7 +116,7 @@ public class CatalogManagerMongoTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void getNodeTest_notfound() {
+    public void getNodeTestNotFound() {
         Node node = catalogManagerMongo.getNode("test3");
 
     }
@@ -160,7 +160,7 @@ public class CatalogManagerMongoTest {
     }
 
     @Test
-    public void generateFileStrTest_onlyNode() {
+    public void generateFileStrTestOnlyNode() {
         Node node = new Node();
         node.setId("test");
         node.setGroupName("group");
@@ -173,7 +173,7 @@ public class CatalogManagerMongoTest {
     }
 
     @Test
-    public void generateFileStrTest_nodeAndSoft() {
+    public void generateFileStrTestNodeAndSoft() {
 
 
         String str = catalogManagerMongo.generateManifestStr("test");
