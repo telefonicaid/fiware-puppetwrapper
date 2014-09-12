@@ -95,6 +95,27 @@
             <version>${spring.version}</version>
         </dependency>
         <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.0</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.0</version>
@@ -321,6 +342,28 @@
                 </configuration>
             </plugin>
         </plugins>
+
+
+          <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.12.1</version>
+                    <configuration>
+                        <configLocation>telefonica_checkstyle.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <failsOnViolations>true</failsOnViolations>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
     </build>
 
     <profiles>
@@ -394,7 +437,7 @@
             </build>
         </profile>
     </profiles>
-    
+
     <repositories>
         <!-- ci-cpr02 Nexus Repositories -->
         <repository>
