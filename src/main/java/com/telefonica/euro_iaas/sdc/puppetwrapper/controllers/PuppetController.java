@@ -52,7 +52,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
 @Controller
-public class PuppetController extends GenericController{
+public class PuppetController extends GenericController {
 
     private static final Logger log = LoggerFactory.getLogger(PuppetController.class);
 
@@ -71,7 +71,7 @@ public class PuppetController extends GenericController{
     @Resource
     private ModuleDownloader svnExporterService;
 
-    @RequestMapping(value = "/install/{group}/{nodeName}/{softwareName}/{version:.*}", method = RequestMethod.POST,consumes="application/json",produces="application/json")
+    @RequestMapping(value = "/install/{group}/{nodeName}/{softwareName}/{version:.*}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public @ResponseBody
     Node install(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
             @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
@@ -100,7 +100,7 @@ public class PuppetController extends GenericController{
             throw new IllegalArgumentException("Version is not set");
         }
 
-        Node node = actionsService.action(Action.INSTALL, group, nodeName, softwareName, version);
+        Node node = actionsService.action(Action.INSTALL, group, nodeName, softwareName, version, null);
 
         log.debug("node " + node);
 
@@ -109,7 +109,8 @@ public class PuppetController extends GenericController{
 
     @RequestMapping(value = "/generate/{nodeName}", method = RequestMethod.POST)
     public @ResponseBody
-    Node generateManifest(@PathVariable("nodeName") String nodeName) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    Node generateManifest(@PathVariable("nodeName") String nodeName) throws FileNotFoundException,
+            UnsupportedEncodingException, IOException {
 
         if (nodeName == null || "".equals(nodeName)) {
             throw new IllegalArgumentException("Node name is not set");
@@ -129,7 +130,7 @@ public class PuppetController extends GenericController{
     public @ResponseBody
     Node uninstall(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
             @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
-            HttpServletRequest request)  {
+            HttpServletRequest request) {
 
         log.info("install group:" + group + " nodeName: " + nodeName + " soft: " + softwareName + " version: "
                 + version);
@@ -154,7 +155,7 @@ public class PuppetController extends GenericController{
             throw new IllegalArgumentException("Version is not set");
         }
 
-        Node node = actionsService.action(Action.UNINSTALL, group, nodeName, softwareName, version);
+        Node node = actionsService.action(Action.UNINSTALL, group, nodeName, softwareName, version, null);
 
         log.debug("node " + node);
 
@@ -170,7 +171,7 @@ public class PuppetController extends GenericController{
             log.debug("Node name is not set");
             throw new IllegalArgumentException("Node name is not set");
         }
-        
+
         log.info("Deleting node: " + nodeName);
         actionsService.deleteNode(nodeName);
         log.info("Node: " + nodeName + " deleted.");
@@ -193,21 +194,21 @@ public class PuppetController extends GenericController{
         svnExporterService.download(url.getUrl(), softwareName);
 
     }
-    
+
     @RequestMapping(value = "/delete/module/{moduleName}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteModule(@PathVariable("moduleName") String moduleName) throws IOException{
-    
+    public void deleteModule(@PathVariable("moduleName") String moduleName) throws IOException {
+
         if (moduleName == null || "".equals(moduleName)) {
             log.debug("Module name is not set");
             throw new IllegalArgumentException("Module name is not set");
         }
-        
+
         log.info("Deleting module: " + moduleName);
         actionsService.deleteModule(moduleName);
         log.info("Module: " + moduleName + " deleted.");
     }
-    
+
     public void setActionsService(ActionsService actionsService) {
         this.actionsService = actionsService;
     }

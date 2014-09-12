@@ -37,6 +37,8 @@ import static org.mockito.Mockito.when;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +48,7 @@ import org.junit.Test;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.controllers.PuppetControllerv2;
+import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Attribute;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.ModuleDownloaderException;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Software;
@@ -74,6 +77,8 @@ public class PuppetControllerv2Test {
     
     private Node node;
     private Software soft;
+    private List<Attribute> attributeList;
+    private Attribute attribute1;
     
     @Before
     public void setup(){
@@ -106,21 +111,25 @@ public class PuppetControllerv2Test {
         
         node.addSoftware(soft);
         
+        attribute1=new Attribute("user", "pepito");
+        attributeList=new ArrayList<Attribute>();
+        attributeList.add(attribute1);
+        
     }
     
     @Test
     public void installTest(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString())).thenReturn(node);
+        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
         
-        puppetController.install(new NodeDto("group", "softwareName", "1"),"nodeName",request);
+        puppetController.install(new NodeDto("group", "softwareName", "1", attributeList),"nodeName",request);
         
-        verify(actionsService,times(1)).action((Action)anyObject(),anyString(), anyString(), anyString(), anyString());
+        verify(actionsService,times(1)).action((Action)anyObject(),anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject());
         
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void installTest_missingParam_1(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString())).thenReturn(node);
+        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
         
         puppetController.install(null,"nodeName",request);
         
@@ -129,26 +138,26 @@ public class PuppetControllerv2Test {
     
     @Test(expected=IllegalArgumentException.class)
     public void installTest_missingParam_2(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString())).thenReturn(node);
+        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
         
-        puppetController.install(new NodeDto("group", "softwareName", "1"),null,request);
+        puppetController.install(new NodeDto("group", "softwareName", "1",attributeList),null,request);
         
         
     }
     
     @Test
     public void unInstallTest(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString())).thenReturn(node);
+        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
         
-        puppetController.uninstall(new NodeDto("group", "softwareName", "1"),"nodeName",request);
+        puppetController.uninstall(new NodeDto("group", "softwareName", "1",attributeList),"nodeName",request);
         
-        verify(actionsService,times(1)).action((Action)anyObject(),anyString(), anyString(), anyString(), anyString());
+        verify(actionsService,times(1)).action((Action)anyObject(),anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject());
         
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void unInstallTest_missingParam_1(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString())).thenReturn(node);
+        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
         
         puppetController.uninstall(null,"nodeName",request);
         
@@ -156,9 +165,9 @@ public class PuppetControllerv2Test {
     
     @Test(expected=IllegalArgumentException.class)
     public void unInstallTest_missingParam_2(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString())).thenReturn(node);
+        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
         
-        puppetController.uninstall(new NodeDto("group", "softwareName", "1"),null,request);
+        puppetController.uninstall(new NodeDto("group", "softwareName", "1",attributeList),null,request);
         
     }
     

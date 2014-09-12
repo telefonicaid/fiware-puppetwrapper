@@ -24,21 +24,28 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.dto;
 
+import java.util.List;
+
+import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Attribute;
+
+
 public class NodeDto {
-    
+
     private String group;
     private String softwareName;
     private String version;
-    
-    public NodeDto(){
-        
+    private List<Attribute> attributes;
+
+    public NodeDto() {
+
     }
-    
-    public NodeDto(String group, String softwareName, String version) {
+
+    public NodeDto(String group, String softwareName, String version,List<Attribute> attributes) {
         super();
         this.group = group;
         this.softwareName = softwareName;
         this.version = version;
+        this.attributes=attributes;
     }
 
     public String getGroup() {
@@ -64,7 +71,20 @@ public class NodeDto {
     public void setVersion(String version) {
         this.version = version;
     }
-    
+
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
+    }
+
+    @Override
+    public String toString() {
+        return "NodeDto [group=" + group + ", softwareName=" + softwareName + ", version=" + version + ", attributes="
+                + attributes + "]";
+    }
     
     
 
