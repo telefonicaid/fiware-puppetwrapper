@@ -36,7 +36,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-import org.eclipse.jgit.lib.AnyObjectId;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +56,7 @@ public class ActionsServiceTest {
     private CatalogManager catalogManagerMongo;
 
     private ProcessBuilderFactory processBuilderFactory;
-    
+
     private Node node1;
     private Node node1Modified;
 
@@ -82,7 +81,7 @@ public class ActionsServiceTest {
         soft1.setAction(Action.INSTALL);
         soft1.setVersion("1.0.0");
         node1.addSoftware(soft1);
-        
+
         node1Modified = new Node();
         node1Modified.setGroupName("testGroup");
         node1Modified.setId("1");
@@ -96,7 +95,7 @@ public class ActionsServiceTest {
 
     @Test
     public void install() {
-        
+
         when(catalogManagerMongo.getNode("1")).thenThrow(new NoSuchElementException()).thenReturn(node1);
 
         actionsService.action(Action.INSTALL, "testGroup", "1", "testSoft", "1.0.0");
@@ -116,7 +115,7 @@ public class ActionsServiceTest {
 
     @Test
     public void uninstallTest() {
-        
+
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
         Node node = actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0");
@@ -134,8 +133,8 @@ public class ActionsServiceTest {
     }
 
     @Test
-    public void uninstall_Modification_Soft() {
-        
+    public void uninstallModificationSoft() {
+
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
         actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0");
@@ -147,29 +146,29 @@ public class ActionsServiceTest {
         verify(catalogManagerMongo, times(2)).addNode((Node) anyObject());
 
     }
-    
+
     @Test(expected = NoSuchElementException.class)
-    public void uninstall_soft_not_exists() {
-        
+    public void uninstallSoftNotExists() {
+
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
         actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoftNoExists", "1.0.0");
-        
+
         verify(catalogManagerMongo, times(1)).getNode(anyString());
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void uninstall_node_not_esxists() {
+    public void uninstallNodeNotExists() {
 
         when(catalogManagerMongo.getNode("nodenoexists")).thenThrow(new NoSuchElementException());
 
         actionsService.action(Action.UNINSTALL, "groupnoexists", "nodenoexists", "testSoft", "1.0.0");
-        
+
         verify(catalogManagerMongo, times(1)).getNode(anyString());
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void uninstall_soft_not_esxists() {
+    public void uninstallSoftNotExists2() {
 
         when(catalogManagerMongo.getNode("nodenoexists")).thenThrow(new NoSuchElementException());
 
@@ -177,12 +176,12 @@ public class ActionsServiceTest {
     }
 
     @Test
-    public void deleteNodeTest_OK() throws IOException {
+    public void deleteNodeTestOK() throws IOException {
 
         Process shell = mock(Process.class);
         Process shell2 = mock(Process.class);
 
-        String[] cmd = { anyString() };
+        String[] cmd = {anyString()};
         // call to puppet cert list --all
         when(processBuilderFactory.createProcessBuilder(cmd)).thenReturn(shell).thenReturn(shell2);
 
@@ -201,22 +200,22 @@ public class ActionsServiceTest {
         when(shell2.getErrorStream()).thenReturn(new ByteArrayInputStream(strEr2.getBytes("UTF-8")));
 
         when(catalogManagerMongo.getNode("1")).thenThrow(new NoSuchElementException()).thenReturn(node1);
-        
+
         actionsService.deleteNode("1");
-        
-        verify(shell,times(1)).getInputStream();
-        verify(shell2,times(2)).getInputStream();
-        verify(processBuilderFactory,times(3)).createProcessBuilder((String[])anyObject());
+
+        verify(shell, times(1)).getInputStream();
+        verify(shell2, times(2)).getInputStream();
+        verify(processBuilderFactory, times(3)).createProcessBuilder((String[]) anyObject());
 
 
     }
 
     @Test(expected = IOException.class)
-    public void deleteNodeTest_Exception() throws IOException {
+    public void deleteNodeTestException() throws IOException {
 
         Process shell = mock(Process.class);
 
-        String[] cmd = { anyString() };
+        String[] cmd = {anyString()};
         when(processBuilderFactory.createProcessBuilder(cmd)).thenReturn(shell);
 
         String str = "";
@@ -232,19 +231,19 @@ public class ActionsServiceTest {
         // delete node 1
 
         actionsService.deleteNode("1");
-        
-        verify(shell,times(1)).getInputStream();
-        verify(processBuilderFactory,times(3)).createProcessBuilder((String[])anyObject());
+
+        verify(shell, times(1)).getInputStream();
+        verify(processBuilderFactory, times(3)).createProcessBuilder((String[]) anyObject());
 
 
     }
 
     @Test
-    public void isNodeRegistered_NO() throws IOException {
+    public void isNodeRegisteredNO() throws IOException {
 
         Process shell = mock(Process.class);
 
-        String[] cmd = { anyString() };
+        String[] cmd = {anyString()};
         when(processBuilderFactory.createProcessBuilder(cmd)).thenReturn(shell);
 
         String str = "Node 3 is registered";
@@ -258,11 +257,11 @@ public class ActionsServiceTest {
     }
 
     @Test
-    public void isNodeRegistered_YES() throws IOException {
+    public void isNodeRegisteredYES() throws IOException {
 
         Process shell = mock(Process.class);
 
-        String[] cmd = { anyString() };
+        String[] cmd = {anyString()};
 
         when(processBuilderFactory.createProcessBuilder(cmd)).thenReturn(shell);
 
@@ -277,11 +276,11 @@ public class ActionsServiceTest {
     }
 
     @Test(expected = IOException.class)
-    public void isNodeRegistered_Exception() throws IOException {
+    public void isNodeRegisteredException() throws IOException {
 
         Process shell = mock(Process.class);
 
-        String[] cmd = { anyString() };
+        String[] cmd = {anyString()};
         when(processBuilderFactory.createProcessBuilder(cmd)).thenReturn(shell);
 
         String str = "";
@@ -299,7 +298,7 @@ public class ActionsServiceTest {
 
         Process shell = mock(Process.class);
 
-        String[] cmd = { anyString() };
+        String[] cmd = {anyString()};
 
         when(processBuilderFactory.createProcessBuilder(cmd)).thenReturn(shell);
 

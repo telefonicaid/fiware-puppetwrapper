@@ -14,4 +14,8 @@ jetty.base_IS_UNDEFINED
 *.war
 *.ear
 
+#IDE
+*.iml
+.idea/
+
 
