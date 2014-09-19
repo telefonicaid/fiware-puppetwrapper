@@ -95,9 +95,9 @@ public class ActionsServiceTest {
         soft1Modified.setAction(Action.INSTALL);
         soft1Modified.setVersion("2.0.0");
         node1.addSoftware(soft1Modified);
-        
-        attribute1=new Attribute("user", "pepito");
-        attributeList=new ArrayList<Attribute>();
+
+        attribute1 = new Attribute("user", "pepito");
+        attributeList = new ArrayList<Attribute>();
         attributeList.add(attribute1);
 
     }
@@ -107,7 +107,7 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("1")).thenThrow(new NoSuchElementException()).thenReturn(node1);
 
-        actionsService.action(Action.INSTALL, "testGroup", "1", "testSoft", "1.0.0",attributeList);
+        actionsService.action(Action.INSTALL, "testGroup", "1", "testSoft", "1.0.0", attributeList);
 
         Node node = catalogManagerMongo.getNode("1");
         Software soft = node.getSoftware("testSoft");
@@ -127,7 +127,7 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
-        Node node = actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0",attributeList);
+        Node node = actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0", attributeList);
 
         Software soft = node.getSoftware("testSoft");
 
@@ -146,8 +146,8 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
-        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0",attributeList);
-        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "2.0.0",attributeList);
+        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0", attributeList);
+        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "2.0.0", attributeList);
 
         Node node = catalogManagerMongo.getNode("1");
         Software soft = node.getSoftware("testSoft");
@@ -162,7 +162,7 @@ public class ActionsServiceTest {
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
         actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoftNoExists", "1.0.0", attributeList);
-        
+
         verify(catalogManagerMongo, times(1)).getNode(anyString());
     }
 
@@ -172,7 +172,7 @@ public class ActionsServiceTest {
         when(catalogManagerMongo.getNode("nodenoexists")).thenThrow(new NoSuchElementException());
 
         actionsService.action(Action.UNINSTALL, "groupnoexists", "nodenoexists", "testSoft", "1.0.0", attributeList);
-        
+
         verify(catalogManagerMongo, times(1)).getNode(anyString());
     }
 
