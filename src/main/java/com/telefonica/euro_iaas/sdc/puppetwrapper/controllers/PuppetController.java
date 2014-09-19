@@ -118,7 +118,7 @@ public class PuppetController extends GenericController {
             throw new IllegalArgumentException("Version is not set");
         }
 
-        Node node = actionsService.action(Action.INSTALL, group, nodeName, softwareName, version);
+        Node node = actionsService.action(Action.INSTALL, group, nodeName, softwareName, version, null);
 
         LOG.debug("node " + node);
 
@@ -135,7 +135,6 @@ public class PuppetController extends GenericController {
 
     @ResponseBody
     public Node generateManifest(@PathVariable("nodeName") String nodeName) throws IOException {
-
         if (nodeName == null || "".equals(nodeName)) {
             throw new IllegalArgumentException("Node name is not set");
         }
@@ -160,11 +159,10 @@ public class PuppetController extends GenericController {
      * @return
      */
     @RequestMapping(value = "/uninstall/{group}/{nodeName}/{softwareName}/{version:.*}", method = RequestMethod.POST)
-
-    @ResponseBody
-    public Node uninstall(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
-                   @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
-                   HttpServletRequest request) {
+    public @ResponseBody
+    Node uninstall(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
+            @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
+            HttpServletRequest request) {
 
         LOG.info("install group:" + group + " nodeName: " + nodeName + " soft: " + softwareName + " version: "
                 + version);
@@ -189,7 +187,7 @@ public class PuppetController extends GenericController {
             throw new IllegalArgumentException("Version is not set");
         }
 
-        Node node = actionsService.action(Action.UNINSTALL, group, nodeName, softwareName, version);
+        Node node = actionsService.action(Action.UNINSTALL, group, nodeName, softwareName, version, null);
 
         LOG.debug("node " + node);
 
@@ -212,6 +210,7 @@ public class PuppetController extends GenericController {
         }
 
         LOG.info("Deleting node: " + nodeName);
+
         actionsService.deleteNode(nodeName);
         LOG.info("Node: " + nodeName + " deleted.");
     }

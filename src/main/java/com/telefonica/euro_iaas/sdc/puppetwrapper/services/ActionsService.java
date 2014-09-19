@@ -25,13 +25,16 @@
 package com.telefonica.euro_iaas.sdc.puppetwrapper.services;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action;
+import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Attribute;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 
 public interface ActionsService {
 
-    Node action(Action action, String group, String nodeName, String softName, String version);
+    Node action(Action action, String group, String nodeName, String softName, String version,
+            List<Attribute> attibutes);
 
     void deleteNode(String nodeName) throws IOException;
 

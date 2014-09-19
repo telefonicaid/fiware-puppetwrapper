@@ -25,15 +25,17 @@
 package com.telefonica.euro_iaas.sdc.pupperwrapper.services.tests;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.junit.Assert;
@@ -41,6 +43,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action;
+import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Attribute;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Software;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager;
@@ -59,6 +62,8 @@ public class ActionsServiceTest {
 
     private Node node1;
     private Node node1Modified;
+    private List<Attribute> attributeList;
+    private Attribute attribute1;
 
     @Before
     public void setUpMock() throws Exception {
@@ -90,6 +95,10 @@ public class ActionsServiceTest {
         soft1Modified.setAction(Action.INSTALL);
         soft1Modified.setVersion("2.0.0");
         node1.addSoftware(soft1Modified);
+        
+        attribute1=new Attribute("user", "pepito");
+        attributeList=new ArrayList<Attribute>();
+        attributeList.add(attribute1);
 
     }
 
@@ -98,7 +107,7 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("1")).thenThrow(new NoSuchElementException()).thenReturn(node1);
 
-        actionsService.action(Action.INSTALL, "testGroup", "1", "testSoft", "1.0.0");
+        actionsService.action(Action.INSTALL, "testGroup", "1", "testSoft", "1.0.0",attributeList);
 
         Node node = catalogManagerMongo.getNode("1");
         Software soft = node.getSoftware("testSoft");
@@ -118,7 +127,7 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
-        Node node = actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0");
+        Node node = actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0",attributeList);
 
         Software soft = node.getSoftware("testSoft");
 
@@ -137,8 +146,8 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
-        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0");
-        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "2.0.0");
+        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "1.0.0",attributeList);
+        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoft", "2.0.0",attributeList);
 
         Node node = catalogManagerMongo.getNode("1");
         Software soft = node.getSoftware("testSoft");
@@ -152,8 +161,8 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("1")).thenReturn(node1);
 
-        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoftNoExists", "1.0.0");
-
+        actionsService.action(Action.UNINSTALL, "testGroup", "1", "testSoftNoExists", "1.0.0", attributeList);
+        
         verify(catalogManagerMongo, times(1)).getNode(anyString());
     }
 
@@ -162,8 +171,8 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("nodenoexists")).thenThrow(new NoSuchElementException());
 
-        actionsService.action(Action.UNINSTALL, "groupnoexists", "nodenoexists", "testSoft", "1.0.0");
-
+        actionsService.action(Action.UNINSTALL, "groupnoexists", "nodenoexists", "testSoft", "1.0.0", attributeList);
+        
         verify(catalogManagerMongo, times(1)).getNode(anyString());
     }
 
@@ -172,7 +181,7 @@ public class ActionsServiceTest {
 
         when(catalogManagerMongo.getNode("nodenoexists")).thenThrow(new NoSuchElementException());
 
-        actionsService.action(Action.UNINSTALL, "testGroup", "nodenoexists", "softnoexists", "1.0.0");
+        actionsService.action(Action.UNINSTALL, "testGroup", "nodenoexists", "softnoexists", "1.0.0", attributeList);
     }
 
     @Test
