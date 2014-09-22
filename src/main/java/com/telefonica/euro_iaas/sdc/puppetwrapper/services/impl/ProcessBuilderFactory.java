@@ -25,18 +25,26 @@
 package com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+/**
+ * Class ProcessBuilderFactory.
+ * @author Albert Sinfreu Alay
+ */
 @Service("processBuilderFactory")
 public class ProcessBuilderFactory {
 
-    private static final Logger log = LoggerFactory.getLogger(ProcessBuilderFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProcessBuilderFactory.class);
 
-    
+    /**
+     * Initialize a new process.
+     * @param command
+     * @return
+     * @throws IOException
+     */
     public Process createProcessBuilder(String[] command) throws IOException {
 
         Process p = Runtime.getRuntime().exec(command);

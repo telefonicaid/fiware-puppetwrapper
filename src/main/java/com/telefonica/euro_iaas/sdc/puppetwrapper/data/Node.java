@@ -32,7 +32,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="nodes")
+@Document(collection = "nodes")
 public class Node {
 
     private String eol = System.getProperty("line.separator");
@@ -40,7 +40,7 @@ public class Node {
     private String id;
     private String groupName;
     private List<Software> softwareList = new ArrayList<Software>();
-    private boolean manifestGenerated=false;
+    private boolean manifestGenerated = false;
 
     public Node() {
 
@@ -114,20 +114,19 @@ public class Node {
      * Constructs a <code>String</code> with all attributes
      * in name = value format.
      *
-     * @return a <code>String</code> representation 
+     * @return a <code>String</code> representation
      * of this object.
      */
     public String toString() {
-       StringBuilder sb = new StringBuilder("[[Node]");
-       sb.append("[eol = ").append(this.eol).append("]");
-       sb.append("[id = ").append(this.id).append("]");
-       sb.append("[groupName = ").append(this.groupName).append("]");
-       sb.append("[softwareList = ").append(this.softwareList).append("]");
-       sb.append("[manifestGenerated = ").append(this.manifestGenerated).append("]");
-       sb.append("]");
-       return sb.toString();
+        StringBuilder sb = new StringBuilder("[[Node]");
+        sb.append("[eol = ").append(this.eol).append("]");
+        sb.append("[id = ").append(this.id).append("]");
+        sb.append("[groupName = ").append(this.groupName).append("]");
+        sb.append("[softwareList = ").append(this.softwareList).append("]");
+        sb.append("[manifestGenerated = ").append(this.manifestGenerated).append("]");
+        sb.append("]");
+        return sb.toString();
     }
 
-    
 
 }

@@ -24,8 +24,10 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.data;
 
-
-
+/**
+ * Java Class to manage the attribute of a component.
+ * @author Albert Sinfreu Alay
+ */
 public class Attribute {
 
     private Long id;
@@ -36,6 +38,7 @@ public class Attribute {
 
 
     /**
+     * Constructor.
      */
     public Attribute() {
     }
@@ -82,24 +85,21 @@ public class Attribute {
     }
 
     /**
-     * @param key
-     *            the key to set
+     * @param key the key to set
      */
     public void setKey(String key) {
         this.key = key;
     }
 
     /**
-     * @param value
-     *            the value to set
+     * @param value the value to set
      */
     public void setValue(String value) {
         this.value = value;
     }
 
     /**
-     * @param description
-     *            the description to set
+     * @param description the description to set
      */
     public void setDescription(String description) {
         this.description = description;
@@ -112,17 +112,20 @@ public class Attribute {
         return id;
     }
 
+    /**
+     * Return the string corresponding to the attribute.
+     * @return
+     */
     public String toString() {
-       StringBuilder sb = new StringBuilder("[[Attribute]");
-       sb.append("[id = ").append(this.id).append("]");
-       sb.append("[v = ").append(this.v).append("]");
-       sb.append("[key = ").append(this.key).append("]");
-       sb.append("[value = ").append(this.value).append("]");
-       sb.append("[description = ").append(this.description).append("]");
-       sb.append("]");
-       return sb.toString();
+        StringBuilder sb = new StringBuilder("[[Attribute]");
+        sb.append("[id = ").append(this.id).append("]");
+        sb.append("[v = ").append(this.v).append("]");
+        sb.append("[key = ").append(this.key).append("]");
+        sb.append("[value = ").append(this.value).append("]");
+        sb.append("[description = ").append(this.description).append("]");
+        sb.append("]");
+        return sb.toString();
     }
-    
-    
+
 
 }

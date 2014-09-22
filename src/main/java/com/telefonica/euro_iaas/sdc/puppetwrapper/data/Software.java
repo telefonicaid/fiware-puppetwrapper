@@ -28,6 +28,11 @@ import java.util.List;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action;
 
+/**
+ * Class Software.
+ *
+ * @author Albert Sinfrey Alay
+ */
 public class Software {
 
     private String eol = System.getProperty("line.separator");
@@ -37,6 +42,9 @@ public class Software {
     private Action action;
     private List<Attribute> attributes;
 
+    /**
+     * Constructor.
+     */
     public Software() {
     }
 
@@ -72,6 +80,10 @@ public class Software {
         this.attributes = attributes;
     }
 
+    /**
+     * Generate file string.
+     * @return
+     */
     public String generateFileStr() {
         StringBuffer sb = new StringBuffer();
         sb.append("  class{'" + this.name + "::" + action.getActionString(action.getCode()) + "':");

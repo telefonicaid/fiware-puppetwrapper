@@ -35,27 +35,34 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.ModuleDownloaderException;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.GitCloneServiceImpl;
 
+/**
+ * Test GitCloneService class.
+ * @author Albert Sinfreu Alay
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:testContext.xml" })
 @Ignore
 public class GitCloneServiceTest {
-    
+
     private GitCloneServiceImpl gitCloneServiceImpl;
-    
+
     @Value("${modulesCodeDownloadPath}")
     private String modulesCodeDownloadPath;
-    
+
+    /**
+     * Initialize the test.
+     */
     @Before
-    public void setUp(){
-        gitCloneServiceImpl=new GitCloneServiceImpl();
+    public void setUp() {
+        gitCloneServiceImpl = new GitCloneServiceImpl();
         gitCloneServiceImpl.setModulesCodeDownloadPath(modulesCodeDownloadPath);
     }
-    
+
     @Test
-    public void exportTest() throws ModuleDownloaderException{
-        
+    public void exportTest() throws ModuleDownloaderException {
+
         gitCloneServiceImpl.download("https://github.com/opscode-cookbooks/powershell.git", "test");
-        
+
     }
 
 }

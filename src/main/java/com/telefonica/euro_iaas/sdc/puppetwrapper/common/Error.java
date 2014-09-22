@@ -24,83 +24,81 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.common;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author alberts
- * 
  */
 public class Error {
-	
-    private static final Logger log = LoggerFactory.getLogger(Error.class);
-	 
-	private int code;
-	private String description;
 
-	public Error() {
-		super();
-	}
+    private Logger log = LoggerFactory.getLogger(Error.class);
 
-	/**
-	 * @param code
-	 * @param description
-	 */
-	public Error(int code, String description) {
-		super();
-		this.code = code;
-		this.description = description;
-		log.error("code[" + code + "] description: " + description+"]");
-	}
+    private int code;
+    private String description;
 
-	/**
-	 * @return the code
-	 */
-	public int getCode() {
-		return code;
-	}
+    /**
+     * Constructor.
+     */
+    public Error() {
+        super();
+    }
 
-	/**
-	 * @param code
-	 *            the code to set
-	 */
-	public void setCode(int code) {
-		this.code = code;
-	}
+    /**
+     * @param code
+     * @param description
+     */
+    public Error(int code, String description) {
+        super();
+        this.code = code;
+        this.description = description;
+        log.error("code[" + code + "] description: " + description + "]");
+    }
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * @return the code
+     */
+    public int getCode() {
+        return code;
+    }
 
-	/**
-	 * @param description
-	 *            the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * @param code the code to set
+     */
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 
     /**
      * Constructs a <code>String</code> with all attributes
      * in name = value format.
      *
-     * @return a <code>String</code> representation 
+     * @return a <code>String</code> representation
      * of this object.
      */
     public String toString() {
-       StringBuilder sb = new StringBuilder("[[MakeawishError]");
-       sb.append("[code = ").append(this.code).append("]");
-       sb.append("[description = ").append(this.description).append("]");
-       sb.append("]");
-       return sb.toString();
+        StringBuilder sb = new StringBuilder("[[MakeawishError]");
+        sb.append("[code = ").append(this.code).append("]");
+        sb.append("[description = ").append(this.description).append("]");
+        sb.append("]");
+        return sb.toString();
     }
 
-    
+
 }
 

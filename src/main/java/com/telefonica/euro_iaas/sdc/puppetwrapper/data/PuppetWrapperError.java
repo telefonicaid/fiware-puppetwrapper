@@ -24,6 +24,10 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.data;
 
+/**
+ * Class PuppetWrapperError.
+ * @author Albert Sinfreu Alay
+ */
 public class PuppetWrapperError {
     private int code;
     private String description;

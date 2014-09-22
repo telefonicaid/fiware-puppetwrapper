@@ -29,13 +29,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.awt.image.ImagingOpException;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.NoSuchElementException;
 
 import org.junit.Before;
@@ -52,7 +47,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.CatalogManagerMongoImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:testContext.xml" })
+@ContextConfiguration(locations = {"classpath:testContext.xml" })
 public class FileAccessServiceTest {
 
     private FileAccessServiceImpl4Test fileAccessService;
@@ -61,15 +56,15 @@ public class FileAccessServiceTest {
 
     @Value("${defaultManifestsPath}")
     private String defaultManifestsPath;
-    
+
     @Before
-    public void setUp(){
-        catalogManager=mock(CatalogManagerMongoImpl.class);
-        
-        fileAccessService=new FileAccessServiceImpl4Test();
+    public void setUp() {
+        catalogManager = mock(CatalogManagerMongoImpl.class);
+
+        fileAccessService = new FileAccessServiceImpl4Test();
         fileAccessService.setCatalogManager(catalogManager);
         fileAccessService.setDefaultManifestsPath(defaultManifestsPath);
-        
+
         Node node = new Node();
         node.setId("test");
         node.setGroupName("group");
@@ -77,7 +72,7 @@ public class FileAccessServiceTest {
         Node node2 = new Node();
         node2.setId("test2");
         node2.setGroupName("group");
-        
+
         Software soft = new Software();
         soft.setName("testSoft");
         soft.setVersion("1.0.0");
@@ -91,21 +86,21 @@ public class FileAccessServiceTest {
         soft2.setAction(Action.INSTALL);
 
         node2.addSoftware(soft2);
-        
-        Node nodeMock= mock(Node.class);
-        
+
+        Node nodeMock = mock(Node.class);
+
         when(catalogManager.getNode("test")).thenReturn(node);
         when(catalogManager.getNode("test2")).thenReturn(node2);
-        
+
         when(catalogManager.generateSiteStr()).thenReturn("site.pp content");
         when(catalogManager.generateManifestStr("test")).thenReturn("manifest test1 content");
         when(catalogManager.generateManifestStr("test2")).thenReturn("manifest test2 content");
-        
+
         when(catalogManager.isLastGroupNode("group")).thenReturn(false).thenReturn(true);
     }
 
     @Test
-    public void generateManifestFileTest() throws ImagingOpException, IOException {
+    public void generateManifestFileTest() throws IOException {
 
         fileAccessService.generateManifestFile("test");
         fileAccessService.generateManifestFile("test2");
@@ -116,11 +111,11 @@ public class FileAccessServiceTest {
         File f2 = new File(defaultManifestsPath + "group/test2.pp");
         assertTrue(f2.exists());
     }
-    
-    @Test(expected=NoSuchElementException.class)
-    public void generateManifest_node_not_exists() throws IOException {
+
+    @Test(expected = NoSuchElementException.class)
+    public void generateManifestNodeNotExists() throws IOException {
         when(catalogManager.getNode("nodenotexists")).thenThrow(new NoSuchElementException());
-        
+
         fileAccessService.generateManifestFile("nodenotexists");
     }
 
@@ -131,13 +126,12 @@ public class FileAccessServiceTest {
 
         File f = new File(defaultManifestsPath + "site.pp");
         assertTrue(f.exists());
-        
-        
+
 
     }
 
     @Test
-    public void deleteNodeTest() throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public void deleteNodeTest() throws IOException {
 
         fileAccessService.generateSiteFile();
         fileAccessService.generateManifestFile("test");
@@ -157,24 +151,24 @@ public class FileAccessServiceTest {
         assertTrue(f.exists());
 
     }
-    
+
     @Test
-    public void deleteGoupFolder() throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public void deleteGoupFolder() throws IOException {
 
         fileAccessService.generateSiteFile();
         fileAccessService.generateManifestFile("test");
         fileAccessService.generateManifestFile("test2");
-        
-     // deleting
+
+        // deleting
 
         fileAccessService.deleteGoupFolder("group");
-        
+
         File f = new File(defaultManifestsPath + "site.pp");
         assertTrue(f.exists());
 
         f = new File(defaultManifestsPath + "group");
         assertFalse(f.exists());
-        
+
     }
 
 }

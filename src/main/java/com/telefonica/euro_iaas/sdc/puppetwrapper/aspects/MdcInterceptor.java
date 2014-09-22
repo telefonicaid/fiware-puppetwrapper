@@ -30,10 +30,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class MdcInterceptor extends HandlerInterceptorAdapter{
+/**
+ * Class MdcInterceptor.
+ * @author Albert Sinfreu Alay
+ */
+public class MdcInterceptor extends HandlerInterceptorAdapter {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+        throws Exception {
 
         String txId = request.getHeader("txId");
         if (txId != null) {
@@ -45,6 +50,5 @@ public class MdcInterceptor extends HandlerInterceptorAdapter{
         return true;
     }
 
-    
 
 }

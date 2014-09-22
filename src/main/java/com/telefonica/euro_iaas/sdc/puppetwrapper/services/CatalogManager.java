@@ -24,26 +24,24 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.services;
 
-import java.util.NoSuchElementException;
-
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 
 public interface CatalogManager {
 
     
-    public void addNode(Node node);
+    void addNode(Node node);
 
-    public Node getNode(String nodeName);
+    Node getNode(String nodeName);
 
-    public void removeNode(String nodeName);
+    void removeNode(String nodeName);
     
-    public int getNodeLength();
+    int getNodeLength();
 
-    public String generateManifestStr(String nodeName);
+    String generateManifestStr(String nodeName);
 
-    public String generateSiteStr();
+    String generateSiteStr();
 
-    public void removeNodesByGroupName(String groupName);
+    void removeNodesByGroupName(String groupName);
     
-    public boolean isLastGroupNode(String groupName);
+    boolean isLastGroupNode(String groupName);
 }

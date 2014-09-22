@@ -29,6 +29,11 @@ import java.util.List;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Attribute;
 
 
+/**
+ * Class NodeDto.
+ *
+ * @author Albert Sinfreu Alay
+ */
 public class NodeDto {
 
     private String group;
@@ -36,16 +41,26 @@ public class NodeDto {
     private String version;
     private List<Attribute> attributes;
 
+    /**
+     * Constructor.
+     */
     public NodeDto() {
 
     }
 
-    public NodeDto(String group, String softwareName, String version,List<Attribute> attributes) {
+    /**
+     * Constructor.
+     *
+     * @param group
+     * @param softwareName
+     * @param version
+     */
+    public NodeDto(String group, String softwareName, String version, List<Attribute> attributes) {
         super();
         this.group = group;
         this.softwareName = softwareName;
         this.version = version;
-        this.attributes=attributes;
+        this.attributes = attributes;
     }
 
     public String getGroup() {
@@ -85,7 +100,6 @@ public class NodeDto {
         return "NodeDto [group=" + group + ", softwareName=" + softwareName + ", version=" + version + ", attributes="
                 + attributes + "]";
     }
-    
-    
+
 
 }
