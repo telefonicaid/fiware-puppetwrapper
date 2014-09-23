@@ -152,7 +152,7 @@ public class ActionsServiceImpl implements ActionsService {
         executeSystemCommand(shell, success, error);
 
         if ("".equals(success) && !"".equals(error)) {
-            throw new IOException("Puppet cert clean has failed");
+            throw new IOException("Puppet cert list has failed");
         }
         log.debug("success, real name is: " + success);
 
@@ -200,7 +200,7 @@ public class ActionsServiceImpl implements ActionsService {
 
     }
 
-    private void executeSystemCommand(Process shell, StringBuilder successResponse, StringBuilder errorResponse)
+    public void executeSystemCommand(Process shell, StringBuilder successResponse, StringBuilder errorResponse)
             throws IOException {
 
         InputStream is = shell.getInputStream();
