@@ -48,7 +48,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 @Service("actionsService")
 public class ActionsServiceImpl implements ActionsService {
 
-    private static final Logger log = LoggerFactory.getLogger(ActionsServiceImpl.class);
+    private Logger log = LoggerFactory.getLogger(ActionsServiceImpl.class);
 
     @SuppressWarnings("restriction")
     @Resource
@@ -122,8 +122,8 @@ public class ActionsServiceImpl implements ActionsService {
         if (isNodeRegistered(nodeName)) {
             log.debug("Node " + nodeName + " is registered -> unregistering");
 
-            String[] cmd = { "/bin/sh", "-c", "sudo puppet cert clean "+getRealNodeName(nodeName) };
-            
+            String[] cmd = {"/bin/sh", "-c", "sudo puppet cert clean " + getRealNodeName(nodeName)};
+
             Process shell = processBuilderFactory.createProcessBuilder(cmd);
 
             StringBuilder success = new StringBuilder();
@@ -142,7 +142,7 @@ public class ActionsServiceImpl implements ActionsService {
 
         log.debug("getRealNodeName for node: " + nodeName);
 
-        String[] cmd = { "/bin/sh", "-c", "sudo puppet cert list --all | grep " + nodeName + " | gawk '{print $2}'" };
+        String[] cmd = {"/bin/sh", "-c", "sudo puppet cert list --all | grep " + nodeName + " | gawk '{print $2}'"};
 
         Process shell = processBuilderFactory.createProcessBuilder(cmd);
 
@@ -167,8 +167,8 @@ public class ActionsServiceImpl implements ActionsService {
     public boolean isNodeRegistered(String nodeName) throws IOException {
 
         log.debug("isNodeRegistered node: " + nodeName);
-        
-        String[] cmd = { "/bin/sh", "-c", "sudo puppet cert list --all" };
+
+        String[] cmd = {"/bin/sh", "-c", "sudo puppet cert list --all"};
         Process shell = processBuilderFactory.createProcessBuilder(cmd);
 
         StringBuilder successResponse = new StringBuilder();
@@ -201,7 +201,7 @@ public class ActionsServiceImpl implements ActionsService {
     }
 
     public void executeSystemCommand(Process shell, StringBuilder successResponse, StringBuilder errorResponse)
-            throws IOException {
+        throws IOException {
 
         InputStream is = shell.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);

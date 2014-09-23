@@ -24,23 +24,19 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.services;
 
-import java.awt.image.ImagingOpException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 
 public interface FileAccessService {
 
-    public Node generateManifestFile(String nodeName) throws ImagingOpException, IOException;
+    Node generateManifestFile(String nodeName) throws IOException;
 
-    public void generateSiteFile() throws FileNotFoundException, UnsupportedEncodingException, IOException;
+    void generateSiteFile() throws IOException;
 
-    public void deleteNodeFiles(String nodeName) throws IOException;
+    void deleteNodeFiles(String nodeName) throws IOException;
 
-    public void deleteGoupFolder(String groupName) throws IOException;
+    void deleteGoupFolder(String groupName) throws IOException;
 
-    public void deleteModuleFiles(String moduleName) throws IOException;
+    void deleteModuleFiles(String moduleName) throws IOException;
 
 }

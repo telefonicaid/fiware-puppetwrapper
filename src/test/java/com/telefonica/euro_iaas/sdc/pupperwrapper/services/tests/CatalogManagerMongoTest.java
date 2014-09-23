@@ -28,7 +28,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.anyObject;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -51,9 +50,9 @@ public class CatalogManagerMongoTest {
 
     @Before
     public void setUp() {
-        
+
         mongoTemplateMock = mock(MongoTemplate.class);
-        
+
         catalogManagerMongo = new CatalogManagerMongoImpl4Test();
         catalogManagerMongo.setMongoTemplate(mongoTemplateMock);
 
@@ -61,18 +60,18 @@ public class CatalogManagerMongoTest {
         node.setId("test");
         node.setGroupName("group");
         node.setManifestGenerated(true);
-        
-        Software soft=new Software();
+
+        Software soft = new Software();
         soft.setName("test");
         soft.setVersion("1.0.0");
         soft.setAction(Action.INSTALL);
         node.addSoftware(soft);
-        
+
         final Node node2 = new Node();
         node2.setId("test2");
         node2.setGroupName("group2");
         node2.setManifestGenerated(true);
-        
+
         final Node node3 = new Node();
         node3.setId("test3");
         node3.setGroupName("group2");
@@ -81,7 +80,7 @@ public class CatalogManagerMongoTest {
 //        Query query = mock(Query.class);
         Query query = new Query(Criteria.where("id").is("test"));
         when(mongoTemplateMock.findOne(query, Node.class)).thenReturn(node);
-        
+
         query = new Query(Criteria.where("id").is("test3"));
         when(mongoTemplateMock.findOne(query, Node.class)).thenThrow(new NoSuchElementException());
 
@@ -97,27 +96,27 @@ public class CatalogManagerMongoTest {
                 add(node2);
                 add(node3);
             }
-        }).thenReturn(new ArrayList<Node>(){
+        }).thenReturn(new ArrayList<Node>() {
             {
                 add(node);
                 add(node2);
             }
         });
-        
+
         Query queryFindOK = new Query(Criteria.where("groupName").is("groupNameOK"));
         when(mongoTemplateMock.find(queryFindOK, Node.class)).thenReturn(new ArrayList<Node>() {
             {
                 add(node);
             }
         });
-        
+
         Query queryFindErr = new Query(Criteria.where("groupName").is("groupNameErr"));
         when(mongoTemplateMock.find(queryFindErr, Node.class)).thenReturn(null);
-        
+
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void getNodeTest_notfound() {
+    public void getNodeTestNotFound() {
         Node node = catalogManagerMongo.getNode("test3");
 
     }
@@ -161,7 +160,7 @@ public class CatalogManagerMongoTest {
     }
 
     @Test
-    public void generateFileStrTest_onlyNode() {
+    public void generateFileStrTestOnlyNode() {
         Node node = new Node();
         node.setId("test");
         node.setGroupName("group");
@@ -174,8 +173,8 @@ public class CatalogManagerMongoTest {
     }
 
     @Test
-    public void generateFileStrTest_nodeAndSoft() {
-      
+    public void generateFileStrTestNodeAndSoft() {
+
 
         String str = catalogManagerMongo.generateManifestStr("test");
         assertTrue(str.length() > 0);
@@ -194,7 +193,7 @@ public class CatalogManagerMongoTest {
         assertTrue(str.length() > 1);
         assertTrue(str.contains("import 'group/*.pp'"));
         assertTrue(str.contains("import 'group2/*.pp'"));
-        
+
     }
 
     @Test
@@ -205,18 +204,18 @@ public class CatalogManagerMongoTest {
         assertTrue(catalogManagerMongo.getNodeLength() == 3);
 
     }
-    
+
     @Test
-    public void isLastGroupNodeTestOK(){
-        
+    public void isLastGroupNodeTestOK() {
+
         assertTrue(catalogManagerMongo.isLastGroupNode("groupNameOK"));
-        
+
     }
-    
+
     @Test
-    public void isLastGroupNodeTestFail(){
-        
+    public void isLastGroupNodeTestFail() {
+
         assertFalse(catalogManagerMongo.isLastGroupNode("groupNameErr"));
-        
+
     }
 }

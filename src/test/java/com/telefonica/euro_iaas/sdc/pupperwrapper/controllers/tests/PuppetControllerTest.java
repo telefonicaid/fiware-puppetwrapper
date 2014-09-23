@@ -34,9 +34,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -56,7 +54,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
 public class PuppetControllerTest {
-    
+
     private ActionsService actionsService;
 
     private FileAccessService fileAccessService;
@@ -66,196 +64,228 @@ public class PuppetControllerTest {
     private ModuleDownloader gitCloneService;
 
     private ModuleDownloader svnExporterService;
-    
+
     private PuppetController puppetController;
-    
+
     private HttpServletRequest request;
-    
+
     private Node node;
     private Software soft;
-    
+
     @Before
-    public void setup(){
-        
-        request=mock(HttpServletRequest.class);
-        
-        actionsService=mock(ActionsService.class);
-        fileAccessService=mock(FileAccessService.class);
-        catalogManager=mock(CatalogManager.class);
-        gitCloneService=mock(ModuleDownloader.class);
-        svnExporterService=mock(ModuleDownloader.class);
-        
-        puppetController= new PuppetController();
-        
+    public void setup() {
+
+        request = mock(HttpServletRequest.class);
+
+        actionsService = mock(ActionsService.class);
+        fileAccessService = mock(FileAccessService.class);
+        catalogManager = mock(CatalogManager.class);
+        gitCloneService = mock(ModuleDownloader.class);
+        svnExporterService = mock(ModuleDownloader.class);
+
+        puppetController = new PuppetController();
+
         puppetController.setActionsService(actionsService);
         puppetController.setFileAccessService(fileAccessService);
         puppetController.setCatalogManager(catalogManager);
         puppetController.setGitCloneService(gitCloneService);
         puppetController.setSvnExporterService(svnExporterService);
-        
+
         node = new Node();
         node.setId("test");
         node.setGroupName("group");
         node.setManifestGenerated(true);
-        
-        Software soft=new Software();
+
+        Software soft = new Software();
         soft.setName("test");
         soft.setVersion("1.0.0");
         soft.setAction(Action.INSTALL);
         node.addSoftware(soft);
-        
+
         node.addSoftware(soft);
-        
+
     }
-    
+
     @Test
-    public void installTest(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.install("group", "nodeName", "softwareName", "1",request);
-        
-        verify(actionsService,times(1)).action((Action)anyObject(),anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject());
-        
+    public void installTest() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.install("group", "nodeName", "softwareName", "1", request);
+
+        verify(actionsService, times(1))
+                .action((Action) anyObject(),
+                        anyString(),
+                        anyString(),
+                        anyString(),
+                        anyString(),
+                        (List<Attribute>) anyObject());
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void installTest_missingParam_1(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.install(null, "nodeName", "softwareName", "1",request);
-        
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void installTestMissingParam1() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.install(null, "nodeName", "softwareName", "1", request);
+
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void installTest_missingParam_2(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.install("group", null, "softwareName", "1",request);
-        
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void installTestMissingParam2() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.install("group", null, "softwareName", "1", request);
+
+
     }
-    @Test(expected=IllegalArgumentException.class)
-    public void installTest_missingParam_3(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.install("group", "nodeName", null, "1",request);
-        
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void installTestMissingParam3() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.install("group", "nodeName", null, "1", request);
+
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void installTest_missingParam_4(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.install("group", "nodeName", "softwareName", null,request);
-        
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void installTestMissingParam4() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.install("group", "nodeName", "softwareName", null, request);
     }
-    
+
     @Test
-    public void unInstallTest(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.uninstall("group", "nodeName", "softwareName", "1",request);
-        
-        verify(actionsService,times(1)).action((Action)anyObject(),anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject());
-        
+    public void unInstallTest() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.uninstall("group", "nodeName", "softwareName", "1", request);
+
+        verify(actionsService, times(1)).action(
+                    (Action) anyObject(),
+                    anyString(),
+                    anyString(),
+                    anyString(),
+                    anyString(),
+                    (List<Attribute>) anyObject());
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void unInstallTest_missingParam_1(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.uninstall(null, "nodeName", "softwareName", "1",request);
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void unInstallTestMissingParam1() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.uninstall(null, "nodeName", "softwareName", "1", request);
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void unInstallTest_missingParam_2(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.uninstall("group", null, "softwareName", "1",request);
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void unInstallTestMissingParam2() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.uninstall("group", null, "softwareName", "1", request);
+
     }
-    @Test(expected=IllegalArgumentException.class)
-    public void unInstallTest_missingParam_3(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.uninstall("group", "nodeName", null, "1",request);
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void unInstallTestMissingParam3() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.uninstall("group", "nodeName", null, "1", request);
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void unInstallTest_missingParam_4(){
-        when(actionsService.action(eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(),(List<Attribute>)anyObject())).thenReturn(node);
-        
-        puppetController.uninstall("group", "nodeName", "softwareName", null,request);
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void unInstallTestMissingParam4() {
+        when(actionsService.action(
+                eq(Action.INSTALL), anyString(), anyString(), anyString(), anyString(), (List<Attribute>) anyObject()))
+                .thenReturn(node);
+
+        puppetController.uninstall("group", "nodeName", "softwareName", null, request);
+
     }
-    
+
     @Test
-    public void generateTest() throws FileNotFoundException, UnsupportedEncodingException, IOException{
-        
+    public void generateTest() throws IOException {
+
         when(fileAccessService.generateManifestFile(anyString())).thenReturn(node);
-        
+
         puppetController.generateManifest("node");
-        
-        verify(fileAccessService,times(1)).generateManifestFile(anyString());
-        verify(fileAccessService,times(1)).generateSiteFile();
-        
+
+        verify(fileAccessService, times(1)).generateManifestFile(anyString());
+        verify(fileAccessService, times(1)).generateSiteFile();
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void generateTest_missingParam() throws FileNotFoundException, UnsupportedEncodingException, IOException{
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void generateTestMissingParam() throws IOException {
+
         when(fileAccessService.generateManifestFile(anyString())).thenReturn(node);
-        
+
         puppetController.generateManifest("");
-        
+
     }
-    
-    @Test(expected=IOException.class)
-    public void generateTest_IOException() throws FileNotFoundException, UnsupportedEncodingException, IOException{
-        
+
+    @Test(expected = IOException.class)
+    public void generateTestIOException() throws IOException {
+
         when(fileAccessService.generateManifestFile(anyString())).thenThrow(new IOException());
-        
+
         puppetController.generateManifest("node");
-        
-        
+
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void deleteNodeTest_missingParam() throws IOException{
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void deleteNodeTestMissingParam() throws IOException {
+
         puppetController.deleteNode(null);
-        
+
     }
-    
-    @Test(expected=NoSuchElementException.class)
-    public void deleteNodeTest_nodeNoExists() throws IOException{
-        
+
+    @Test(expected = NoSuchElementException.class)
+    public void deleteNodeTestNodeNoExists() throws IOException {
+
         doThrow(new NoSuchElementException()).when(actionsService).deleteNode("node");
-        
+
         puppetController.deleteNode("node");
-        
+
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void deleteModuleTest_missingParam() throws IOException{
-        
+
+    @Test(expected = IllegalArgumentException.class)
+    public void deleteModuleTestMissingParam() throws IOException {
+
         puppetController.deleteModule(null);
-        
+
     }
-    
-    @Test(expected=NoSuchElementException.class)
-    public void deleteModuleTest_moduleNoExists() throws IOException{
-        
+
+    @Test(expected = NoSuchElementException.class)
+    public void deleteModuleTestModuleNoExists() throws IOException {
+
         doThrow(new NoSuchElementException()).when(actionsService).deleteModule("soft");
-        
+
         puppetController.deleteModule("soft");
-        
+
     }
-    
-    
+
+
 }

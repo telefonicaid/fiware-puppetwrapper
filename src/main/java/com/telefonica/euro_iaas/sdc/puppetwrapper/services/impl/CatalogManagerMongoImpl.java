@@ -111,13 +111,13 @@ public class CatalogManagerMongoImpl implements CatalogManager {
         mongoTemplate.remove(searchNodeQuery, Node.class);
 
     }
-    
+
     public boolean isLastGroupNode(String groupName) {
         Query searchNodeQuery = new Query(Criteria.where("groupName").is(groupName));
         List<Node> nodeList = mongoTemplate.find(searchNodeQuery, Node.class);
-        if(nodeList!= null && nodeList.size()==1){
+        if (nodeList != null && nodeList.size() == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

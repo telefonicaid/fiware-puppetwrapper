@@ -33,12 +33,12 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 
 public interface ActionsService {
 
-    public Node action(Action action, String group, String nodeName, String softName, String version,
+    Node action(Action action, String group, String nodeName, String softName, String version,
             List<Attribute> attibutes);
 
-    public void deleteNode(String nodeName) throws IOException;
+    void deleteNode(String nodeName) throws IOException;
 
-    public void deleteGroup(String groupName) throws IOException;
+    void deleteGroup(String groupName) throws IOException;
 
     public void deleteModule(String moduleName) throws IOException;
 

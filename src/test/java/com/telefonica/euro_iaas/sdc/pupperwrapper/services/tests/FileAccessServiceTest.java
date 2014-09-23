@@ -55,7 +55,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.CatalogManagerMo
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.ProcessBuilderFactory;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:testContext.xml" })
+@ContextConfiguration(locations = {"classpath:testContext.xml" })
 public class FileAccessServiceTest {
 
     private FileAccessServiceImpl4Test fileAccessService;
@@ -156,7 +156,7 @@ public class FileAccessServiceTest {
     }
 
     @Test
-    public void generateManifestFileTest() throws ImagingOpException, IOException {
+    public void generateManifestFileTest() throws IOException {
 
         fileAccessService.generateManifestFile("test");
         fileAccessService.generateManifestFile("test2");
@@ -222,7 +222,7 @@ public class FileAccessServiceTest {
     }
 
     @Test
-    public void deleteNodeTest() throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public void deleteNodeTest() throws IOException {
 
         fileAccessService.generateSiteFile();
         fileAccessService.generateManifestFile("test");
@@ -244,7 +244,7 @@ public class FileAccessServiceTest {
     }
 
     @Test
-    public void deleteGoupFolder() throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public void deleteGoupFolder() throws IOException {
 
         fileAccessService.generateSiteFile();
         fileAccessService.generateManifestFile("test");

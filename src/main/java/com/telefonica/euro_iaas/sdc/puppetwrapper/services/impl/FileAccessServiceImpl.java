@@ -49,7 +49,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 @Service("fileAccessService")
 public class FileAccessServiceImpl implements FileAccessService {
 
-    private static final Logger log = LoggerFactory.getLogger(FileAccessServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileAccessServiceImpl.class);
 
     @Resource
     protected CatalogManager catalogManager;
@@ -68,7 +68,7 @@ public class FileAccessServiceImpl implements FileAccessService {
 
     public Node generateManifestFile(String nodeName) throws IOException {
 
-        log.info("creating Manifest file for node: " + nodeName);
+        LOG.info("creating Manifest file for node: " + nodeName);
 
         Node node = catalogManager.getNode(nodeName);
 
@@ -83,8 +83,8 @@ public class FileAccessServiceImpl implements FileAccessService {
             f.mkdirs();
             f.createNewFile();
         } catch (IOException ex) {
-            log.debug("Error creating manifest paths and pp file", ex);
-            throw new IOException("Error creating manifest path and pp file");
+            LOG.debug("Error creating manifest paths and pp file", ex);
+            throw new IOException("Error creating manifest paths and pp file");
         }
 
         try {
@@ -92,21 +92,21 @@ public class FileAccessServiceImpl implements FileAccessService {
             fw.write(fileContent);
             fw.close();
         } catch (IOException ex) {
-            log.debug("Error creating manifest paths and pp file", ex);
-            throw new IOException("Error creating manifest path and pp file");
+            LOG.debug("Error creating manifest paths and pp file", ex);
+            throw new IOException("Error creating manifest paths and pp file");
         }
 
-        log.debug("Manifest file created");
+        LOG.debug("Manifest file created");
 
         if (hasAttributes(node)) {
-            log.info("Creating hiera file");
+            LOG.info("Creating hiera file");
             try {
 
                 File f = new File(hieraPath);
                 f.mkdirs();
                 f.createNewFile();
             } catch (IOException ex) {
-                log.debug("Error creating hiera path and file", ex);
+                LOG.debug("Error creating hiera path and file", ex);
                 throw new IOException("Error creating hiera path and file");
             }
 
@@ -115,13 +115,13 @@ public class FileAccessServiceImpl implements FileAccessService {
                 fw.write(hieraFileContent);
                 fw.close();
             } catch (IOException ex) {
-                log.debug("Error creating hiera path and file", ex);
+                LOG.debug("Error creating hiera path and file", ex);
                 throw new IOException("Error creating hiera path and file");
             }
 
-            log.debug("Hiera file created");
+            LOG.debug("Hiera file created");
         } else {
-            log.info("Node: " + node.getId() + " has no hiera attributes in any software");
+            LOG.info("Node: " + node.getId() + " has no hiera attributes in any software");
         }
         node.setManifestGenerated(true);
         return node;
@@ -141,23 +141,23 @@ public class FileAccessServiceImpl implements FileAccessService {
 
     public void generateSiteFile() throws IOException {
 
-        log.info("Generate site.pp");
+        LOG.info("Generate site.pp");
 
         String fileContent = catalogManager.generateSiteStr();
 
-        log.debug("site content: " + fileContent);
-        log.debug("defaultManifestsPath: " + defaultManifestsPath);
+        LOG.debug("site content: " + fileContent);
+        LOG.debug("defaultManifestsPath: " + defaultManifestsPath);
 
         try {
             PrintWriter writer = new PrintWriter(defaultManifestsPath + "site.pp", "UTF-8");
             writer.println(fileContent);
             writer.close();
         } catch (IOException ex) {
-            log.debug("Error creating site.pp file", ex);
+            LOG.debug("Error creating site.pp file", ex);
             throw new IOException("Error creating site.pp file");
         }
 
-        log.debug("Site.pp file created");
+        LOG.debug("Site.pp file created");
     }
 
     @Value(value = "${defaultManifestsPath}")
@@ -181,9 +181,9 @@ public class FileAccessServiceImpl implements FileAccessService {
             File file = new File(path + "/" + node.getId() + ".pp");
 
             if (!file.delete()) {
-                log.info(format("File {0} could not be deleted. Did it exist?", path + "/" + node.getId() + ".pp"));
+                LOG.info(format("File {0} could not be deleted. Did it exist?", path + "/" + node.getId() + ".pp"));
             } else {
-                log.info(format("File {0} deleted.", path + "/" + node.getId() + ".pp"));
+                LOG.info(format("File {0} deleted.", path + "/" + node.getId() + ".pp"));
             }
 
             if (catalogManager.isLastGroupNode(node.getGroupName())) {
@@ -191,7 +191,7 @@ public class FileAccessServiceImpl implements FileAccessService {
             }
 
         } catch (NoSuchElementException e) {
-            log.info(format("Node {0} was not registered in puppet master", nodeName));
+            LOG.info(format("Node {0} was not registered in puppet master", nodeName));
         }
 
     }
@@ -202,7 +202,7 @@ public class FileAccessServiceImpl implements FileAccessService {
 
         FileUtils.deleteDirectory(path);
 
-        log.info(format("Folder {0} deleted.", path + "/" + groupName));
+        LOG.info(format("Folder {0} deleted.", path + "/" + groupName));
     }
 
     // @Override
@@ -212,7 +212,7 @@ public class FileAccessServiceImpl implements FileAccessService {
 
         FileUtils.deleteDirectory(file);
 
-        log.info(format("File {0} could not be deleted. Did it exist?", modulesCodeDownloadPath + "/" + moduleName
+        LOG.info(format("File {0} could not be deleted. Did it exist?", modulesCodeDownloadPath + "/" + moduleName
                 + ".pp"));
 
     }
