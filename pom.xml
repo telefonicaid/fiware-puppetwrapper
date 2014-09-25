@@ -16,7 +16,7 @@
         <repoName>fiware-puppetwrapper</repoName>
 
         <scmURI>git@github.com:telefonicaid</scmURI>
-        <nexusURI>http://130.206.80.169</nexusURI>
+        <nexusURI>http://130.206.80.85</nexusURI>
         <nexusRepositories>${nexusURI}/nexus/content/repositories</nexusRepositories>
 
         <compilerInfoDebug>true</compilerInfoDebug>
