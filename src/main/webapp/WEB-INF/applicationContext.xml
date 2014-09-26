@@ -58,5 +58,7 @@
 		<property name="loggerName" value="aspectLogger" />
 	</bean>
 
+	<bean id="httpClient" lazy-init="true"
+		class="org.apache.http.impl.client.DefaultHttpClient" />
 
 </beans>
