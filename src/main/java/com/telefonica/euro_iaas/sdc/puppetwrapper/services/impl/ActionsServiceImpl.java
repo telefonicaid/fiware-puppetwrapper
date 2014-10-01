@@ -58,7 +58,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 public class ActionsServiceImpl implements ActionsService {
 
     private Logger log = LoggerFactory.getLogger(ActionsServiceImpl.class);
-    
+
     private String puppetDBUrl;
 
     @SuppressWarnings("restriction")
@@ -67,14 +67,15 @@ public class ActionsServiceImpl implements ActionsService {
 
     @Resource
     protected FileAccessService fileAccessService;
-    
+
     @Resource
     protected HttpClient httpClient;
 
     @Resource
     protected ProcessBuilderFactory processBuilderFactory;
 
-    public Node action(Action action, String group, String nodeName, String softName, String version, List<Attribute> attributes) {
+    public Node action(Action action, String group, String nodeName, String softName, String version,
+            List<Attribute> attributes) {
 
         log.info("action: " + action + "group:" + group + " nodeName: " + nodeName + " soft: " + softName
                 + " version: " + version);
@@ -124,8 +125,8 @@ public class ActionsServiceImpl implements ActionsService {
 
         // generate the file again to make sure there are no empty directories
         fileAccessService.generateSiteFile();
-        
-        String realNodeName=getRealNodeName(nodeName);
+
+        String realNodeName = getRealNodeName(nodeName);
 
         uregisterNode(realNodeName);
         deactivateNodeFromPuppetDB(realNodeName);
@@ -139,7 +140,7 @@ public class ActionsServiceImpl implements ActionsService {
         if (isNodeRegistered(nodeName)) {
             log.debug("Node " + nodeName + " is registered -> unregistering");
 
-            String[] cmd = {"/bin/sh", "-c", "sudo puppet cert clean " + nodeName};
+            String[] cmd = { "/bin/sh", "-c", "sudo puppet cert clean " + nodeName };
 
             Process shell = processBuilderFactory.createProcessBuilder(cmd);
 
@@ -154,64 +155,72 @@ public class ActionsServiceImpl implements ActionsService {
         }
 
     }
-    
-    private void deactivateNodeFromPuppetDB(String nodeName) throws IOException{
+
+    private void deactivateNodeFromPuppetDB(String nodeName) throws IOException {
         log.debug("Deactivating node: " + nodeName);
 
         String path = "/v3/commands";
         String url = puppetDBUrl + path;
-        log.info("conneting puppetdb: "+url);
+        log.info("conneting puppetdb: " + url);
 
-        try {      
+        try {
             HttpPost post = new HttpPost(url);
             post.addHeader("Accept", "application/json");
-            post.addHeader("Content-Type","application/x-www-form-urlencoded");
-            String payload="payload={\"command\":\"deactivate node\",\"version\": 1,\"payload\":\"\""+nodeName+"\"\"}";
-            log.info("payload: "+payload);
+            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
+            String payload = "payload={\"command\":\"deactivate node\",\"version\": 1,\"payload\":\"" + nodeName
+                    + "\"}";
+            log.info("payload: " + payload);
             post.setEntity(new StringEntity(payload));
-            
-            HttpResponse response= httpClient.execute(post);
-            
+
+            HttpResponse response = httpClient.execute(post);
+
             int statusCode = response.getStatusLine().getStatusCode();
             HttpEntity entity = response.getEntity();
             EntityUtils.consume(entity);
-            
+
             if (statusCode != 200) {
                 String msg = format("[puppetdb deactivate node] response code was: {0}", statusCode);
                 log.warn(msg);
                 throw new IOException(format(msg));
             } else {
-                log.info("Node "+nodeName+" deactivated from puppetDB");
+                log.info("Node " + nodeName + " deactivated from puppetDB");
             }
-            
-            
+
         } catch (Exception e) {
             log.warn(e.getMessage());
             throw new IOException("It is not possible to connect with puppetDB server Url " + e.getMessage());
-        } 
+        }
     }
 
     public String getRealNodeName(String nodeName) throws IOException {
 
         log.debug("getRealNodeName for node: " + nodeName);
 
-        String[] cmd = {"/bin/sh", "-c", "sudo puppet cert list --all | grep " + nodeName + " | gawk '{print $2}'"};
+        String name = "";
+        if (isNodeRegistered(nodeName)) {
 
-        Process shell = processBuilderFactory.createProcessBuilder(cmd);
+            String[] cmd = { "/bin/sh", "-c", "sudo puppet cert list --all | grep " + nodeName + " | gawk '{print $2}'" };
 
-        StringBuilder success = new StringBuilder();
-        StringBuilder error = new StringBuilder();
+            Process shell = processBuilderFactory.createProcessBuilder(cmd);
 
-        executeSystemCommand(shell, success, error);
+            StringBuilder success = new StringBuilder();
+            StringBuilder error = new StringBuilder();
 
-        if ("".equals(success) && !"".equals(error)) {
-            throw new IOException("Puppet cert list has failed");
+            executeSystemCommand(shell, success, error);
+
+            if ("".equals(success) && !"".equals(error)) {
+                throw new IOException("Puppet cert list has failed");
+            }
+            log.debug("success, real name is: " + success);
+
+            if (success.length() > 1) {
+                name = success.substring(1, success.length() - 1);
+            }else{
+                throw new IOException("Error obtaining realNodename. Command returned an empty string");
+            }
+
+            log.debug("name: " + name);
         }
-        log.debug("success, real name is: " + success);
-
-        String name = success.substring(1, success.length() - 1);
-
-        log.debug("name: " + name);
 
         return name;
 
@@ -221,7 +230,7 @@ public class ActionsServiceImpl implements ActionsService {
 
         log.debug("isNodeRegistered node: " + nodeName);
 
-        String[] cmd = {"/bin/sh", "-c", "sudo puppet cert list --all"};
+        String[] cmd = { "/bin/sh", "-c", "sudo puppet cert list --all" };
         Process shell = processBuilderFactory.createProcessBuilder(cmd);
 
         StringBuilder successResponse = new StringBuilder();
@@ -254,7 +263,7 @@ public class ActionsServiceImpl implements ActionsService {
     }
 
     public void executeSystemCommand(Process shell, StringBuilder successResponse, StringBuilder errorResponse)
-        throws IOException {
+            throws IOException {
 
         InputStream is = shell.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
@@ -277,7 +286,7 @@ public class ActionsServiceImpl implements ActionsService {
 
     }
 
-//    @Override
+    // @Override
     public void deleteModule(String moduleName) throws IOException {
         fileAccessService.deleteModuleFiles(moduleName);
 
@@ -287,6 +296,5 @@ public class ActionsServiceImpl implements ActionsService {
     public void setPuppetDBUrl(String puppetDBUrl) {
         this.puppetDBUrl = puppetDBUrl;
     }
-
 
 }

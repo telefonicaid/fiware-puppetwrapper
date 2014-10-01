@@ -29,7 +29,7 @@
     </appender>
 	
 	<logger name="com.telefonica.euro_iaas.sdc" additivity="false">
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="puppetWrapperAppender" />
 	</logger>
 	
