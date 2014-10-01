@@ -5,19 +5,24 @@ SDC wrapper in order to deploy artifacts following puppet recipes.
 
 Requisites:
 - MongoDB
-- Tomcat 7.X.X
+- Puppet Master
 
-## mongo configuration
-  add to /etc/mongod.conf -> smallfiles=true
-  
-## Building instructions
+## Wrapper Building instructions
 It is a a maven application:
 
 - Compile, launch test and build all modules
 
-        $ mvn clean install
+        $ mvn assembly:assembly
         
-## Configurations instructions
+- copy target/distribution/puppwrapper-dist to a desired location
+- run ./jetty.sh start on puppetwrapper-dist/bin
+- Jetty will run by default on port 8082
+        
+        
+## change mongo configuration
+  add to /etc/mongod.conf -> smallfiles=true
+  
+## Configuration instructions
 file puppetwrapper.properties contains all necessary parameters.
 
         #puppet path
@@ -38,7 +43,7 @@ in this section
         ## Same thing without a password
         # %wheel        ALL=(ALL)       NOPASSWD: ALL
 
-comment out the following line 
+        comment out the following line 
 
         #Defaults    requiretty
 
