@@ -31,6 +31,12 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.data.ModuleDownloaderException
  */
 public interface ModuleDownloader {
     
+    /**
+     * Downloads and stores a module from a SCM
+     * @param url
+     * @param nodeName
+     * @throws ModuleDownloaderException
+     */
     void download(String url, String nodeName) throws ModuleDownloaderException;
 
 }

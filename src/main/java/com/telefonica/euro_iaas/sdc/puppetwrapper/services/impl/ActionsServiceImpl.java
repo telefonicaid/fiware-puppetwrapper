@@ -54,6 +54,11 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 
+/**
+ * Implenents actions to be performed on nodes
+ * @author alberts
+ *
+ */
 @Service("actionsService")
 public class ActionsServiceImpl implements ActionsService {
 
@@ -225,6 +230,7 @@ public class ActionsServiceImpl implements ActionsService {
         return name;
 
     }
+    
 
     public boolean isNodeRegistered(String nodeName) throws IOException {
 
@@ -286,7 +292,6 @@ public class ActionsServiceImpl implements ActionsService {
 
     }
 
-    // @Override
     public void deleteModule(String moduleName) throws IOException {
         fileAccessService.deleteModuleFiles(moduleName);
 
