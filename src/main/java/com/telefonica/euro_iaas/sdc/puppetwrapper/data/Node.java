@@ -87,6 +87,10 @@ public class Node {
     public void addSoftware(Software soft) {
         this.softwareList.add(soft);
     }
+    
+    public List<Software> getSoftwareList(){
+        return this.softwareList;
+    }
 
     public String generateFileStr() {
         StringBuffer sb = new StringBuffer();
@@ -100,6 +104,27 @@ public class Node {
         sb.append(eol);
 
         return sb.toString();
+    }
+    
+    public String generateHieraFileStr(){
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("## YAML Template for node "+this.id);
+        sb.append(eol);
+        sb.append("---");
+        sb.append(eol);
+        for (Software soft : softwareList) {
+            sb.append("##attributes for: "+soft.getName()+":"+soft.getVersion()).append(eol);
+            if (soft.getAttributes()!=null){
+                for (Attribute attribute:soft.getAttributes()){
+                    sb.append(attribute.getKey()+" : "+attribute.getValue()).append(eol);
+                }
+            }
+            sb.append(eol);
+        }
+
+        return sb.toString();
+        
     }
 
     public boolean isManifestGenerated() {

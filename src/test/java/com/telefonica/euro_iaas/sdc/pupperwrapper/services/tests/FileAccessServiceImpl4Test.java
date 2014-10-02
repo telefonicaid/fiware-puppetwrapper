@@ -24,8 +24,10 @@
 
 package com.telefonica.euro_iaas.sdc.pupperwrapper.services.tests;
 
+import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.FileAccessServiceImpl;
+import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.ProcessBuilderFactory;
 
 /**
  * Test FileAccessServiceImpl4 class.
@@ -42,6 +44,14 @@ public class FileAccessServiceImpl4Test extends FileAccessServiceImpl {
 
     public void setCatalogManager(CatalogManager catalogManager) {
         this.catalogManager = catalogManager;
+    }
+    
+    public void setActionsService(ActionsService actionsService){
+        this.actionService=actionsService;
+    }
+    
+    public void setProcessBuilderFactory(ProcessBuilderFactory processBuilderFactory){
+        this.processBuilderFactory=processBuilderFactory;
     }
 
 }

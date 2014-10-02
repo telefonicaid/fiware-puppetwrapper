@@ -41,6 +41,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
+import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Software;
+import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 
@@ -52,9 +54,17 @@ public class FileAccessServiceImpl implements FileAccessService {
     @Resource
     protected CatalogManager catalogManager;
 
+    @Resource
+    protected ActionsService actionService;
+
     private String defaultManifestsPath;
 
     private String modulesCodeDownloadPath;
+
+    private String defaultHieraPath;
+
+    @Resource
+    protected ProcessBuilderFactory processBuilderFactory;
 
     public Node generateManifestFile(String nodeName) throws IOException {
 
@@ -63,7 +73,9 @@ public class FileAccessServiceImpl implements FileAccessService {
         Node node = catalogManager.getNode(nodeName);
 
         String fileContent = catalogManager.generateManifestStr(nodeName);
+        String hieraFileContent = node.generateHieraFileStr();
         String path = defaultManifestsPath + node.getGroupName();
+        String hieraPath = defaultHieraPath;
 
         try {
 
@@ -86,9 +98,45 @@ public class FileAccessServiceImpl implements FileAccessService {
 
         LOG.debug("Manifest file created");
 
+        if (hasAttributes(node)) {
+            LOG.info("Creating hiera file");
+            try {
+
+                File f = new File(hieraPath);
+                f.mkdirs();
+                f.createNewFile();
+            } catch (IOException ex) {
+                LOG.debug("Error creating hiera path and file", ex);
+                throw new IOException("Error creating hiera path and file");
+            }
+
+            try {
+                FileWriter fw = new FileWriter(hieraPath + actionService.getRealNodeName(node.getId()) + ".yaml", false);
+                fw.write(hieraFileContent);
+                fw.close();
+            } catch (IOException ex) {
+                LOG.debug("Error creating hiera path and file", ex);
+                throw new IOException("Error creating hiera path and file");
+            }
+
+            LOG.debug("Hiera file created");
+        } else {
+            LOG.info("Node: " + node.getId() + " has no hiera attributes in any software");
+        }
         node.setManifestGenerated(true);
         return node;
 
+    }
+
+    private boolean hasAttributes(Node node) {
+        boolean result=false;
+        for(Software s : node.getSoftwareList()){
+            if(s.getAttributes()!=null && s.getAttributes().size()>0){
+                result=true;
+                break;
+            }
+        }
+        return result;
     }
 
     public void generateSiteFile() throws IOException {
@@ -157,7 +205,7 @@ public class FileAccessServiceImpl implements FileAccessService {
         LOG.info(format("Folder {0} deleted.", path + "/" + groupName));
     }
 
-//    @Override
+    // @Override
     public void deleteModuleFiles(String moduleName) throws IOException {
 
         File file = new File(modulesCodeDownloadPath + moduleName);
@@ -167,6 +215,11 @@ public class FileAccessServiceImpl implements FileAccessService {
         LOG.info(format("File {0} could not be deleted. Did it exist?", modulesCodeDownloadPath + "/" + moduleName
                 + ".pp"));
 
+    }
+
+    @Value(value = "${defaultHieraPath}")
+    public void setDefaultHieraPath(String defaultHieraPath) {
+        this.defaultHieraPath = defaultHieraPath;
     }
 
 }

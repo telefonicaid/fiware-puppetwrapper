@@ -40,5 +40,12 @@ public interface ActionsService {
 
     void deleteGroup(String groupName) throws IOException;
 
-    void deleteModule(String moduleName) throws IOException;
+    public void deleteModule(String moduleName) throws IOException;
+
+    public boolean isNodeRegistered(String nodeName) throws IOException;
+
+    public String getRealNodeName(String nodeName) throws IOException;
+
+    public void executeSystemCommand(Process shell, StringBuilder successResponse, StringBuilder errorResponse)
+            throws IOException;
 }

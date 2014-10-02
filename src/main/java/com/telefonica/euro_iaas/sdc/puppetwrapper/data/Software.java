@@ -89,11 +89,6 @@ public class Software {
         sb.append("  class{'" + this.name + "::" + action.getActionString(action.getCode()) + "':");
         sb.append(eol);
         sb.append("   version => '" + version + "',");
-        if (attributes != null) {
-            for (Attribute at : attributes) {
-                sb.append("   " + at.getKey() + " =>'" + at.getValue() + "',");
-            }
-        }
         sb.append(eol);
         sb.append("  }");
         sb.append(eol);
