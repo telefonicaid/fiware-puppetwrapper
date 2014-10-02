@@ -205,11 +205,6 @@ file puppetwrapper.properties contains all necessary parameters.
 | ``       #mongo connection``
 | ``       mongo.host=127.0.0.1``
 | ``       mongo.port=27017``
-
--  To allow puppetwrapper to execute add to /etc/sudoers:
-
-``tomcat ALL=(ALL) NOPASSWD: /usr/bin/puppet``
-
 -  
 
    -  in this section
