@@ -9,7 +9,7 @@ configuration information for the MongoDB repository: 64-bit system:
 
 | ``[mongodb]``
 | ``name=MongoDB Repository``
-| ``baseurl=``\ ```http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/`` <http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/>`__
+| ``baseurl=``\ ```http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/``
 | ``gpgcheck=0``
 | ``enabled=1``
 
@@ -17,7 +17,7 @@ configuration information for the MongoDB repository: 64-bit system:
 
 | ``[mongodb]``
 | ``name=MongoDB Repository``
-| ``baseurl=``\ ```http://downloads-distro.mongodb.org/repo/redhat/os/i686/`` <http://downloads-distro.mongodb.org/repo/redhat/os/i686/>`__
+| ``baseurl=``\ ```http://downloads-distro.mongodb.org/repo/redhat/os/i686/``
 | ``gpgcheck=0``
 | ``enabled=1``
 
