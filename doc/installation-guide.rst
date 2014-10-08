@@ -214,7 +214,7 @@ file puppetwrapper.properties contains all necessary parameters.
 | ``## Same thing without a password``
 | ``# %wheel        ALL=(ALL)       NOPASSWD: ALL``
 
--  
+-  To allow puppetwrapper to execute add to /etc/sudoers: 
 
    -  comment out the following line
 
