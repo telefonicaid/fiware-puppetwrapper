@@ -26,22 +26,62 @@ package com.telefonica.euro_iaas.sdc.puppetwrapper.services;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 
+/**
+ * Persistence interaction 
+ * @author alberts
+ *
+ */
 public interface CatalogManager {
 
-    
+
+    /**
+     * Store a node
+     * @param node
+     */
     void addNode(Node node);
 
+    /**
+     * Retreive a node
+     * @param nodeName
+     * @return Node
+     */
     Node getNode(String nodeName);
 
+    /**
+     * Delete a node
+     * @param nodeName
+     */
     void removeNode(String nodeName);
     
+    /**
+     * Node length
+     * @return
+     */
     int getNodeLength();
 
+    /**
+     * Retrieves a node and generates manifest string
+     * @param nodeName
+     * @return string with manifest content
+     */
     String generateManifestStr(String nodeName);
 
+    /**
+     * Generates site.pp content string
+     * @return
+     */
     String generateSiteStr();
 
+    /**
+     * Delete nodes
+     * @param groupName
+     */
     void removeNodesByGroupName(String groupName);
     
+    /**
+     * whether a given node is the last one of a user to be deleted
+     * @param groupName
+     * @return
+     */
     boolean isLastGroupNode(String groupName);
 }

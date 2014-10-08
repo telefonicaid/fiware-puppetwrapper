@@ -51,6 +51,11 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
+/**
+ * Presentation layer
+ * @author alberts
+ *
+ */
 @Controller
 public class PuppetControllerv2 extends GenericController {
 
@@ -71,11 +76,17 @@ public class PuppetControllerv2 extends GenericController {
     @Resource
     private ModuleDownloader svnExporterService;
 
+    /**
+     * Stores a software to be installed on a node
+     * 
+     * @param nodeDto
+     * @param nodeName
+     * @param request
+     * @return Node
+     */
     @RequestMapping(value = "/v2/node/{nodeName}/install", method = RequestMethod.POST)
-
     @ResponseBody
     public Node install(@RequestBody NodeDto nodeDto, @PathVariable String nodeName, HttpServletRequest request) {
-
 
         if (nodeDto == null) {
             LOG.debug("Payload is missing");
@@ -106,9 +117,8 @@ public class PuppetControllerv2 extends GenericController {
             LOG.debug("attibutes are not set");
             throw new IllegalArgumentException("Attibutes are not set");
         }
-        
-        LOG.info("install group:" + nodeDto);
 
+        LOG.info("install group:" + nodeDto);
 
         Node node = actionsService.action(Action.INSTALL, nodeDto.getGroup(), nodeName, nodeDto.getSoftwareName(),
                 nodeDto.getVersion(), nodeDto.getAttributes());
@@ -118,8 +128,13 @@ public class PuppetControllerv2 extends GenericController {
         return node;
     }
 
+    /**
+     * Generates the node manifest
+     * @param nodeName
+     * @return Node
+     * @throws IOException
+     */
     @RequestMapping(value = "/v2/node/{nodeName}/generate", method = RequestMethod.GET)
-
     @ResponseBody
     public Node generateManifest(@PathVariable("nodeName") String nodeName) throws IOException {
 
@@ -137,11 +152,16 @@ public class PuppetControllerv2 extends GenericController {
         return node;
     }
 
+    /**
+     * Deletes a software to be installed
+     * @param nodeDto
+     * @param nodeName
+     * @param request
+     * @return Node
+     */
     @RequestMapping(value = "/v2/node/{nodeName}/uninstall", method = RequestMethod.POST)
-
     @ResponseBody
     public Node uninstall(@RequestBody NodeDto nodeDto, @PathVariable String nodeName, HttpServletRequest request) {
-
 
         if (nodeDto == null) {
             LOG.debug("Payload is missing");
@@ -180,6 +200,11 @@ public class PuppetControllerv2 extends GenericController {
 
     }
 
+    /**
+     * Delete a stored node
+     * @param nodeName
+     * @throws IOException
+     */
     @RequestMapping(value = "/v2/node/{nodeName}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteNode(@PathVariable("nodeName") String nodeName) throws IOException {
@@ -194,10 +219,16 @@ public class PuppetControllerv2 extends GenericController {
         LOG.info("Node: " + nodeName + " deleted.");
     }
 
+    /**
+     * Downloads a module from a SCM and stores it
+     * @param softwareName
+     * @param urlDto
+     * @throws ModuleDownloaderException
+     */
     @RequestMapping(value = "/v2/module/{softwareName}/download", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void downloadModule(@PathVariable("softwareName") String softwareName, @RequestBody UrlDto urlDto)
-        throws ModuleDownloaderException {
+            throws ModuleDownloaderException {
 
         if (urlDto == null) {
             LOG.debug("Payload is missing");
@@ -228,7 +259,12 @@ public class PuppetControllerv2 extends GenericController {
         }
 
     }
-
+    
+    /**
+     * Deletes a module
+     * @param moduleName
+     * @throws IOException
+     */
     @RequestMapping(value = "/v2/module/{moduleName}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteModule(@PathVariable("moduleName") String moduleName) throws IOException {

@@ -24,6 +24,8 @@
 
 package com.telefonica.euro_iaas.sdc.pupperwrapper.services.tests;
 
+import org.apache.http.client.HttpClient;
+
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.ActionsServiceImpl;
@@ -51,6 +53,10 @@ public class ActionServiceImpl4Test extends ActionsServiceImpl {
 
     public void setProcessBuilderFactory(ProcessBuilderFactory processBuilderFactory) {
         this.processBuilderFactory = processBuilderFactory;
+    }
+    
+    public void setHttpClient(HttpClient client){
+        this.httpClient=client;
     }
 
 }

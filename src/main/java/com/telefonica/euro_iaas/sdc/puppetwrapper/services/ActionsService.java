@@ -33,19 +33,64 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
 
 public interface ActionsService {
 
-    Node action(Action action, String group, String nodeName, String softName, String version,
+    /**
+     * Receives install/uninstall requests and processes them
+     * 
+     * @param action
+     * @param group
+     * @param nodeName
+     * @param softName
+     * @param version
+     * @param attibutes
+     * @return Node
+     */
+    public Node action(Action action, String group, String nodeName, String softName, String version,
             List<Attribute> attibutes);
 
-    void deleteNode(String nodeName) throws IOException;
+    /**
+     * Delete a node
+     * @param nodeName
+     * @throws IOException
+     */
+    public void deleteNode(String nodeName) throws IOException;
 
-    void deleteGroup(String groupName) throws IOException;
+    /**
+     * Delete a group of nodes
+     * @param groupName
+     * @throws IOException
+     */
+    public void deleteGroup(String groupName) throws IOException;
 
+    /**
+     * Delete a module
+     * @param moduleName
+     * @throws IOException
+     */
     public void deleteModule(String moduleName) throws IOException;
 
+    /**
+     * Returns whether a puppet agent is registeren on puppet master
+     * @param nodeName
+     * @return
+     * @throws IOException
+     */
     public boolean isNodeRegistered(String nodeName) throws IOException;
 
+    /**
+     * Finds out the complete node name as a name.domain
+     * @param nodeName
+     * @return boolean
+     * @throws IOException
+     */
     public String getRealNodeName(String nodeName) throws IOException;
 
+    /**
+     * Executes a given system command
+     * @param shell
+     * @param successResponse
+     * @param errorResponse
+     * @throws IOException
+     */
     public void executeSystemCommand(Process shell, StringBuilder successResponse, StringBuilder errorResponse)
             throws IOException;
 }

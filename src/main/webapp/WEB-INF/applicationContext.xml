@@ -52,11 +52,13 @@
 	<bean name="traceInterceptor"
 		class="com.telefonica.euro_iaas.sdc.puppetwrapper.aspects.TraceInterceptor">
 		<property name="enterMessage"
-			value="comp=SDC - $[targetClassShortName] | op=$[methodName] | msg=ENTER: $[targetClassShortName].$[methodName]($[arguments])" />
+			value="comp=PuppetWrapper - $[targetClassShortName] | op=$[methodName] | msg=ENTER: $[targetClassShortName].$[methodName]($[arguments])" />
 		<property name="exitMessage"
-			value="comp=SDC - $[targetClassShortName] | op=$[methodName] | msg=EXIT: $[targetClassShortName].$[methodName](): $[returnValue]" />
+			value="comp=PuppetWrapper - $[targetClassShortName] | op=$[methodName] | msg=EXIT: $[targetClassShortName].$[methodName](): $[returnValue]" />
 		<property name="loggerName" value="aspectLogger" />
 	</bean>
 
-
+	<bean id="httpClient" lazy-init="true"
+		class="org.apache.http.impl.client.DefaultHttpClient" />
+		
 </beans>
