@@ -207,14 +207,14 @@ file puppetwrapper.properties contains all necessary parameters.
 | ``       mongo.port=27017``
 -  
 
-   -  in this section
+-  To allow puppetwrapper to execute, edit /etc/sudoers and in this section
 
 | ``## Allows people in group wheel to run all commands``
 | ``# %wheel        ALL=(ALL)       ALL``
 | ``## Same thing without a password``
 | ``# %wheel        ALL=(ALL)       NOPASSWD: ALL``
 
--  To allow puppetwrapper to execute add to /etc/sudoers: 
+
 
    -  comment out the following line
 
