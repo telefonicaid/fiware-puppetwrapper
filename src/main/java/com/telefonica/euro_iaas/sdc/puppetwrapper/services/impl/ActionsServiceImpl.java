@@ -56,6 +56,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 
 /**
  * Implenents actions to be performed on nodes
+ * 
  * @author alberts
  *
  */
@@ -63,6 +64,8 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService;
 public class ActionsServiceImpl implements ActionsService {
 
     private Logger log = LoggerFactory.getLogger(ActionsServiceImpl.class);
+
+    private String COMMAND_VERSION = "2";
 
     private String puppetDBUrl;
 
@@ -171,9 +174,10 @@ public class ActionsServiceImpl implements ActionsService {
         try {
             HttpPost post = new HttpPost(url);
             post.addHeader("Accept", "application/json");
-            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
-            String payload = "payload={\"command\":\"deactivate node\",\"version\": 1,\"payload\":\"" + nodeName
-                    + "\"}";
+//            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
+            post.addHeader("Content-Type", "application/json");
+            String payload = "{\"command\":\"deactivate node\",\"version\": " + COMMAND_VERSION
+                    + ",\"payload\":\"" + nodeName + "\"}";
             log.info("payload: " + payload);
             post.setEntity(new StringEntity(payload));
 
@@ -220,7 +224,7 @@ public class ActionsServiceImpl implements ActionsService {
 
             if (success.length() > 1) {
                 name = success.substring(1, success.length() - 1);
-            }else{
+            } else {
                 throw new IOException("Error obtaining realNodename. Command returned an empty string");
             }
 
@@ -230,7 +234,6 @@ public class ActionsServiceImpl implements ActionsService {
         return name;
 
     }
-    
 
     public boolean isNodeRegistered(String nodeName) throws IOException {
 
