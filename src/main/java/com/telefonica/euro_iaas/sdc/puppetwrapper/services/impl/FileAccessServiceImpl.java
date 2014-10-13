@@ -129,10 +129,10 @@ public class FileAccessServiceImpl implements FileAccessService {
     }
 
     private boolean hasAttributes(Node node) {
-        boolean result=false;
-        for(Software s : node.getSoftwareList()){
-            if(s.getAttributes()!=null && s.getAttributes().size()>0){
-                result=true;
+        boolean result = false;
+        for (Software s : node.getSoftwareList()) {
+            if (s.getAttributes() != null && s.getAttributes().size() > 0) {
+                result = true;
                 break;
             }
         }
@@ -188,6 +188,15 @@ public class FileAccessServiceImpl implements FileAccessService {
 
             if (catalogManager.isLastGroupNode(node.getGroupName())) {
                 deleteGoupFolder(node.getGroupName());
+            }
+            
+
+            File fileHiera = new File(defaultHieraPath + "/" + actionService.getRealNodeName(nodeName) + ".yaml");
+
+            if (!fileHiera.delete()) {
+                LOG.info(format("File {0} could not be deleted. Did it exist?", defaultHieraPath + "/" + actionService.getRealNodeName(nodeName) + ".yaml"));
+            } else {
+                LOG.info(format("File {0} deleted.", defaultHieraPath + actionService.getRealNodeName(nodeName) + ".yaml"));
             }
 
         } catch (NoSuchElementException e) {

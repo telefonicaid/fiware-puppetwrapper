@@ -237,6 +237,9 @@ public class FileAccessServiceTest {
 
         f = new File(defaultManifestsPath + "group/test.pp");
         assertFalse(f.exists());
+        
+        f = new File(defaultHieraPath + "test.domain.yaml");
+        assertFalse(f.exists());
 
         f = new File(defaultManifestsPath + "group/test2.pp");
         assertTrue(f.exists());

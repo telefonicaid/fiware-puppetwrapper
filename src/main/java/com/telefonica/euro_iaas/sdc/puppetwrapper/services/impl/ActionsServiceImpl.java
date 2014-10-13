@@ -174,7 +174,6 @@ public class ActionsServiceImpl implements ActionsService {
         try {
             HttpPost post = new HttpPost(url);
             post.addHeader("Accept", "application/json");
-//            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
             post.addHeader("Content-Type", "application/json");
             String payload = "{\"command\":\"deactivate node\",\"version\": " + COMMAND_VERSION
                     + ",\"payload\":\"" + nodeName + "\"}";
