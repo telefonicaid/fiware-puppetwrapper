@@ -24,8 +24,6 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.data;
 
-import java.io.IOException;
-
 /**
  * Exception thrown when our Puppet rest API returns unexpected results.
  * 

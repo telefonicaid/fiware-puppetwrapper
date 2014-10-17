@@ -28,37 +28,49 @@ import static java.text.MessageFormat.format;
 
 import java.util.NoSuchElementException;
 
-
+/**
+ * Class to manage the different actions that we have to take.
+ * @author albert.sinfreualay
+ */
 public enum Action {
     INSTALL(1, "install"),
-    UNINSTALL(2,"uninstall");
-    
+    UNINSTALL(2, "uninstall");
+
     private final int code;
     private final String description;
-    
-    
-    Action(int code, String description){
+
+    /**
+     * Constructor.
+     * @param code
+     * @param description
+     */
+    Action(int code, String description) {
         this.code = code;
         this.description = description;
     }
-    
+
     public int getCode() {
-		return code;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getActionString(int id){
-		
-    	 for(Action action : Action.values()){
-             if(action.getCode() == code){
-                 return action.getDescription();
-             }
-    	 }
-    	 throw new NoSuchElementException(format("Value not defined: [{0}]", code));
+        return code;
     }
 
-    
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Get an action identify by its id.
+     * @param id
+     * @return
+     */
+    public String getActionString(int id) {
+
+        for (Action action : Action.values()) {
+            if (action.getCode() == code) {
+                return action.getDescription();
+            }
+        }
+        throw new NoSuchElementException(format("Value not defined: [{0}]", code));
+    }
+
+
 }

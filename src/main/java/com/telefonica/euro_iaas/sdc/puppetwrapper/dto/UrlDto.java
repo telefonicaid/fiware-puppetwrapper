@@ -24,16 +24,26 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.dto;
 
+/**
+ * Class UrlDto.
+ * @author Albert Sinfreu Alay
+ */
 public class UrlDto {
-    
-    String url;
-    String repoSource;
-    
-    
-    
+
+    private String url;
+    private String repoSource;
+
+    /**
+     * Constructor.
+     */
     public UrlDto() {
     }
 
+    /**
+     * Constructor.
+     * @param url
+     * @param repoSource
+     */
     public UrlDto(String url, String repoSource) {
         super();
         this.url = url;
@@ -55,7 +65,6 @@ public class UrlDto {
     public void setRepoSource(String repoSource) {
         this.repoSource = repoSource;
     }
-    
-    
+
 
 }
