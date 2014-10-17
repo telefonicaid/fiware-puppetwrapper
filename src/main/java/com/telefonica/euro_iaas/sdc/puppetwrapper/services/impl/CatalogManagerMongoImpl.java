@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 Telefonica Investigación y Desarrollo, S.A.U <br>
+bueno  * Copyright 2014 Telefonica Investigación y Desarrollo, S.A.U <br>
  * This file is part of FI-WARE project.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -111,13 +111,13 @@ public class CatalogManagerMongoImpl implements CatalogManager {
         mongoTemplate.remove(searchNodeQuery, Node.class);
 
     }
-    
+
     public boolean isLastGroupNode(String groupName) {
         Query searchNodeQuery = new Query(Criteria.where("groupName").is(groupName));
         List<Node> nodeList = mongoTemplate.find(searchNodeQuery, Node.class);
-        if(nodeList!= null && nodeList.size()==1){
+        if (nodeList != null && nodeList.size() == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

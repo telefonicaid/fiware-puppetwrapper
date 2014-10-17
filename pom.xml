@@ -3,7 +3,7 @@
     <groupId>com.telefonica.euro_iaas</groupId>
     <artifactId>puppetwrapper</artifactId>
     <packaging>war</packaging>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
 
     <properties>
 
@@ -11,19 +11,19 @@
         <!-- This properties will be added to sonar as manual measures -->
         <product.area.name>Industrial IoT</product.area.name>
         <product.name>FIWARE</product.name>
-        <product.release>3.4.3</product.release>
+        <product.release>3.5.3</product.release>
 
         <repoName>fiware-puppetwrapper</repoName>
 
         <scmURI>git@github.com:telefonicaid</scmURI>
-        <nexusURI>http://130.206.80.169</nexusURI>
+        <nexusURI>http://130.206.80.85</nexusURI>
         <nexusRepositories>${nexusURI}/nexus/content/repositories</nexusRepositories>
 
         <compilerInfoDebug>true</compilerInfoDebug>
         <compilerOptimize>false</compilerOptimize>
         <compilerShowWarnings>true</compilerShowWarnings>
         <compilerShowDeprecation>true</compilerShowDeprecation>
-        <!--jvm.version>1.7</jvm.version-->
+        <jvm.version>1.7</jvm.version>
 
         <!-- repositories for distribution -->
         <!-- snapshots -->
@@ -95,6 +95,27 @@
             <version>${spring.version}</version>
         </dependency>
         <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.0</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.0</version>
@@ -104,6 +125,12 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
+        <!-- httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.1</version>
+		</dependency>
         <!-- LOGGING -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -211,12 +238,6 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.1-alpha-2</version>
-            </plugin>
-
 
             <!-- license plugin -->
 
@@ -308,15 +329,47 @@
                     <showDeprecation>${compilerShowDeprecation}</showDeprecation>
                 </configuration>
             </plugin>
+            <!--plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>2.2.0</version>
+                <configuration>
+                    <repoToken>BV4ME2rnc4ws6yQ5GQiSpLOmwPzYDcE3r</repoToken>
+                    <sourceEncoding>UTF-8</sourceEncoding>
+                </configuration>
+            </plugin-->
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.4</version>
+                <inherited>false</inherited>
                 <configuration>
                     <descriptor>src/assembly/distribution.xml</descriptor>
                 </configuration>
             </plugin>
         </plugins>
+
+
+          <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.12.1</version>
+                    <configuration>
+                        <configLocation>telefonica_checkstyle.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <failsOnViolations>true</failsOnViolations>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
     </build>
 
     <profiles>
@@ -342,6 +395,147 @@
                 <compilerOptimize>false</compilerOptimize>
             </properties>
         </profile>
+        <profile>
+            <id>debian</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>unix-maven-plugin</artifactId>
+                        <version>1.0-alpha-5</version>
+                        <inherited>false</inherited>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <contact>fi-ware</contact>
+                            <contactEmail>fiware-lab-help@lists.fi-ware.org</contactEmail>
+                            <name>fiware-puppetwrapper</name>
+
+                            <deb>
+                                <section>devel</section>
+                                <depends>openjdk-7-jre</depends>
+                            </deb>
+                            <assembly>
+                                <copyDirectory>
+                                    <from>${project.build.directory}/puppetwrapper-dist</from>
+                                    <to>/opt/fiware-paas</to>
+                                </copyDirectory>
+                                <copyFile>
+                                    <path>${project.build.directory}/puppetwrapper-dist/bin/jetty.sh</path>
+                                    <toFile>/opt/fiware-paas/bin/jetty.sh</toFile>
+                                    <attributes>
+                                        <mode>0755</mode>
+                                    </attributes>
+                                </copyFile>
+
+                            </assembly>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <inherited>false</inherited>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package-deb</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
+
+    <repositories>
+        <!-- ci-cpr02 Nexus Repositories -->
+        <repository>
+            <id>${repoMavenSnapshotId}</id>
+            <name>${repoMavenSnapshotName}</name>
+            <url>${repoMavenSnapshotUrl}</url>
+        </repository>
+        <repository>
+            <id>${repoMavenId}</id>
+            <name>${repoMavenName}</name>
+            <url>${repoMavenUrl}</url>
+        </repository>
+        <repository>
+            <id>${repoMavenThirdpartyId}</id>
+            <name>${repoMavenThirdpartyName}</name>
+            <url>${repoMavenThirdpartyUrl}</url>
+        </repository>
+
+        <!-- Remote Repositories -->
+        <repository>
+            <id>central</id>
+            <name>central-repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>central2</id>
+            <name>central2-repository</name>
+            <url>http://repo2.maven.org/maven2</url>
+        </repository>
+
+        <!-- SpringSource repositories -->
+        <repository>
+            <id>com.springsource.repository.libraries.release</id>
+            <name>SpringSource Enterprise Bundle Repository - SpringSource Library Releases</name>
+            <url>http://repository.springsource.com/maven/libraries/release</url>
+        </repository>
+        <repository>
+            <id>com.springsource.repository.libraries.external</id>
+            <name>SpringSource Enterprise Bundle Repository - External Library Releases</name>
+            <url>http://repository.springsource.com/maven/libraries/external</url>
+        </repository>
+
+
+        <!-- Restlet repository-->
+        <repository>
+            <id>maven-restlet</id>
+            <name>Public online Restlet repository</name>
+            <url>http://maven.restlet.org</url>
+        </repository>
+
+    </repositories>
+
+
+    <pluginRepositories>
+
+        <pluginRepository>
+            <id>${repoMavenSnapshotId}</id>
+            <name>${repoMavenSnapshotName}</name>
+            <url>${repoMavenSnapshotUrl}</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>${repoMavenId}</id>
+            <name>${repoMavenName}</name>
+            <url>${repoMavenUrl}</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>${repoMavenThirdpartyId}</id>
+            <name>${repoMavenThirdpartyName}</name>
+            <url>${repoMavenThirdpartyUrl}</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>central</id>
+            <name>central-repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>java.net</id>
+            <name>java.net</name>
+            <url>http://download.java.net/maven/2/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>stat-scm</id>
+            <name>stat-scm</name>
+            <url>http://stat-scm.sourceforge.net/maven2/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>codehaus</id>
+            <name>codehaus</name>
+            <url>http://repository.codehaus.org</url>
+        </pluginRepository>
+
+
+    </pluginRepositories>
 
 </project>

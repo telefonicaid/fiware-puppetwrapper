@@ -28,14 +28,20 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl.CatalogManagerMongoImpl;
 
+/**
+ * Test class of the CatalogManagerMongoImpl class.
+ */
 public class CatalogManagerMongoImpl4Test extends CatalogManagerMongoImpl {
-    
-    public CatalogManagerMongoImpl4Test(){
+
+    /**
+     * Constructor.
+     */
+    public CatalogManagerMongoImpl4Test() {
         super();
     }
-    
-    public void setMongoTemplate(MongoTemplate montogemplate){
-        this.mongoTemplate=montogemplate;
+
+    public void setMongoTemplate(MongoTemplate montogemplate) {
+        this.mongoTemplate = montogemplate;
     }
 
 }

@@ -54,7 +54,7 @@ class Config():
         mirror_mirrorOf = parent_node.createElement("mirrorOf")
         mirror_mirrorOf_text = parent_node.createTextNode("*")
         mirror_url = parent_node.createElement("url")
-        mirror_url_value = parent_node.createTextNode("http://130.206.80.169/nexus/content/groups/public")
+        mirror_url_value = parent_node.createTextNode("http://130.206.80.85/nexus/content/groups/public")
 
         mirrors.appendChild(mirror)
         mirror_id.appendChild(mirror_id_text)

@@ -21,6 +21,7 @@
 		base-package="com.telefonica.euro_iaas.sdc.puppetwrapper.services" />
 
 
+
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations" value="classpath:puppetWrapper.properties" />
@@ -32,7 +33,7 @@
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="useDefaultSuffixPattern" value="false" />
 	</bean>
-	
+
 
 	<mongo:mongo host="${mongo.host}" port="${mongo.port}" />
 	<mongo:db-factory dbname="puppetWrapper" />
@@ -41,7 +42,23 @@
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
 
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="traceInterceptor"
+			pointcut="execution(* com.telefonica.euro_iaas.sdc.puppetwrapper.controllers..*(..))" />
+		<aop:advisor advice-ref="traceInterceptor"
+			pointcut="execution(* com.telefonica.euro_iaas.sdc.puppetwrapper.services.impl..*(..))" />
+	</aop:config>
 
+	<bean name="traceInterceptor"
+		class="com.telefonica.euro_iaas.sdc.puppetwrapper.aspects.TraceInterceptor">
+		<property name="enterMessage"
+			value="comp=PuppetWrapper - $[targetClassShortName] | op=$[methodName] | msg=ENTER: $[targetClassShortName].$[methodName]($[arguments])" />
+		<property name="exitMessage"
+			value="comp=PuppetWrapper - $[targetClassShortName] | op=$[methodName] | msg=EXIT: $[targetClassShortName].$[methodName](): $[returnValue]" />
+		<property name="loggerName" value="aspectLogger" />
+	</bean>
 
-
+	<bean id="httpClient" lazy-init="true"
+		class="org.apache.http.impl.client.DefaultHttpClient" />
+		
 </beans>

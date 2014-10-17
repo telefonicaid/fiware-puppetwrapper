@@ -24,23 +24,48 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.services;
 
-import java.awt.image.ImagingOpException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
-
+/**
+ * Deals with the filesystem file generation
+ * @author alberts
+ *
+ */
 public interface FileAccessService {
 
-    public Node generateManifestFile(String nodeName) throws ImagingOpException, IOException;
+    /**
+     * Create node manifest file
+     * @param nodeName
+     * @return Node
+     * @throws IOException
+     */
+    Node generateManifestFile(String nodeName) throws IOException;
 
-    public void generateSiteFile() throws FileNotFoundException, UnsupportedEncodingException, IOException;
+    /**
+     * Create site.pp file
+     * @throws IOException
+     */
+    void generateSiteFile() throws IOException;
 
-    public void deleteNodeFiles(String nodeName) throws IOException;
+    /**
+     * Delete file
+     * @param nodeName
+     * @throws IOException
+     */
+    void deleteNodeFiles(String nodeName) throws IOException;
 
-    public void deleteGoupFolder(String groupName) throws IOException;
+    /**
+     * Delete group folder
+     * @param groupName
+     * @throws IOException
+     */
+    void deleteGoupFolder(String groupName) throws IOException;
 
-    public void deleteModuleFiles(String moduleName) throws IOException;
+    /**
+     * Delete module
+     * @param moduleName
+     * @throws IOException
+     */
+    void deleteModuleFiles(String moduleName) throws IOException;
 
 }
