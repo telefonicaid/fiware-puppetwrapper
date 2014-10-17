@@ -3,7 +3,7 @@
     <groupId>com.telefonica.euro_iaas</groupId>
     <artifactId>puppetwrapper</artifactId>
     <packaging>war</packaging>
-    <version>3.1.0-SNAPSHOT</version>
+    <version>3.1.0</version>
 
     <properties>
 
