@@ -36,6 +36,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class MdcInterceptor extends HandlerInterceptorAdapter {
 
+    /* (non-Javadoc)
+     * @see org.springframework.web.servlet.handler.HandlerInterceptorAdapter#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws Exception {

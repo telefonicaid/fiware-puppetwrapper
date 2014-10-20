@@ -53,6 +53,9 @@ public class GitCloneServiceImpl implements ModuleDownloader {
     
     private String modulesCodeDownloadPath;
     
+    /* (non-Javadoc)
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader#download(java.lang.String, java.lang.String)
+     */
     public void download(String url,String moduleName) throws ModuleDownloaderException {
         // prepare a new folder for the cloned repository
         File localPath =  new File(modulesCodeDownloadPath+moduleName);
