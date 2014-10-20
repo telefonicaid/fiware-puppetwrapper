@@ -82,8 +82,14 @@ public class ActionsServiceImpl implements ActionsService {
     @Resource
     protected ProcessBuilderFactory processBuilderFactory;
 
-    /* (non-Javadoc)
-     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#action(com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.List)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#action
+     * (com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action,
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+     * java.util.List)
      */
     public Node action(Action action, String group, String nodeName, String softName, String version,
             List<Attribute> attributes) {
@@ -130,8 +136,12 @@ public class ActionsServiceImpl implements ActionsService {
 
     }
 
-    /* (non-Javadoc)
-     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#deleteNode(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#deleteNode
+     * (java.lang.String)
      */
     public void deleteNode(String nodeName) throws IOException {
         fileAccessService.deleteNodeFiles(nodeName);
@@ -181,8 +191,8 @@ public class ActionsServiceImpl implements ActionsService {
             HttpPost post = new HttpPost(url);
             post.addHeader("Accept", "application/json");
             post.addHeader("Content-Type", "application/json");
-            String payload = "{\"command\":\"deactivate node\",\"version\": " + COMMAND_VERSION
-                    + ",\"payload\":\"" + nodeName + "\"}";
+            String payload = "{\"command\":\"deactivate node\",\"version\": " + COMMAND_VERSION + ",\"payload\":\""
+                    + nodeName + "\"}";
             log.info("payload: " + payload);
             post.setEntity(new StringEntity(payload));
 
@@ -206,8 +216,11 @@ public class ActionsServiceImpl implements ActionsService {
         }
     }
 
-    /* (non-Javadoc)
-     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#getRealNodeName(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#
+     * getRealNodeName(java.lang.String)
      */
     public String getRealNodeName(String nodeName) throws IOException {
 
@@ -243,8 +256,11 @@ public class ActionsServiceImpl implements ActionsService {
 
     }
 
-    /* (non-Javadoc)
-     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#isNodeRegistered(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#
+     * isNodeRegistered(java.lang.String)
      */
     public boolean isNodeRegistered(String nodeName) throws IOException {
 
@@ -282,8 +298,12 @@ public class ActionsServiceImpl implements ActionsService {
 
     }
 
-    /* (non-Javadoc)
-     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#executeSystemCommand(java.lang.Process, java.lang.StringBuilder, java.lang.StringBuilder)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#
+     * executeSystemCommand(java.lang.Process, java.lang.StringBuilder,
+     * java.lang.StringBuilder)
      */
     public void executeSystemCommand(Process shell, StringBuilder successResponse, StringBuilder errorResponse)
             throws IOException {
@@ -309,8 +329,11 @@ public class ActionsServiceImpl implements ActionsService {
 
     }
 
-    /* (non-Javadoc)
-     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#deleteModule(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#
+     * deleteModule(java.lang.String)
      */
     public void deleteModule(String moduleName) throws IOException {
         fileAccessService.deleteModuleFiles(moduleName);

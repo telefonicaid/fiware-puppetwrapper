@@ -26,8 +26,10 @@ package com.telefonica.euro_iaas.sdc.puppetwrapper.services;
 
 import java.io.IOException;
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node;
+
 /**
  * Deals with the filesystem file generation
+ * 
  * @author alberts
  *
  */
@@ -35,6 +37,7 @@ public interface FileAccessService {
 
     /**
      * Create node manifest file
+     * 
      * @param nodeName
      * @return Node
      * @throws IOException
@@ -43,12 +46,14 @@ public interface FileAccessService {
 
     /**
      * Create site.pp file
+     * 
      * @throws IOException
      */
     void generateSiteFile() throws IOException;
 
     /**
      * Delete file
+     * 
      * @param nodeName
      * @throws IOException
      */
@@ -56,6 +61,7 @@ public interface FileAccessService {
 
     /**
      * Delete group folder
+     * 
      * @param groupName
      * @throws IOException
      */
@@ -63,6 +69,7 @@ public interface FileAccessService {
 
     /**
      * Delete module
+     * 
      * @param moduleName
      * @throws IOException
      */
