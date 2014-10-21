@@ -24,10 +24,20 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.exception;
 
-/**
- * Class PWException.
- * @author Albert Sinfreu Alay
- */
-public class PWException {
 
+/**
+ * @author alberts
+ *
+ */
+public class AuthenticationConnectionException extends Exception{
+
+    /**
+     * Create the exception with the message to throw.
+     * 
+     * @param message
+     */
+    public AuthenticationConnectionException(final String message) {
+            super(message);
+
+    }
 }
