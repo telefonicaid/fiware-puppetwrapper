@@ -88,7 +88,7 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
      */
     public static final String OPENSTACK_HEADER_TENANTID = "Tenant-ID";
 
-    private String keystoneURL="";
+    private String keystoneURL = "";
 
     /**
      * Instantiates a new open stack authentication filter.
@@ -100,8 +100,10 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
      * Creates an instance which will authenticate against the supplied.
      * 
      * @param pAuthenticationManager
-     *            the bean to submit authentication requests to {@code AuthenticationManager} and which will ignore
-     *            failed authentication attempts, allowing the request to proceed down the filter chain.
+     *            the bean to submit authentication requests to
+     *            {@code AuthenticationManager} and which will ignore failed
+     *            authentication attempts, allowing the request to proceed down
+     *            the filter chain.
      */
     public OpenStackAuthenticationFilter(final AuthenticationManager pAuthenticationManager) {
         this.authenticationManager = pAuthenticationManager;
@@ -114,9 +116,11 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
      * @param pAuthenticationManager
      *            the bean to submit authentication requests to
      * @param pAuthenticationEntryPoint
-     *            will be invoked when authentication fails. Typically an instance of
-     *            {@link BasicAuthenticationEntryPoint}. {@code AuthenticationManager} and use the supplied
-     *            {@code AuthenticationEntryPoint} to handle authentication failures.
+     *            will be invoked when authentication fails. Typically an
+     *            instance of {@link BasicAuthenticationEntryPoint}.
+     *            {@code AuthenticationManager} and use the supplied
+     *            {@code AuthenticationEntryPoint} to handle authentication
+     *            failures.
      */
     public OpenStackAuthenticationFilter(final AuthenticationManager pAuthenticationManager,
             final AuthenticationEntryPoint pAuthenticationEntryPoint) {
@@ -125,8 +129,9 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
     }
 
     /*
-     * (non-Javadoc) @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
-     * javax.servlet.FilterChain)
+     * (non-Javadoc) @see
+     * javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
+     * javax.servlet.ServletResponse, javax.servlet.FilterChain)
      */
 
     public final void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
@@ -154,8 +159,8 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
 
             try {
                 String token = header;
-                if("".equals(token)){
-                    String str="Missing token header";
+                if ("".equals(token)) {
+                    String str = "Missing token header";
                     logger.info(str);
                     throw new UsernameNotFoundException(str);
                 }
@@ -350,7 +355,6 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
     public final void setRememberMeServices(final RememberMeServices pRememberMeServices) {
         this.rememberMeServices = pRememberMeServices;
     }
-
 
     @Value("keystoneURL")
     public void setKeystoneURL(String keystoneURL) {

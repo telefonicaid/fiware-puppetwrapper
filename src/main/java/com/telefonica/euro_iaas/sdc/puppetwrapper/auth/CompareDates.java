@@ -157,45 +157,45 @@ public class CompareDates {
         Date date = null;
 
         switch (typeFormat) {
-            case 0:
-                // Format: "2012-11-29T18:00:45Z";
-                try {
-                    XMLGregorianCalendar cal = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateString);
+        case 0:
+            // Format: "2012-11-29T18:00:45Z";
+            try {
+                XMLGregorianCalendar cal = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateString);
 
-                    cal.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
-                    Calendar c2 = cal.toGregorianCalendar();
+                cal.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+                Calendar c2 = cal.toGregorianCalendar();
 
-                    date = c2.getTime();
-                } catch (DatatypeConfigurationException ex) {
-                    log.warning("Cannot parse correctly the date: " + date);
-                }
+                date = c2.getTime();
+            } catch (DatatypeConfigurationException ex) {
+                log.warning("Cannot parse correctly the date: " + date);
+            }
 
-                break;
+            break;
 
-            case 1:
-                // Format: Tue, 16 Aug 2011 19:50:26 GMT
-                try {
-                    date = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", new Locale("en_EN")).parse(dateString);
+        case 1:
+            // Format: Tue, 16 Aug 2011 19:50:26 GMT
+            try {
+                date = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", new Locale("en_EN")).parse(dateString);
 
-                } catch (ParseException ex) {
-                    log.warning("Cannot parse correctly the date: " + date);
-                }
+            } catch (ParseException ex) {
+                log.warning("Cannot parse correctly the date: " + date);
+            }
 
-                break;
+            break;
 
-            case 2:
-                // Format: Tue Dec 04 18:10:32 CET 2012
-                try {
-                    date = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", new Locale("en_EN")).parse(dateString);
+        case 2:
+            // Format: Tue Dec 04 18:10:32 CET 2012
+            try {
+                date = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", new Locale("en_EN")).parse(dateString);
 
-                } catch (ParseException ex) {
-                    log.warning("Cannot parse correctly the date: " + date);
-                }
+            } catch (ParseException ex) {
+                log.warning("Cannot parse correctly the date: " + date);
+            }
 
-                break;
+            break;
 
-            default:
-                throw new UnsupportedOperationException("Date format type not valid or not implemented");
+        default:
+            throw new UnsupportedOperationException("Date format type not valid or not implemented");
         }
 
         return date;
@@ -208,7 +208,8 @@ public class CompareDates {
      *            The date 1.
      * @param dateString2
      *            The date 2.
-     * @return The deadline between the limit and the different of the two dates.
+     * @return The deadline between the limit and the different of the two
+     *         dates.
      */
     public String validateDates(String dateString1, String dateString2) {
         Date date1 = this.getDate(dateString1, getType(dateString1)); // 0);
@@ -254,8 +255,10 @@ public class CompareDates {
         if (matching) {
             result = 0;
         } else {
-            // Regular Expression [a-zA-Z]*\,\s*[0-9]*\s*[a-zA-Z]*\s*[0-9]*\s*[0-9]*:[0-9]*:[0-9]*\s*GMT$
-            // as a Java string "[a-zA-Z]*\\,\\s*[0-9]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*GMT$"
+            // Regular Expression
+            // [a-zA-Z]*\,\s*[0-9]*\s*[a-zA-Z]*\s*[0-9]*\s*[0-9]*:[0-9]*:[0-9]*\s*GMT$
+            // as a Java string
+            // "[a-zA-Z]*\\,\\s*[0-9]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*GMT$"
             // example: Tue, 16 Aug 2011 19:50:26 GMT
             pattern = "[a-zA-Z]*\\,\\s*[0-9]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*GMT$";
 
@@ -264,8 +267,10 @@ public class CompareDates {
             if (matching) {
                 result = 1;
             } else {
-                // Regular Expression [a-zA-Z]*\s*[a-zA-Z]*\s*[0-9]*\s*[0-9]*:[0-9]*:[0-9]*\s*CET\s*[0-9]*$
-                // as a Java string "[a-zA-Z]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*CET\\s*[0-9]*$"
+                // Regular Expression
+                // [a-zA-Z]*\s*[a-zA-Z]*\s*[0-9]*\s*[0-9]*:[0-9]*:[0-9]*\s*CET\s*[0-9]*$
+                // as a Java string
+                // "[a-zA-Z]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*CET\\s*[0-9]*$"
                 // example: Tue Dec 04 18:10:32 CET 2012
                 pattern = "[a-zA-Z]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*CET\\s*[0-9]*$";
 
@@ -274,8 +279,10 @@ public class CompareDates {
                 if (matching) {
                     result = 2;
                 } else {
-                    // Regular Expression [a-zA-Z]*\s*[a-zA-Z]*\s*[0-9]*\s*[0-9]*:[0-9]*:[0-9]*\s*CEST\s*[0-9]*$
-                    // as a Java string "[a-zA-Z]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*CEST\\s*[0-9]*$"
+                    // Regular Expression
+                    // [a-zA-Z]*\s*[a-zA-Z]*\s*[0-9]*\s*[0-9]*:[0-9]*:[0-9]*\s*CEST\s*[0-9]*$
+                    // as a Java string
+                    // "[a-zA-Z]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*CEST\\s*[0-9]*$"
                     // example: Tue Dec 04 18:10:32 CEST 2012
                     pattern = "[a-zA-Z]*\\s*[a-zA-Z]*\\s*[0-9]*\\s*[0-9]*:[0-9]*:[0-9]*\\s*CEST\\s*[0-9]*$";
 

@@ -87,8 +87,8 @@ public class OpenStackAuthenticationToken {
      */
     private static Logger log = LoggerFactory.getLogger(OpenStackAuthenticationToken.class);
     /**
-     * The limit to request a new token due to it is not more valid. This means that the token is no more valid after 6m
-     * 40sec.
+     * The limit to request a new token due to it is not more valid. This means
+     * that the token is no more valid after 6m 40sec.
      */
     private long threshold;
     /**
@@ -152,9 +152,12 @@ public class OpenStackAuthenticationToken {
         int j = payload.indexOf(">", i);
         token = payload.substring(i - 1, j + 1);
 
-        // token = "<token expires=\"2012-11-13T15:01:51Z\" id=\"783bec9d7d734f1e943986485a90966d\">";
-        // Regular Expression <\s*token\s*(issued_at=\".*?\"\s*)?expires=\"(.*?)(\"\s*id=\")(.*)\"\/*>
-        // as a Java string "<\\s*token\\s*(issued_at=\\\".*?\\\"\\s*)?expires=\\\"(.*?)(\\\"\\s*id=\\\")(.*)\\\"\\/*>"
+        // token =
+        // "<token expires=\"2012-11-13T15:01:51Z\" id=\"783bec9d7d734f1e943986485a90966d\">";
+        // Regular Expression
+        // <\s*token\s*(issued_at=\".*?\"\s*)?expires=\"(.*?)(\"\s*id=\")(.*)\"\/*>
+        // as a Java string
+        // "<\\s*token\\s*(issued_at=\\\".*?\\\"\\s*)?expires=\\\"(.*?)(\\\"\\s*id=\\\")(.*)\\\"\\/*>"
         String pattern1 = "<\\s*token\\s*(issued_at=\\\".*?\\\"\\s*)?expires=\\\"(.*?)(\\\"\\s*id=\\\")(.*)\\\"\\/*>";
 
         if (token.matches(pattern1)) {
@@ -172,9 +175,9 @@ public class OpenStackAuthenticationToken {
         i = payload.indexOf("tenant");
         j = payload.indexOf(">", i);
         tenantId = payload.substring(i - 1, j + 1);
-        
-        if (tenantId == null || tenantId.isEmpty() ) {
-        	log.error("Tenant format unknown:\n " + tenantId);
+
+        if (tenantId == null || tenantId.isEmpty()) {
+            log.error("Tenant format unknown:\n " + tenantId);
             throw new RuntimeException("Tenant format unknown:\n " + tenantId);
         }
 
