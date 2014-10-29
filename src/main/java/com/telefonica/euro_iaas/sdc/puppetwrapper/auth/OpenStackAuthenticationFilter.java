@@ -32,6 +32,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.BadRequestException;
 
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +42,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.NullRememberMeServices;
 import org.springframework.security.web.authentication.RememberMeServices;
@@ -162,7 +162,7 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
                 if ("".equals(token)) {
                     String str = "Missing token header";
                     logger.info(str);
-                    throw new UsernameNotFoundException(str);
+                    throw new BadRequestException(str);
                 }
                 String tenantId = request.getHeader(OPENSTACK_HEADER_TENANTID);
                 String txId = request.getHeader("txId");

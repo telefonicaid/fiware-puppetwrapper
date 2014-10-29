@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -47,7 +48,6 @@ import org.springframework.security.authentication.dao.AbstractUserDetailsAuthen
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.telefonica.euro_iaas.sdc.puppetwrapper.exception.AuthenticationConnectionException;
 
@@ -286,10 +286,10 @@ public class OpenStackAuthenticationProvider extends AbstractUserDetailsAuthenti
             } else if (SYSTEM_FASTTRACK.equals(cloudSystem)) {
                 user = authenticationFastTrack(username, tenantId);
             }
-        }else{
-            String str="Missing tenantId header";
+        } else {
+            String str = "Missing tenantId header";
             log.info(str);
-            throw new UsernameNotFoundException(str);
+            throw new BadRequestException(str);
         }
 
         return user;
