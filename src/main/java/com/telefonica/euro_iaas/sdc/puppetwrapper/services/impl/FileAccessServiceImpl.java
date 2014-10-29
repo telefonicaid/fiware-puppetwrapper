@@ -66,6 +66,13 @@ public class FileAccessServiceImpl implements FileAccessService {
     @Resource
     protected ProcessBuilderFactory processBuilderFactory;
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService
+     * #generateManifestFile(java.lang.String)
+     */
     public Node generateManifestFile(String nodeName) throws IOException {
 
         LOG.info("creating Manifest file for node: " + nodeName);
@@ -139,6 +146,13 @@ public class FileAccessServiceImpl implements FileAccessService {
         return result;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService
+     * #generateSiteFile()
+     */
     public void generateSiteFile() throws IOException {
 
         LOG.info("Generate site.pp");
@@ -170,6 +184,13 @@ public class FileAccessServiceImpl implements FileAccessService {
         this.modulesCodeDownloadPath = modulesCodeDownloadPath;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService
+     * #deleteNodeFiles(java.lang.String)
+     */
     public void deleteNodeFiles(String nodeName) throws IOException {
 
         try {
@@ -189,14 +210,15 @@ public class FileAccessServiceImpl implements FileAccessService {
             if (catalogManager.isLastGroupNode(node.getGroupName())) {
                 deleteGoupFolder(node.getGroupName());
             }
-            
 
             File fileHiera = new File(defaultHieraPath + "/" + actionService.getRealNodeName(nodeName) + ".yaml");
 
             if (!fileHiera.delete()) {
-                LOG.info(format("File {0} could not be deleted. Did it exist?", defaultHieraPath + "/" + actionService.getRealNodeName(nodeName) + ".yaml"));
+                LOG.info(format("File {0} could not be deleted. Did it exist?",
+                        defaultHieraPath + "/" + actionService.getRealNodeName(nodeName) + ".yaml"));
             } else {
-                LOG.info(format("File {0} deleted.", defaultHieraPath + actionService.getRealNodeName(nodeName) + ".yaml"));
+                LOG.info(format("File {0} deleted.", defaultHieraPath + actionService.getRealNodeName(nodeName)
+                        + ".yaml"));
             }
 
         } catch (NoSuchElementException e) {
@@ -205,6 +227,13 @@ public class FileAccessServiceImpl implements FileAccessService {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService
+     * #deleteGoupFolder(java.lang.String)
+     */
     public void deleteGoupFolder(String groupName) throws IOException {
 
         File path = new File(defaultManifestsPath + groupName);
@@ -214,7 +243,13 @@ public class FileAccessServiceImpl implements FileAccessService {
         LOG.info(format("Folder {0} deleted.", path + "/" + groupName));
     }
 
-    // @Override
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.FileAccessService
+     * #deleteModuleFiles(java.lang.String)
+     */
     public void deleteModuleFiles(String moduleName) throws IOException {
 
         File file = new File(modulesCodeDownloadPath + moduleName);

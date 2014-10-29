@@ -53,6 +53,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
 /**
  * Presentation layer
+ * 
  * @author alberts
  *
  */
@@ -130,6 +131,7 @@ public class PuppetControllerv2 extends GenericController {
 
     /**
      * Generates the node manifest
+     * 
      * @param nodeName
      * @return Node
      * @throws IOException
@@ -154,6 +156,7 @@ public class PuppetControllerv2 extends GenericController {
 
     /**
      * Deletes a software to be installed
+     * 
      * @param nodeDto
      * @param nodeName
      * @param request
@@ -202,6 +205,7 @@ public class PuppetControllerv2 extends GenericController {
 
     /**
      * Delete a stored node
+     * 
      * @param nodeName
      * @throws IOException
      */
@@ -221,6 +225,7 @@ public class PuppetControllerv2 extends GenericController {
 
     /**
      * Downloads a module from a SCM and stores it
+     * 
      * @param softwareName
      * @param urlDto
      * @throws ModuleDownloaderException
@@ -259,9 +264,10 @@ public class PuppetControllerv2 extends GenericController {
         }
 
     }
-    
+
     /**
      * Deletes a module
+     * 
      * @param moduleName
      * @throws IOException
      */

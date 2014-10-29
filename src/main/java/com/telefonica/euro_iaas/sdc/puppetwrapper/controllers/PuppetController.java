@@ -53,6 +53,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
 /**
  * Class PuppetController.
+ * 
  * @author Albert Sinfreu Alay
  */
 @Controller
@@ -77,6 +78,7 @@ public class PuppetController extends GenericController {
 
     /**
      * The request mapping.
+     * 
      * @param group
      * @param nodeName
      * @param softwareName
@@ -84,16 +86,11 @@ public class PuppetController extends GenericController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/install/{group}/{nodeName}/{softwareName}/{version:.*}",
-            method = RequestMethod.POST,
-            consumes = "application/json",
-            produces = "application/json")
-
-
+    @RequestMapping(value = "/install/{group}/{nodeName}/{softwareName}/{version:.*}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     public Node install(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
-                 @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
-                 HttpServletRequest request) {
+            @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
+            HttpServletRequest request) {
 
         LOG.info("install group:" + group + " nodeName: " + nodeName + " soft: " + softwareName + " version: "
                 + version);
@@ -127,12 +124,12 @@ public class PuppetController extends GenericController {
 
     /**
      * Request mapping for generate node names.
+     * 
      * @param nodeName
      * @return
      * @throws IOException
      */
     @RequestMapping(value = "/generate/{nodeName}", method = RequestMethod.POST)
-
     @ResponseBody
     public Node generateManifest(@PathVariable("nodeName") String nodeName) throws IOException {
         if (nodeName == null || "".equals(nodeName)) {
@@ -151,6 +148,7 @@ public class PuppetController extends GenericController {
 
     /**
      * Request mapping for uninstall operations.
+     * 
      * @param group
      * @param nodeName
      * @param softwareName
@@ -159,8 +157,7 @@ public class PuppetController extends GenericController {
      * @return
      */
     @RequestMapping(value = "/uninstall/{group}/{nodeName}/{softwareName}/{version:.*}", method = RequestMethod.POST)
-    public @ResponseBody
-    Node uninstall(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
+    public @ResponseBody Node uninstall(@PathVariable("group") String group, @PathVariable("nodeName") String nodeName,
             @PathVariable("softwareName") String softwareName, @PathVariable("version") String version,
             HttpServletRequest request) {
 
@@ -197,6 +194,7 @@ public class PuppetController extends GenericController {
 
     /**
      * Request mapping for delete nodes.
+     * 
      * @param nodeName
      * @throws IOException
      */
@@ -217,6 +215,7 @@ public class PuppetController extends GenericController {
 
     /**
      * RequestMapping for download from git repository.
+     * 
      * @param softwareName
      * @param url
      * @throws ModuleDownloaderException
@@ -224,7 +223,7 @@ public class PuppetController extends GenericController {
     @RequestMapping(value = "/download/git/{softwareName}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void downloadModuleFromGit(@PathVariable("softwareName") String softwareName, @RequestBody UrlDto url)
-        throws ModuleDownloaderException {
+            throws ModuleDownloaderException {
 
         gitCloneService.download(url.getUrl(), softwareName);
 

@@ -37,9 +37,13 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.data.ModuleDownloaderException
 import com.telefonica.euro_iaas.sdc.puppetwrapper.data.PuppetWrapperError;
 
 public class GenericController {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(GenericController.class);
 
+    /**
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
@@ -47,7 +51,11 @@ public class GenericController {
         LOG.error(ex.getMessage());
         return new PuppetWrapperError(HttpStatus.NOT_FOUND.value(), ex.getMessage());
     }
-    
+
+    /**
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(ModuleDownloaderException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -55,7 +63,11 @@ public class GenericController {
         LOG.error(ex.getMessage());
         return new PuppetWrapperError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
-    
+
+    /**
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
