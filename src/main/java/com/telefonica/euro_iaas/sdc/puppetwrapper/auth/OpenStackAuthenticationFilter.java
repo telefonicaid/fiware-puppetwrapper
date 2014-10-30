@@ -32,12 +32,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.BadRequestException;
 
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -162,7 +162,7 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
                 if ("".equals(token)) {
                     String str = "Missing token header";
                     logger.info(str);
-                    throw new BadRequestException(str);
+                    throw new BadCredentialsException(str);
                 }
                 String tenantId = request.getHeader(OPENSTACK_HEADER_TENANTID);
                 String txId = request.getHeader("txId");
