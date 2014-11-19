@@ -144,6 +144,8 @@ public class ActionsServiceImpl implements ActionsService {
      * (java.lang.String)
      */
     public void deleteNode(String nodeName) throws IOException {
+        catalogManager.getNode(nodeName);
+        
         fileAccessService.deleteNodeFiles(nodeName);
         catalogManager.removeNode(nodeName);
 
