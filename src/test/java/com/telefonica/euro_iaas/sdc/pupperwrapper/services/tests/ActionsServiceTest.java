@@ -241,7 +241,8 @@ public class ActionsServiceTest {
         String strEr2 = " ";
         when(shell2.getErrorStream()).thenReturn(new ByteArrayInputStream(strEr2.getBytes("UTF-8")));
 
-        when(catalogManagerMongo.getNode("1")).thenThrow(new NoSuchElementException()).thenReturn(node1);
+        when(catalogManagerMongo.getNode("1")).thenReturn(node1).thenThrow(new NoSuchElementException())
+                .thenReturn(node1);
 
         when(statusLine.getStatusCode()).thenReturn(200);
 
@@ -277,7 +278,8 @@ public class ActionsServiceTest {
         String strEr = " ";
         when(shell.getErrorStream()).thenReturn(new ByteArrayInputStream(strEr.getBytes("UTF-8")));
 
-        when(catalogManagerMongo.getNode("1")).thenThrow(new NoSuchElementException()).thenReturn(node1);
+        when(catalogManagerMongo.getNode("1")).thenReturn(node1).thenThrow(new NoSuchElementException())
+                .thenReturn(node1);
 
         // delete node 1
 
@@ -318,12 +320,56 @@ public class ActionsServiceTest {
         String strEr2 = " ";
         when(shell2.getErrorStream()).thenReturn(new ByteArrayInputStream(strEr2.getBytes("UTF-8")));
 
-        when(catalogManagerMongo.getNode("1")).thenThrow(new NoSuchElementException()).thenReturn(node1);
+        when(catalogManagerMongo.getNode("1")).thenReturn(node1).thenThrow(new NoSuchElementException())
+                .thenReturn(node1);
 
         actionsService.deleteNode("1");
 
         verify(shell, times(1)).getInputStream();
         verify(shell2, times(2)).getInputStream();
+        verify(processBuilderFactory, times(3)).createProcessBuilder((String[]) anyObject());
+
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void deleteNodeNotFoundTest() throws IOException {
+
+        Process shell = mock(Process.class);
+        Process shell2 = mock(Process.class);
+        Process shellNodeName = mock(Process.class);
+
+        String[] cmd = { anyString() };
+        // call to puppet cert list --all
+        when(processBuilderFactory.createProcessBuilder(cmd)).thenReturn(shellNodeName).thenReturn(shell)
+                .thenReturn(shell2);
+
+        String strNodeName = "\"1.novalocal\"";
+        when(shellNodeName.getInputStream()).thenReturn(new ByteArrayInputStream(strNodeName.getBytes("UTF-8")));
+        when(shellNodeName.getErrorStream()).thenReturn(new ByteArrayInputStream(" ".getBytes("UTF-8")));
+
+        String str = "Node 1.novalocal is registered";
+        String strdelete = "Node 1 unregistered";
+        when(shell.getInputStream()).thenReturn(new ByteArrayInputStream(str.getBytes("UTF-8"))).thenReturn(
+                new ByteArrayInputStream(strdelete.getBytes("UTF-8")));
+
+        String strEr = " ";
+        when(shell.getErrorStream()).thenReturn(new ByteArrayInputStream(strEr.getBytes("UTF-8")));
+
+        String str2 = "1.novalocal";
+        when(shell2.getInputStream()).thenReturn(new ByteArrayInputStream(str2.getBytes("UTF-8")));
+
+        String strEr2 = " ";
+        when(shell2.getErrorStream()).thenReturn(new ByteArrayInputStream(strEr2.getBytes("UTF-8")));
+
+        when(catalogManagerMongo.getNode("1")).thenThrow(new NoSuchElementException()).thenReturn(node1);
+
+        when(statusLine.getStatusCode()).thenReturn(200);
+
+        actionsService.deleteNode("1");
+
+        verify(shell, times(1)).getInputStream();
+        verify(shell2, times(1)).getInputStream();
+        verify(shellNodeName, times(1)).getInputStream();
         verify(processBuilderFactory, times(3)).createProcessBuilder((String[]) anyObject());
 
     }
@@ -403,8 +449,8 @@ public class ActionsServiceTest {
         Assert.assertTrue("testnodename.openstacklocal".equals(actionsService.getRealNodeName("testnodename")));
 
     }
-    
-    @Test(expected=IOException.class)
+
+    @Test(expected = IOException.class)
     public void getRealNodeNameTestEmpptyString() throws IOException {
 
         Process shell = mock(Process.class);
