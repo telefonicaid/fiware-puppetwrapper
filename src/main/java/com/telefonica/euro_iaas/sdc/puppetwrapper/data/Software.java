@@ -26,6 +26,8 @@ package com.telefonica.euro_iaas.sdc.puppetwrapper.data;
 
 import java.util.List;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action;
 
 /**
@@ -33,6 +35,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.common.Action;
  *
  * @author Albert Sinfrey Alay
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Software {
 
     private String eol = System.getProperty("line.separator");

@@ -30,8 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 @Document(collection = "nodes")
 public class Node {
 
