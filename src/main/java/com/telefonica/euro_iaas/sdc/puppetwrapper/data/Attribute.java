@@ -24,10 +24,13 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.data;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 /**
  * Java Class to manage the attribute of a component.
  * @author Albert Sinfreu Alay
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Attribute {
 
     private Long id;

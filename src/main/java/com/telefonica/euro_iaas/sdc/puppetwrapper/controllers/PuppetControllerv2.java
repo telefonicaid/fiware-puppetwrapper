@@ -114,11 +114,6 @@ public class PuppetControllerv2 extends GenericController {
             throw new IllegalArgumentException("Version is not set");
         }
 
-        if (nodeDto.getAttributes() == null) {
-            LOG.debug("attibutes are not set");
-            throw new IllegalArgumentException("Attibutes are not set");
-        }
-
         LOG.info("install group:" + nodeDto);
 
         Node node = actionsService.action(Action.INSTALL, nodeDto.getGroup(), nodeName, nodeDto.getSoftwareName(),
