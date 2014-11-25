@@ -65,6 +65,12 @@
 
 		<cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
 		
+		<!-- sonar -->
+		<!-- exclusions must be synchronized with cobertura-maven-plugin exclusions -->
+		<sonar.exclusions>com/telefonica/**/data/**/*, org/w3/**/*,
+			org/openstack/**/*,com/telefonica/**/dto/**/*</sonar.exclusions>
+		<sonar.dynamic>reuseReports</sonar.dynamic>
+		
 		<jersey2.version>2.13</jersey2.version>
 
 	</properties>
