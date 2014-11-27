@@ -290,7 +290,7 @@ public class ActionsServiceTest {
 
     }
 
-    @Test(expected = IOException.class)
+    @Test(expected = NoSuchElementException.class)
     public void deleteNodeTestPuupetDBConnError() throws IOException {
 
         Process shell = mock(Process.class);
@@ -331,7 +331,7 @@ public class ActionsServiceTest {
 
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void deleteNodeNotFoundTest() throws IOException {
 
         Process shell = mock(Process.class);
