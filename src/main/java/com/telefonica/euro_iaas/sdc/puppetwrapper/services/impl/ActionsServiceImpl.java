@@ -144,7 +144,6 @@ public class ActionsServiceImpl implements ActionsService {
      * (java.lang.String)
      */
     public void deleteNode(String nodeName) throws IOException {
-        catalogManager.getNode(nodeName);
         
         fileAccessService.deleteNodeFiles(nodeName);
         catalogManager.removeNode(nodeName);
@@ -224,7 +223,7 @@ public class ActionsServiceImpl implements ActionsService {
      * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.ActionsService#
      * getRealNodeName(java.lang.String)
      */
-    public String getRealNodeName(String nodeName) throws IOException {
+    public String getRealNodeName(String nodeName) throws IOException  {
 
         log.debug("getRealNodeName for node: " + nodeName);
 
@@ -252,6 +251,8 @@ public class ActionsServiceImpl implements ActionsService {
             }
 
             log.debug("name: " + name);
+        }else{
+            throw new NoSuchElementException("Node not registered in puppet:"+nodeName);
         }
 
         return name;
