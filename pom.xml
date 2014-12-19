@@ -530,13 +530,7 @@
 									<directory>/opt/fiware-puppetwrapper/webapps</directory>
 
 									<configuration>true</configuration>
-									<sources>
-										<source>
-											<location>
-												${project.build.directory}/puppetwrapper-dist/webapps/sdc.xml
-											</location>
-										</source>
-									</sources>
+									
 								</mapping>
 							</mappings>
 							<preinstallScriptlet>
