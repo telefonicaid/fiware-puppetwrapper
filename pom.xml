@@ -526,12 +526,6 @@
 										</source>
 									</sources>
 								</mapping>
-								<mapping>
-									<directory>/opt/fiware-puppetwrapper/webapps</directory>
-
-									<configuration>true</configuration>
-									
-								</mapping>
 							</mappings>
 							<preinstallScriptlet>
 								<script>echo "installing now"</script>
