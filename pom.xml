@@ -539,6 +539,54 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>debian</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>unix-maven-plugin</artifactId>
+						<version>1.0-alpha-5</version>
+
+						<extensions>true</extensions>
+						<configuration>
+							<contact>fi-ware</contact>
+							<contactEmail>fiware-lab-help@lists.fi-ware.org</contactEmail>
+							<name>puppetwrapper</name>
+
+							<deb>
+								<section>devel</section>
+								<depends>openjdk-7-jre</depends>
+							</deb>
+							<assembly>
+
+								<copyDirectory>
+									<from>${project.build.directory}/puppetwrapper-dist</from>
+									<to>/opt/fiware-sdcr</to>
+								</copyDirectory>
+								<copyFile>
+									<path>${project.build.directory}/puppetwrapper-dist/bin/jetty.sh</path>
+									<toFile>/opt/fiware-puppetwrapper/bin/jetty.sh</toFile>
+									<attributes>
+										<mode>0755</mode>
+									</attributes>
+								</copyFile>
+
+							</assembly>
+						</configuration>
+						<executions>
+							<execution>
+								<inherited>false</inherited>
+								<phase>package</phase>
+								<goals>
+									<goal>package-deb</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 	<repositories>
