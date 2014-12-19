@@ -541,6 +541,11 @@
 		</profile>
 		<profile>
 			<id>debian</id>
+			<properties>
+				<env>development</env>
+				<compilerInfoDebug>false</compilerInfoDebug>
+				<compilerOptimize>true</compilerOptimize>
+			</properties>
 			<build>
 				<plugins>
 					<plugin>
