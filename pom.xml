@@ -519,7 +519,7 @@
 							</requires>
 							<mappings>
 								<mapping>
-									<directory>/opt/fiware-sdc</directory>
+									<directory>/opt/fiware-puppetwrapper</directory>
 									<sources>
 										<source>
 											<location>${project.build.directory}/puppetwrapper-dist</location>
