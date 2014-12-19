@@ -522,7 +522,7 @@
 									<directory>/opt/fiware-sdc</directory>
 									<sources>
 										<source>
-											<location>${project.build.directory}/puppetwrapper-server-dist</location>
+											<location>${project.build.directory}/puppetwrapper-dist</location>
 										</source>
 									</sources>
 								</mapping>
@@ -533,7 +533,7 @@
 									<sources>
 										<source>
 											<location>
-												${project.build.directory}/puppetwrapper-server-dist/webapps/sdc.xml
+												${project.build.directory}/puppetwrapper-dist/webapps/sdc.xml
 											</location>
 										</source>
 									</sources>
