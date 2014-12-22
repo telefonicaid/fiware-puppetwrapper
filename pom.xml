@@ -567,7 +567,7 @@
 
 								<copyDirectory>
 									<from>${project.build.directory}/puppetwrapper-dist</from>
-									<to>/opt/fiware-sdcr</to>
+									<to>/opt/fiware-puppetwrapper</to>
 								</copyDirectory>
 								<copyFile>
 									<path>${project.build.directory}/puppetwrapper-dist/bin/jetty.sh</path>
