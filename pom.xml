@@ -469,32 +469,109 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>rpm</id>
+			<properties>
+				<env>development</env>
+				<compilerInfoDebug>false</compilerInfoDebug>
+				<compilerOptimize>true</compilerOptimize>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+						<version>2.1-alpha-4</version>
+						<inherited>false</inherited>
+						<executions>
+							<execution>
+								<id>build-rpm</id>
+								<goals>
+									<!-- this goal automatically adds the rpm as Maven build artifact -->
+									<goal>attached-rpm</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<distribution>FIWARE 2014</distribution>
+							<group>FIWARE</group>
+							<prefix>fiware-puppetwrapper</prefix>
+
+							<!-- Basics -->
+							<name>fiware-puppetwrapper</name>
+							<version>${project.version}</version>
+
+							<copyright>copyright 2014</copyright>
+							<packager>fiware</packager>
+
+							<group>None</group>
+							<needarch>noarch</needarch>
+
+							<defineStatements>
+								<!-- escamez: To speed up rpm creation, no jar re-compression -->
+								<defineStatement>_binaries_in_noarch_packages_terminate_build 0</defineStatement>
+								<defineStatement>_prefix /opt/fiware-puppetwrapper</defineStatement>
+							</defineStatements>
+
+							<requires>
+								<require>java-1.7.0-openjdk</require>
+								<require>java-1.7.0-openjdk-devel</require>
+								<!-- <require>postgresql-server</require> -->
+							</requires>
+							<mappings>
+								<mapping>
+									<directory>/opt/fiware-puppetwrapper</directory>
+									<sources>
+										<source>
+											<location>${project.build.directory}/puppetwrapper-dist</location>
+										</source>
+									</sources>
+								</mapping>
+							</mappings>
+							<preinstallScriptlet>
+								<script>echo "installing now"</script>
+							</preinstallScriptlet>
+							<postinstallScriptlet>
+								<script>echo "installed in /opt/fiware-puppetwrapper"</script>
+							</postinstallScriptlet>
+							<!-- <preremoveScriptlet> </preremoveScriptlet> -->
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>debian</id>
+			<properties>
+				<env>development</env>
+				<compilerInfoDebug>false</compilerInfoDebug>
+				<compilerOptimize>true</compilerOptimize>
+			</properties>
 			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>unix-maven-plugin</artifactId>
 						<version>1.0-alpha-5</version>
-						<inherited>false</inherited>
+
 						<extensions>true</extensions>
 						<configuration>
 							<contact>fi-ware</contact>
 							<contactEmail>fiware-lab-help@lists.fi-ware.org</contactEmail>
-							<name>fiware-puppetwrapper</name>
+							<name>puppetwrapper</name>
 
 							<deb>
 								<section>devel</section>
 								<depends>openjdk-7-jre</depends>
 							</deb>
 							<assembly>
+
 								<copyDirectory>
 									<from>${project.build.directory}/puppetwrapper-dist</from>
-									<to>/opt/fiware-paas</to>
+									<to>/opt/fiware-puppetwrapper</to>
 								</copyDirectory>
 								<copyFile>
 									<path>${project.build.directory}/puppetwrapper-dist/bin/jetty.sh</path>
-									<toFile>/opt/fiware-paas/bin/jetty.sh</toFile>
+									<toFile>/opt/fiware-puppetwrapper/bin/jetty.sh</toFile>
 									<attributes>
 										<mode>0755</mode>
 									</attributes>
