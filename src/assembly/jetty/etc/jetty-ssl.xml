@@ -26,6 +26,11 @@
       <Item>SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA</Item>
     </Array>
   </Set>
+  <Set name="ExcludeProtocols">
+    <Array type="java.lang.String">
+      <Item>SSLv3</Item>
+    </Array>
+  </Set>
 
   <!-- =========================================================== -->
   <!-- Create a TLS specific HttpConfiguration based on the        -->
