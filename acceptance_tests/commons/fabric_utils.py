@@ -48,13 +48,12 @@ def assert_manifest_file_content(node_name, software_name, version, action, grou
     assert_specific_manifest_file_exist(group=group, node_name=node_name)
 
     node_string = "node '{}'".format(node_name)
-    class_string = "'{}::{}':".format(software_name, action)
-    version_string = "version"
+    class_string = "'{}::{}':".format(software_name, action.lower())
+    version_string = "'{}'".format(version)
 
     assert_true(files.contains(file_path, node_string))
     assert_true(files.contains(file_path, class_string))
     assert_true(files.contains(file_path, version_string))
-    assert_true(files.contains(file_path, version))
 
 
 def assert_node_file_not_exist(group, node_name):
