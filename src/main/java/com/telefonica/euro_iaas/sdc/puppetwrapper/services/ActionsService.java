@@ -49,6 +49,7 @@ public interface ActionsService {
 
     /**
      * Delete a node
+     * 
      * @param nodeName
      * @throws IOException
      */
@@ -56,6 +57,7 @@ public interface ActionsService {
 
     /**
      * Delete a group of nodes
+     * 
      * @param groupName
      * @throws IOException
      */
@@ -63,6 +65,7 @@ public interface ActionsService {
 
     /**
      * Delete a module
+     * 
      * @param moduleName
      * @throws IOException
      */
@@ -70,6 +73,7 @@ public interface ActionsService {
 
     /**
      * Returns whether a puppet agent is registeren on puppet master
+     * 
      * @param nodeName
      * @return
      * @throws IOException
@@ -78,6 +82,7 @@ public interface ActionsService {
 
     /**
      * Finds out the complete node name as a name.domain
+     * 
      * @param nodeName
      * @return boolean
      * @throws IOException
@@ -86,6 +91,7 @@ public interface ActionsService {
 
     /**
      * Executes a given system command
+     * 
      * @param shell
      * @param successResponse
      * @param errorResponse
