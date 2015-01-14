@@ -10,7 +10,7 @@
     <http auto-config="false" create-session="stateless"
           entry-point-ref="http401EntryPoint">
         <!-- <intercept-url pattern="/**" access="ROLE_USER" /> -->
-        <intercept-url pattern="/**" requires-channel="http"/>
+        <intercept-url pattern="/**" requires-channel="https"/>
         <custom-filter position="BASIC_AUTH_FILTER" ref="openStackFilter"/>
     </http>
 

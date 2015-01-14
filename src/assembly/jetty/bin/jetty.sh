@@ -43,7 +43,7 @@ NAME=$(echo $(basename $0) | sed -e 's/^[SK][0-9]*//' -e 's/\.sh$//')
 # JAVA
 #   Command to invoke Java. If not set, java (from the PATH) will be used.
 #
-JAVA_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=4000 -Xmx1024m -Xms1024m"
+JAVA_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8585 -Dspring.profiles.active=fiware -Xmx1024m -Xms1024m"
 #JAVA_OPTIONS="-Dspring.profiles.active=fiware -Xmx1024m -Xms1024m"
 #   Extra options to pass to the JVM
 #
