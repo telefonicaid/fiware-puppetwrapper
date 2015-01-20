@@ -29,6 +29,7 @@ import java.util.NoSuchElementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -62,6 +63,15 @@ public class GenericController {
     public PuppetWrapperError handleModuleDownloaderException(ModuleDownloaderException ex) {
         LOG.error(ex.getMessage());
         return new PuppetWrapperError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+    
+    
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+    @ResponseBody
+    public PuppetWrapperError handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
+        LOG.error(ex.getMessage());
+        return new PuppetWrapperError(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), ex.getMessage());
     }
 
     /**
