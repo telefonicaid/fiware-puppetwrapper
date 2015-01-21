@@ -16,7 +16,6 @@ Feature: As a SDC user
     | delete      |
 
 
-  @skip @CLAUDIA-4460
   Scenario Outline: Create a new configuration to uninstall software using invalid content_type
 
     Given the group "qagroup" and server "qanode"
