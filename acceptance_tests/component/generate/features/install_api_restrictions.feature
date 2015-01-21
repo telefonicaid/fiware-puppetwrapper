@@ -14,7 +14,7 @@ Feature: As a SDC user
     | put         |
     | delete      |
 
-  @skip @CLAUDIA-4460
+
   Scenario Outline: Create a new configuration to install software using invalid content_type
 
     Given the group "qagroup" and server "qanode"
