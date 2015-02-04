@@ -48,6 +48,7 @@ import com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader;
 
 /**
  * Class SvnExporterServiceImpl.
+ * 
  * @author Albert Sinfreu Alay
  */
 @Service("svnExporterService")
@@ -60,9 +61,14 @@ public class SvnExporterServiceImpl implements ModuleDownloader {
     private String username = "";
     private String password = "";
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.ModuleDownloader#
+     * download(java.lang.String, java.lang.String)
+     */
     public void download(String url, String moduleName) throws ModuleDownloaderException {
-        // final String url = "svn://cavcops01.global.local/skunkworks";
-        // final String destPath = "c:/temp/svntest";
 
         SVNRepository repository = null;
 

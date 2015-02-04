@@ -47,6 +47,13 @@ public class CatalogManagerMongoImpl implements CatalogManager {
 
     private String eol = System.getProperty("line.separator");
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager#addNode
+     * (com.telefonica.euro_iaas.sdc.puppetwrapper.data.Node)
+     */
     public void addNode(Node node) {
         try {
             getNode(node.getId());
@@ -59,6 +66,13 @@ public class CatalogManagerMongoImpl implements CatalogManager {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager#getNode
+     * (java.lang.String)
+     */
     public Node getNode(String nodeName) {
         Query searchNodeQuery = new Query(Criteria.where("id").is(nodeName));
         Node savedNode = mongoTemplate.findOne(searchNodeQuery, Node.class);
@@ -68,17 +82,36 @@ public class CatalogManagerMongoImpl implements CatalogManager {
         return savedNode;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager#removeNode
+     * (java.lang.String)
+     */
     public void removeNode(String nodeName) {
         Query searchNodeQuery = new Query(Criteria.where("id").is(nodeName));
         mongoTemplate.remove(searchNodeQuery, Node.class);
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager#
+     * getNodeLength()
+     */
     public int getNodeLength() {
         List<Node> nodes = mongoTemplate.findAll(Node.class);
         return nodes.size();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager#
+     * generateManifestStr(java.lang.String)
+     */
     public String generateManifestStr(String nodeName) {
         StringBuffer sb = new StringBuffer();
 
@@ -90,6 +123,12 @@ public class CatalogManagerMongoImpl implements CatalogManager {
         return sb.toString();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager#
+     * generateSiteStr()
+     */
     public String generateSiteStr() {
 
         List<Node> nodeList = mongoTemplate.findAll(Node.class);
@@ -106,12 +145,24 @@ public class CatalogManagerMongoImpl implements CatalogManager {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager#
+     * removeNodesByGroupName(java.lang.String)
+     */
     public void removeNodesByGroupName(String groupName) {
         Query searchNodeQuery = new Query(Criteria.where("groupName").is(groupName));
         mongoTemplate.remove(searchNodeQuery, Node.class);
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.telefonica.euro_iaas.sdc.puppetwrapper.services.CatalogManager#
+     * isLastGroupNode(java.lang.String)
+     */
     public boolean isLastGroupNode(String groupName) {
         Query searchNodeQuery = new Query(Criteria.where("groupName").is(groupName));
         List<Node> nodeList = mongoTemplate.find(searchNodeQuery, Node.class);

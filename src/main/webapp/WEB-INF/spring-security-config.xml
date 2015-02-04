@@ -1,0 +1,43 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/security
+   http://www.springframework.org/schema/security/spring-security-3.1.xsd
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+    <http auto-config="false" create-session="stateless"
+          entry-point-ref="http401EntryPoint">
+        <!-- <intercept-url pattern="/**" access="ROLE_USER" /> -->
+        <intercept-url pattern="/**" requires-channel="https"/>
+        <custom-filter position="BASIC_AUTH_FILTER" ref="openStackFilter"/>
+    </http>
+
+    <beans:bean id="http401EntryPoint"
+                class="com.telefonica.euro_iaas.sdc.puppetwrapper.auth.RestAuthenticationEntryPoint">
+    </beans:bean>
+
+    <beans:bean id="http403EntryPoint"
+                class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint">
+    </beans:bean>
+
+    <beans:bean id="openStackFilter"
+                class="com.telefonica.euro_iaas.sdc.puppetwrapper.auth.OpenStackAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="authenticationEntryPoint" ref="http401EntryPoint"/>
+    </beans:bean>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="openStackAuthProvider">
+        </authentication-provider>
+    </authentication-manager>
+
+
+    <beans:bean id="openStackAuthProvider"
+                class="com.telefonica.euro_iaas.sdc.puppetwrapper.auth.OpenStackAuthenticationProvider">
+
+    </beans:bean>
+
+</beans:beans>
+

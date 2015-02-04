@@ -1,100 +1,109 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.telefonica.euro_iaas</groupId>
-    <artifactId>puppetwrapper</artifactId>
-    <packaging>war</packaging>
-    <version>3.1.0</version>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.telefonica.iot</groupId>
+	<artifactId>puppetwrapper</artifactId>
+	<packaging>war</packaging>
+	<version>3.1.1</version>
+    <name>Puppet Wrapper</name>
 
-    <properties>
+	<properties>
 
-        <!-- TDigital PROPERTIES -->
-        <!-- This properties will be added to sonar as manual measures -->
-        <product.area.name>Industrial IoT</product.area.name>
-        <product.name>FIWARE</product.name>
-        <product.release>3.5.3</product.release>
+		<!-- TDigital PROPERTIES -->
+		<!-- This properties will be added to sonar as manual measures -->
+		<product.area.name>Industrial IoT</product.area.name>
+		<product.name>FIWARE</product.name>
+		<product.release>4.2.1</product.release>
 
-        <repoName>fiware-puppetwrapper</repoName>
+		<repoName>fiware-puppetwrapper</repoName>
 
-        <scmURI>git@github.com:telefonicaid</scmURI>
-        <nexusURI>http://130.206.80.85</nexusURI>
-        <nexusRepositories>${nexusURI}/nexus/content/repositories</nexusRepositories>
+		<scmURI>git@github.com:telefonicaid</scmURI>
+		<nexusURI>http://130.206.80.85</nexusURI>
+		<nexusRepositories>${nexusURI}/nexus/content/repositories</nexusRepositories>
 
-        <compilerInfoDebug>true</compilerInfoDebug>
-        <compilerOptimize>false</compilerOptimize>
-        <compilerShowWarnings>true</compilerShowWarnings>
-        <compilerShowDeprecation>true</compilerShowDeprecation>
-        <jvm.version>1.7</jvm.version>
+		<compilerInfoDebug>true</compilerInfoDebug>
+		<compilerOptimize>false</compilerOptimize>
+		<compilerShowWarnings>true</compilerShowWarnings>
+		<compilerShowDeprecation>true</compilerShowDeprecation>
+		<jvm.version>1.7</jvm.version>
 
-        <!-- repositories for distribution -->
-        <!-- snapshots -->
-        <repoMavenSnapshotId>repo-snapshot</repoMavenSnapshotId>
-        <repoMavenSnapshotName>repo-snapshot</repoMavenSnapshotName>
-        <repoMavenSnapshotUrl>${nexusRepositories}/snapshots</repoMavenSnapshotUrl>
-        <!-- releases -->
-        <repoMavenId>repo-release</repoMavenId>
-        <repoMavenName>repo-release</repoMavenName>
-        <repoMavenUrl>${nexusRepositories}/releases</repoMavenUrl>
-        <!-- thirdparty -->
-        <repoMavenThirdpartyId>repo-third-party-release</repoMavenThirdpartyId>
-        <repoMavenThirdpartyName>repo-third-party-release</repoMavenThirdpartyName>
-        <repoMavenThirdpartyUrl>${nexusRepositories}/thirdparty</repoMavenThirdpartyUrl>
-
-
-        <!-- encoding -->
-
-        <encoding>utf-8</encoding>
-        <encoding.build.source>${encoding}</encoding.build.source>
-        <encoding.report.out>${encoding}</encoding.report.out>
-        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+		<!-- repositories for distribution -->
+		<!-- snapshots -->
+		<repoMavenSnapshotId>repo-snapshot</repoMavenSnapshotId>
+		<repoMavenSnapshotName>repo-snapshot</repoMavenSnapshotName>
+		<repoMavenSnapshotUrl>${nexusRepositories}/snapshots</repoMavenSnapshotUrl>
+		<!-- releases -->
+		<repoMavenId>repo-release</repoMavenId>
+		<repoMavenName>repo-release</repoMavenName>
+		<repoMavenUrl>${nexusRepositories}/releases</repoMavenUrl>
+		<!-- thirdparty -->
+		<repoMavenThirdpartyId>repo-third-party-release</repoMavenThirdpartyId>
+		<repoMavenThirdpartyName>repo-third-party-release</repoMavenThirdpartyName>
+		<repoMavenThirdpartyUrl>${nexusRepositories}/thirdparty</repoMavenThirdpartyUrl>
 
 
-        <!-- dependencies version -->
-        <spring.version>3.1.0.RELEASE</spring.version>
-        <spring-data-jpa.version>1.4.3.RELEASE</spring-data-jpa.version>
-        <springdata.commons.version>1.6.3.RELEASE</springdata.commons.version>
-        <junit.version>4.11</junit.version>
+		<!-- encoding -->
 
-        <logback.version>1.0.13</logback.version>
-        <slf4j.version>1.6.1</slf4j.version>
+		<encoding>utf-8</encoding>
+		<encoding.build.source>${encoding}</encoding.build.source>
+		<encoding.report.out>${encoding}</encoding.report.out>
+		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 
 
-        <maven-jgitflow-plugin.version>1.0-alpha21.1</maven-jgitflow-plugin.version>
-        <maven-license-plugin.version>1.2.5</maven-license-plugin.version>
+		<!-- dependencies version -->
+		<spring.version>3.1.0.RELEASE</spring.version>
+		<spring-data-jpa.version>1.4.3.RELEASE</spring-data-jpa.version>
+		<springdata.commons.version>1.6.3.RELEASE</springdata.commons.version>
+		<junit.version>4.11</junit.version>
 
-        <cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
+		<logback.version>1.0.13</logback.version>
+		<slf4j.version>1.6.1</slf4j.version>
 
-    </properties>
 
-    <scm>
-        <connection>scm:git:${scmURI}/${repoName}.git</connection>
-        <developerConnection>scm:git:${scmURI}/${repoName}.git</developerConnection>
-        <url>${scmURI}/${repoName}.git</url>
-        <tag>HEAD</tag>
-    </scm>
+		<maven-jgitflow-plugin.version>1.0-alpha21.1</maven-jgitflow-plugin.version>
+		<maven-license-plugin.version>1.2.5</maven-license-plugin.version>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
+		<cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
+		
+		<!-- sonar -->
+		<!-- exclusions must be synchronized with cobertura-maven-plugin exclusions -->
+		<sonar.exclusions>com/telefonica/**/data/**/*, org/w3/**/*,
+			org/openstack/**/*,com/telefonica/**/dto/**/*</sonar.exclusions>
+		<sonar.dynamic>reuseReports</sonar.dynamic>
+		
+		<jersey2.version>2.13</jersey2.version>
+
+	</properties>
+
+	<scm>
+		<connection>scm:git:${scmURI}/${repoName}.git</connection>
+		<developerConnection>scm:git:${scmURI}/${repoName}.git</developerConnection>
+		<url>${scmURI}/${repoName}.git</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${spring.version}</version>
@@ -115,427 +124,568 @@
 			<version>1.6.0</version>
 			<scope>compile</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-        <!-- httpclient -->
+		<!-- SPRINC SECURITY DEPENDENCIES -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<!-- httpclient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.3.1</version>
 		</dependency>
-        <!-- LOGGING -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-access</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.3</version>
-        </dependency>
-        <!-- mongodb java driver -->
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>2.11.0</version>
-        </dependency>
+		<!-- LOGGING -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-access</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.3</version>
+		</dependency>
+		<!-- mongodb java driver -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>2.11.0</version>
+		</dependency>
 
-        <!-- Spring data mongodb -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-mongodb</artifactId>
-            <version>1.2.0.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-tx</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.tmatesoft.svnkit</groupId>
-            <artifactId>svnkit</artifactId>
-            <version>1.3.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jgit</groupId>
-            <artifactId>org.eclipse.jgit</artifactId>
-            <version>3.2.0.201312181205-r</version>
-        </dependency>
+		<!-- Spring data mongodb -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.2.0.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-tx</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.tmatesoft.svnkit</groupId>
+			<artifactId>svnkit</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jgit</groupId>
+			<artifactId>org.eclipse.jgit</artifactId>
+			<version>3.2.0.201312181205-r</version>
+		</dependency>
 
-        <!-- TEST -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.8.5</version>
-        </dependency>
-        <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <version>1.26</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-
-    <build>
-        <finalName>${project.artifactId}</finalName>
+		<!-- TEST -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.8.5</version>
+		</dependency>
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<version>1.26</version>
+			<scope>test</scope>
+		</dependency>
 
 
-        <filters>
-            <filter>src/main/filters/${env}.properties</filter>
-        </filters>
-        <resources>
-            <resource>
-                <directory>src/main/resources/</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
 
-            <!-- license plugin -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		 <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-spring3</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+	</dependencies>
 
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+
+
+		<filters>
+			<filter>src/main/filters/${env}.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+
+			<!-- license plugin -->
+
+			<plugin>
+				<groupId>com.google.code.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>${maven-license-plugin.version}</version>
+				<configuration>
+					<header>src/license/fiware/header.txt</header>
+					<includes>
+						<include>src/main/**/*.java</include>
+						<include>src/test/**/*.java</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>${cobertura-maven-plugin.version}</version>
+				<configuration>
+					<format>xml</format>
+					<maxmem>256m</maxmem>
+					<!-- aggregated reports for multi-module projects -->
+					<aggregate>true</aggregate>
+					<instrumentation>
+						<ignores>
+							<ignore>org.openstack.docs.common.api.v1.*</ignore>
+						</ignores>
+						<excludes>
+							<exclude>**/*Test*.class</exclude>
+							<exclude>**/model/**.class</exclude>
+							<exclude>org/openstack/**/*</exclude>
+							<exclude>org/w3/**/*</exclude>
+						</excludes>
+					</instrumentation>
+				</configuration>
+
+			</plugin>
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>2.2.0</version>
+				<configuration>
+					<repoToken>udY6EhQuSfSatLQWMYC5kSYde7qWchS0z</repoToken>
+					<sourceEncoding>UTF-8</sourceEncoding>
+				</configuration>
+			</plugin>
+
+			<!-- jgitflow -->
+			<plugin>
+				<groupId>com.atlassian.maven.plugins</groupId>
+				<artifactId>maven-jgitflow-plugin</artifactId>
+				<version>${maven-jgitflow-plugin.version}</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<!-- to test a release set to true -->
+					<noDeploy>true</noDeploy>
+					<!-- rse: to avoid tag in master -->
+					<noTag>false</noTag>
+					<!-- rse: to avoid push changes to git -->
+					<!-- <pushChanges>true</pushChanges> -->
+					<!-- rse: To keep release branch -->
+					<keepBranch>true</keepBranch>
+					<!-- rse: If set to true, the plugin sets the property "performRelease" 
+						to true, which activates the profile "release-profile", which is inherited 
+						from the super pom -->
+					<useReleaseProfile>false</useReleaseProfile>
+				</configuration>
+			</plugin>
+
+			<!-- modify compiler options -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jvm.version}</source>
+					<target>${jvm.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<debug>${compilerInfoDebug}</debug>
+					<optimize>${compilerOptimize}</optimize>
+					<showWarnings>${compilerShowWarnings}</showWarnings>
+					<showDeprecation>${compilerShowDeprecation}</showDeprecation>
+				</configuration>
+			</plugin>
+			<!--plugin> <groupId>org.eluder.coveralls</groupId> <artifactId>coveralls-maven-plugin</artifactId> 
+				<version>2.2.0</version> <configuration> <repoToken>BV4ME2rnc4ws6yQ5GQiSpLOmwPzYDcE3r</repoToken> 
+				<sourceEncoding>UTF-8</sourceEncoding> </configuration> </plugin -->
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<inherited>false</inherited>
+				<configuration>
+					<descriptor>src/assembly/distribution.xml</descriptor>
+				</configuration>
+			</plugin>
+			<!-- Modulo de validacion de token -->
             <plugin>
-                <groupId>com.google.code.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <version>${maven-license-plugin.version}</version>
-                <configuration>
-                    <header>src/license/fiware/header.txt</header>
-                    <includes>
-                        <include>src/main/**/*.java</include>
-                        <include>src/test/**/*.java</include>
-                    </includes>
-                </configuration>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.8.3</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>check</goal>
+                            <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${cobertura-maven-plugin.version}</version>
                 <configuration>
-                    <format>xml</format>
-                    <maxmem>256m</maxmem>
-                    <!-- aggregated reports for multi-module projects -->
-                    <aggregate>true</aggregate>
-                    <instrumentation>
-                        <ignores>
-                            <ignore>org.openstack.docs.common.api.v1.*</ignore>
-                        </ignores>
-                        <excludes>
-                            <exclude>**/*Test*.class</exclude>
-                            <exclude>**/model/**.class</exclude>
-                            <exclude>org/openstack/**/*</exclude>
-                            <exclude>org/w3/**/*</exclude>
-                        </excludes>
-                    </instrumentation>
-                </configuration>
-
-            </plugin>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>2.2.0</version>
-                <configuration>
-                    <repoToken>udY6EhQuSfSatLQWMYC5kSYde7qWchS0z</repoToken>
-                    <sourceEncoding>UTF-8</sourceEncoding>
+                    <strict>false</strict>
+                    <verbose>true</verbose>
+                    <schemaDirectory>${basedir}/src/main/resources/keystone/</schemaDirectory>
                 </configuration>
             </plugin>
-
-            <!-- jgitflow -->
-            <plugin>
-                <groupId>com.atlassian.maven.plugins</groupId>
-                <artifactId>maven-jgitflow-plugin</artifactId>
-                <version>${maven-jgitflow-plugin.version}</version>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <!-- to test a release set to true -->
-                    <noDeploy>true</noDeploy>
-                    <!-- rse: to avoid tag in master -->
-                    <noTag>false</noTag>
-                    <!-- rse: to avoid push changes to git -->
-                    <!-- <pushChanges>true</pushChanges> -->
-                    <!-- rse: To keep release branch -->
-                    <keepBranch>true</keepBranch>
-                    <!-- rse:  If set to true, the plugin sets the property "performRelease" to true,
-                    which activates the profile "release-profile", which is
-                    inherited from the super pom -->
-                    <useReleaseProfile>false</useReleaseProfile>
-                </configuration>
-            </plugin>
-
-            <!-- modify compiler options -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>${jvm.version}</source>
-                    <target>${jvm.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <debug>${compilerInfoDebug}</debug>
-                    <optimize>${compilerOptimize}</optimize>
-                    <showWarnings>${compilerShowWarnings}</showWarnings>
-                    <showDeprecation>${compilerShowDeprecation}</showDeprecation>
-                </configuration>
-            </plugin>
-            <!--plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>2.2.0</version>
-                <configuration>
-                    <repoToken>BV4ME2rnc4ws6yQ5GQiSpLOmwPzYDcE3r</repoToken>
-                    <sourceEncoding>UTF-8</sourceEncoding>
-                </configuration>
-            </plugin-->
-
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
-                <inherited>false</inherited>
-                <configuration>
-                    <descriptor>src/assembly/distribution.xml</descriptor>
-                </configuration>
-            </plugin>
-        </plugins>
+		</plugins>
 
 
-          <pluginManagement>
-            <plugins>
+		<pluginManagement>
+			<plugins>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.12.1</version>
-                    <configuration>
-                        <configLocation>telefonica_checkstyle.xml</configLocation>
-                        <encoding>UTF-8</encoding>
-                        <consoleOutput>true</consoleOutput>
-                        <failsOnError>true</failsOnError>
-                        <failsOnViolations>true</failsOnViolations>
-                        <linkXRef>false</linkXRef>
-                    </configuration>
-                </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>2.12.1</version>
+					<configuration>
+						<configLocation>telefonica_checkstyle.xml</configLocation>
+						<encoding>UTF-8</encoding>
+						<consoleOutput>true</consoleOutput>
+						<failsOnError>true</failsOnError>
+						<failsOnViolations>true</failsOnViolations>
+						<linkXRef>false</linkXRef>
+					</configuration>
+				</plugin>
 
-            </plugins>
-        </pluginManagement>
+			</plugins>
+		</pluginManagement>
 
-    </build>
+	</build>
 
-    <profiles>
-        <profile>
-            <id>mac</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <env>mac</env>
-                <compilerInfoDebug>true</compilerInfoDebug>
-                <compilerOptimize>false</compilerOptimize>
-            </properties>
-        </profile>
-        <profile>
-            <id>development</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <env>development</env>
-                <compilerInfoDebug>true</compilerInfoDebug>
-                <compilerOptimize>false</compilerOptimize>
-            </properties>
-        </profile>
-        <profile>
-            <id>debian</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>unix-maven-plugin</artifactId>
-                        <version>1.0-alpha-5</version>
-                        <inherited>false</inherited>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <contact>fi-ware</contact>
-                            <contactEmail>fiware-lab-help@lists.fi-ware.org</contactEmail>
-                            <name>fiware-puppetwrapper</name>
+	<profiles>
+		<profile>
+			<id>mac</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<env>mac</env>
+				<compilerInfoDebug>true</compilerInfoDebug>
+				<compilerOptimize>false</compilerOptimize>
+			</properties>
+		</profile>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env>development</env>
+				<compilerInfoDebug>true</compilerInfoDebug>
+				<compilerOptimize>false</compilerOptimize>
+			</properties>
+		</profile>
+		<profile>
+			<id>rpm</id>
+			<properties>
+				<env>development</env>
+				<compilerInfoDebug>false</compilerInfoDebug>
+				<compilerOptimize>true</compilerOptimize>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+						<version>2.1-alpha-4</version>
+						<inherited>false</inherited>
+						<executions>
+							<execution>
+								<id>build-rpm</id>
+								<goals>
+									<!-- this goal automatically adds the rpm as Maven build artifact -->
+									<goal>attached-rpm</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<distribution>FIWARE 2014</distribution>
+							<group>FIWARE</group>
+							<prefix>fiware-puppetwrapper</prefix>
 
-                            <deb>
-                                <section>devel</section>
-                                <depends>openjdk-7-jre</depends>
-                            </deb>
-                            <assembly>
-                                <copyDirectory>
-                                    <from>${project.build.directory}/puppetwrapper-dist</from>
-                                    <to>/opt/fiware-paas</to>
-                                </copyDirectory>
-                                <copyFile>
-                                    <path>${project.build.directory}/puppetwrapper-dist/bin/jetty.sh</path>
-                                    <toFile>/opt/fiware-paas/bin/jetty.sh</toFile>
-                                    <attributes>
-                                        <mode>0755</mode>
-                                    </attributes>
-                                </copyFile>
+							<!-- Basics -->
+							<name>fiware-puppetwrapper</name>
+							<version>${project.version}</version>
 
-                            </assembly>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <inherited>false</inherited>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>package-deb</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+							<copyright>copyright 2014</copyright>
+							<packager>fiware</packager>
 
-    <repositories>
-        <!-- ci-cpr02 Nexus Repositories -->
-        <repository>
-            <id>${repoMavenSnapshotId}</id>
-            <name>${repoMavenSnapshotName}</name>
-            <url>${repoMavenSnapshotUrl}</url>
-        </repository>
-        <repository>
-            <id>${repoMavenId}</id>
-            <name>${repoMavenName}</name>
-            <url>${repoMavenUrl}</url>
-        </repository>
-        <repository>
-            <id>${repoMavenThirdpartyId}</id>
-            <name>${repoMavenThirdpartyName}</name>
-            <url>${repoMavenThirdpartyUrl}</url>
-        </repository>
+							<group>None</group>
+							<needarch>noarch</needarch>
 
-        <!-- Remote Repositories -->
-        <repository>
-            <id>central</id>
-            <name>central-repository</name>
-            <url>http://repo1.maven.org/maven2</url>
-        </repository>
-        <repository>
-            <id>central2</id>
-            <name>central2-repository</name>
-            <url>http://repo2.maven.org/maven2</url>
-        </repository>
+							<defineStatements>
+								<!-- escamez: To speed up rpm creation, no jar re-compression -->
+								<defineStatement>_binaries_in_noarch_packages_terminate_build 0</defineStatement>
+								<defineStatement>_prefix /opt/fiware-puppetwrapper</defineStatement>
+							</defineStatements>
 
-        <!-- SpringSource repositories -->
-        <repository>
-            <id>com.springsource.repository.libraries.release</id>
-            <name>SpringSource Enterprise Bundle Repository - SpringSource Library Releases</name>
-            <url>http://repository.springsource.com/maven/libraries/release</url>
-        </repository>
-        <repository>
-            <id>com.springsource.repository.libraries.external</id>
-            <name>SpringSource Enterprise Bundle Repository - External Library Releases</name>
-            <url>http://repository.springsource.com/maven/libraries/external</url>
-        </repository>
+							<requires>
+								<require>java-1.7.0-openjdk</require>
+								<require>java-1.7.0-openjdk-devel</require>
+								<!-- <require>postgresql-server</require> -->
+							</requires>
+							<mappings>
+								<mapping>
+									<directory>/opt/fiware-puppetwrapper</directory>
+									<sources>
+										<source>
+											<location>${project.build.directory}/puppetwrapper-dist</location>
+										</source>
+									</sources>
+								</mapping>
+							</mappings>
+							<preinstallScriptlet>
+								<script>echo "installing now"</script>
+							</preinstallScriptlet>
+							<postinstallScriptlet>
+								<script>echo "installed in /opt/fiware-puppetwrapper"</script>
+							</postinstallScriptlet>
+							<!-- <preremoveScriptlet> </preremoveScriptlet> -->
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>debian</id>
+			<properties>
+				<env>development</env>
+				<compilerInfoDebug>false</compilerInfoDebug>
+				<compilerOptimize>true</compilerOptimize>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>unix-maven-plugin</artifactId>
+						<version>1.0-alpha-5</version>
+
+						<extensions>true</extensions>
+						<configuration>
+							<contact>fi-ware</contact>
+							<contactEmail>fiware-lab-help@lists.fi-ware.org</contactEmail>
+							<name>puppetwrapper</name>
+
+							<deb>
+								<section>devel</section>
+								<depends>openjdk-7-jre</depends>
+							</deb>
+							<assembly>
+
+								<copyDirectory>
+									<from>${project.build.directory}/puppetwrapper-dist</from>
+									<to>/opt/fiware-puppetwrapper</to>
+								</copyDirectory>
+								<copyFile>
+									<path>${project.build.directory}/puppetwrapper-dist/bin/jetty.sh</path>
+									<toFile>/opt/fiware-puppetwrapper/bin/jetty.sh</toFile>
+									<attributes>
+										<mode>0755</mode>
+									</attributes>
+								</copyFile>
+
+							</assembly>
+						</configuration>
+						<executions>
+							<execution>
+								<inherited>false</inherited>
+								<phase>package</phase>
+								<goals>
+									<goal>package-deb</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<repositories>
+		<!-- ci-cpr02 Nexus Repositories -->
+		<repository>
+			<id>${repoMavenSnapshotId}</id>
+			<name>${repoMavenSnapshotName}</name>
+			<url>${repoMavenSnapshotUrl}</url>
+		</repository>
+		<repository>
+			<id>${repoMavenId}</id>
+			<name>${repoMavenName}</name>
+			<url>${repoMavenUrl}</url>
+		</repository>
+		<repository>
+			<id>${repoMavenThirdpartyId}</id>
+			<name>${repoMavenThirdpartyName}</name>
+			<url>${repoMavenThirdpartyUrl}</url>
+		</repository>
+
+		<!-- Remote Repositories -->
+		<repository>
+			<id>central</id>
+			<name>central-repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+		<repository>
+			<id>central2</id>
+			<name>central2-repository</name>
+			<url>http://repo2.maven.org/maven2</url>
+		</repository>
+
+		<!-- SpringSource repositories -->
+		<repository>
+			<id>com.springsource.repository.libraries.release</id>
+			<name>SpringSource Enterprise Bundle Repository - SpringSource Library Releases</name>
+			<url>http://repository.springsource.com/maven/libraries/release</url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.libraries.external</id>
+			<name>SpringSource Enterprise Bundle Repository - External Library Releases</name>
+			<url>http://repository.springsource.com/maven/libraries/external</url>
+		</repository>
 
 
-        <!-- Restlet repository-->
-        <repository>
-            <id>maven-restlet</id>
-            <name>Public online Restlet repository</name>
-            <url>http://maven.restlet.org</url>
-        </repository>
+		<!-- Restlet repository -->
+		<repository>
+			<id>maven-restlet</id>
+			<name>Public online Restlet repository</name>
+			<url>http://maven.restlet.org</url>
+		</repository>
 
-    </repositories>
-
-
-    <pluginRepositories>
-
-        <pluginRepository>
-            <id>${repoMavenSnapshotId}</id>
-            <name>${repoMavenSnapshotName}</name>
-            <url>${repoMavenSnapshotUrl}</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>${repoMavenId}</id>
-            <name>${repoMavenName}</name>
-            <url>${repoMavenUrl}</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>${repoMavenThirdpartyId}</id>
-            <name>${repoMavenThirdpartyName}</name>
-            <url>${repoMavenThirdpartyUrl}</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>central</id>
-            <name>central-repository</name>
-            <url>http://repo1.maven.org/maven2</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>java.net</id>
-            <name>java.net</name>
-            <url>http://download.java.net/maven/2/</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>stat-scm</id>
-            <name>stat-scm</name>
-            <url>http://stat-scm.sourceforge.net/maven2/</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>codehaus</id>
-            <name>codehaus</name>
-            <url>http://repository.codehaus.org</url>
-        </pluginRepository>
+	</repositories>
 
 
-    </pluginRepositories>
+	<pluginRepositories>
+
+		<pluginRepository>
+			<id>${repoMavenSnapshotId}</id>
+			<name>${repoMavenSnapshotName}</name>
+			<url>${repoMavenSnapshotUrl}</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>${repoMavenId}</id>
+			<name>${repoMavenName}</name>
+			<url>${repoMavenUrl}</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>${repoMavenThirdpartyId}</id>
+			<name>${repoMavenThirdpartyName}</name>
+			<url>${repoMavenThirdpartyUrl}</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>central</id>
+			<name>central-repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>java.net</id>
+			<name>java.net</name>
+			<url>http://download.java.net/maven/2/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>stat-scm</id>
+			<name>stat-scm</name>
+			<url>http://stat-scm.sourceforge.net/maven2/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>codehaus</id>
+			<name>codehaus</name>
+			<url>http://repository.codehaus.org</url>
+		</pluginRepository>
+
+
+	</pluginRepositories>
 
 </project>
