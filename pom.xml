@@ -13,7 +13,7 @@
 		<!-- This properties will be added to sonar as manual measures -->
 		<product.area.name>Industrial IoT</product.area.name>
 		<product.name>FIWARE</product.name>
-		<product.release>3.5.3</product.release>
+		<product.release>4.2.1</product.release>
 
 		<repoName>fiware-puppetwrapper</repoName>
 
