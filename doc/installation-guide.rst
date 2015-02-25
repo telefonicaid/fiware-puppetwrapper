@@ -220,3 +220,15 @@ file puppetwrapper.properties contains all necessary parameters.
 
 ``#Defaults    requiretty``
 
+
+Known issues
+~~~~~~~~~~~~~~~
+
+   -  When a puppet manifest is executed and the execution of a module fails, in the case where there's more than 1 module installed 
+we don't know wich one has failed -> this information granularity is not provided by puppetdb, so we can't delete the errored 
+module in the manifest
+
+   -  On instalation, a task finished on success even though the manifest execution has failed. We rely on the "catalog_timestamp"
+   value that indicates a catalog execution. It does not tell whether th execution was correct or not. In fact even when the 
+   execution fails, the "catalog_imestamp" value is updated.
+
