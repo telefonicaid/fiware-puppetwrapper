@@ -528,7 +528,30 @@
 								</mapping>
 							</mappings>
 							<preinstallScriptlet>
-								<script>echo "installing now"</script>
+								<script>
+echo "installing now"
+# Generate a certificate if it isn't already in /etc/keystorejetty
+if [ ! -f /etc/keystorejetty ] ; then
+  # Get the IP of the host; first try external with a timeout of 15s
+  ip=$(/usr/bin/curl -m15 -s http://ifconfig.me/ip)
+  if ! echo $ip |grep -E [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+ >/dev/null ; then
+    ip=$(hostname -i)
+  fi
+  if echo $ip |grep  ^127 >/dev/null; then
+     defaultdev=$(/sbin/route  | awk  '/^default/ { print $8}')
+     ip=$(ip addr show dev $defaultdev |awk '/inet / { X = split($2, A, "/") ; print A[1]}')
+  fi
+
+  echo "Generating key and certificate with CN=$ip"
+  keytool -genkey -keyalg RSA -alias jetty -keystore /etc/keystorejetty -validity 730 -keypass password -storepass password -dname "CN=$ip, O=fiware" -keysize 2048
+  chmod 640 /etc/keystorejetty
+  echo "Done"
+fi
+# To see the certificate:
+# keytool -list -storepass password -keystore /etc/keystorejetty  -rfc |openssl x509 -text
+
+#OBF of password is OBF:1v2j1uum1xtv1zej1zer1xtn1uvk1v1v
+                                                                </script>
 							</preinstallScriptlet>
 							<postinstallScriptlet>
 								<script>echo "installed in /opt/fiware-puppetwrapper"</script>
