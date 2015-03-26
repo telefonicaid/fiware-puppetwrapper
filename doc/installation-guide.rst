@@ -189,10 +189,12 @@ It is a a maven application:
 
 -  Compile, launch test and build all modules
 
-| ``       $ mvn assembly:assembly``
-| ``       $ cp target/distribution/puppetwrapper-dist {folder}``
-| ``       $ {folder}/puppetwrapper-dist/bin/generateselfsigned.sh start``
-| ``       $ cd {folder}/puppetwrapper-dist/bin ; ./jetty.sh start``
+.. code::
+
+  $ mvn assembly:assembly
+  $ cp target/distribution/puppetwrapper-dist {folder}
+  $ {folder}/puppetwrapper-dist/bin/generateselfsigned.sh start
+  $ cd {folder}/puppetwrapper-dist/bin ; ./jetty.sh start
 
 -  Jetty will run by default on port 8082
 
@@ -200,7 +202,8 @@ It is a a maven application:
 
 file puppetwrapper.properties contains all necessary parameters.
 
-| ``       #puppet path``
+
+| ``       #puppet path``
 | ``       defaultManifestsPath=/etc/puppet/manifests/``
 | ``       modulesCodeDownloadPath=/etc/puppet/modules/``
 | ``       #mongo connection``
