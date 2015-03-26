@@ -190,10 +190,10 @@ It is a a maven application:
 -  Compile, launch test and build all modules
 
 ``       $ mvn assembly:assembly``
+``       $ cp target/distribution/puppetwrapper-dist {folder}``
+``       $ {folder}/puppetwrapper-dist/bin/generateselfsigned.sh start``
+``       $ cd {folder}/puppetwrapper-dist/bin ; ./jetty.sh start``
 
--  copy target/distribution/puppwrapper-dist to a desired location
--  run ./generateselfsigned.sh on puppetwrapper-dist/bin
--  run ./jetty.sh start on puppetwrapper-dist/bin
 -  Jetty will run by default on port 8082
 
 -  Configuration instructions
