@@ -189,17 +189,21 @@ It is a a maven application:
 
 -  Compile, launch test and build all modules
 
-``       $ mvn assembly:assembly``
+.. code::
 
--  copy target/distribution/puppwrapper-dist to a desired location
--  run ./jetty.sh start on puppetwrapper-dist/bin
+  $ mvn assembly:assembly
+  $ cp target/distribution/puppetwrapper-dist {folder}
+  $ {folder}/puppetwrapper-dist/bin/generateselfsigned.sh start
+  $ cd {folder}/puppetwrapper-dist/bin ; ./jetty.sh start
+
 -  Jetty will run by default on port 8082
 
 -  Configuration instructions
 
 file puppetwrapper.properties contains all necessary parameters.
 
-| ``       #puppet path``
+
+| ``       #puppet path``
 | ``       defaultManifestsPath=/etc/puppet/manifests/``
 | ``       modulesCodeDownloadPath=/etc/puppet/modules/``
 | ``       #mongo connection``
@@ -220,6 +224,48 @@ file puppetwrapper.properties contains all necessary parameters.
 
 ``#Defaults    requiretty``
 
+Configuring the HTTPS certificate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The service is configured to use HTTPS to secure the communication between clients and the server. One central point in HTTPS security is the certificate which guarantee the server identity.
+
+Quickest solution: using a self-signed certificate
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+The service works "out of the box" against passive attacks (e.g. a sniffer) because a self-signed certificated is generated automatically when the RPM is installed. Any certificate includes a special field call "CN" (Common name) with the identity of the host: the generated certificate uses as identity the IP of the host.
+
+The IP used in the certificate should be the public IP (i.e. the floating IP). The script which generates the certificate knows the public IP asking to an Internet service (http://ifconfig.me/ip). Usually this obtains the floating IP of the server, but of course it wont work without a direct connection to Internet.
+
+If you need to regenerate a self-signed certificate with a different IP address (or better, a convenient configured hostname), please run:
+
+.. code::
+
+    /opt/fiware-puppetwrapper/bin/generateselfsigned.sh myhost.mydomain.org
+
+By the way, the self-signed certificate is at /etc/keystorejetty. This file wont be overwritten although you reinstall the package. The same way, it wont be removed automatically if you uninstall de package.
+
+Advanced solution: using certificates signed by a CA
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+Although a self-signed certificate works against passive attack, it is not enough by itself to prevent active attacks, specifically a "man in the middle attack" where an attacker try to impersonate the server. Indeed, any browser warns user against self-signed certificates. To avoid these problems, a certificate conveniently signed by a CA may be used.
+
+If you need a certificate signed by a CA, the more cost effective and less intrusive practice when an organization has several services is to use a wildcard certificate, that is, a common certificate among all the servers of a DNS domain. Instead of using an IP or hostname in the CN, an expression as "*.fiware.org" is used.
+
+This solution implies:
+
+* The service must have a DNS name in the domain specified in the wildcard certificate. For example, if the domain is "*.fiware.org" a valid name may be "puppetwrapper.fiware.org".
+* The clients should use this hostname instead of the IP
+* The file /etc/keystorejetty must be replaced with another one generated from the wildcard certificate, the corresponding private key and other certificates signing the wild certificate.
+
+It's possible that you already have a wild certificate securing your portal, but Apache server uses a different file format. A tool is provided to import a wildcard certificate, a private key and a chain of certificates, into /etc/keystorejetty:
+
+.. code::
+
+    # usually, on an Apache installation, the certificate files are at /etc/ssl/private
+-    /opt/fiware-puppetwrapper/bin/importcert.sh key.pem cert.crt chain.crt
+
+If you have a different configuration, for example your organization has got its own PKI, please refer to: http://docs.codehaus.org/display/JETTY/How%2bto%2bconfigure%2bSSL
+ 
 
 Known issues
 ~~~~~~~~~~~~~~~
