@@ -534,10 +534,10 @@ echo "installing now"
 if [ ! -f /etc/keystorejetty ] ; then
   # Get the IP of the host; first try external with a timeout of 15s
   ip=$(/usr/bin/curl -m15 -s http://ifconfig.me/ip)
-  if ! echo $ip |grep -E [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+ >/dev/null ; then
+  if ! echo $ip |grep -E [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+ &gt;/dev/null ; then
     ip=$(hostname -i)
   fi
-  if echo $ip |grep  ^127 >/dev/null; then
+  if echo $ip |grep  ^127 &gt;/dev/null; then
      defaultdev=$(/sbin/route  | awk  '/^default/ { print $8}')
      ip=$(ip addr show dev $defaultdev |awk '/inet / { X = split($2, A, "/") ; print A[1]}')
   fi
