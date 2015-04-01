@@ -3,7 +3,7 @@
 	<groupId>com.telefonica.iot</groupId>
 	<artifactId>puppetwrapper</artifactId>
 	<packaging>war</packaging>
-	<version>3.3.0-SNAPSHOT</version>
+	<version>3.3.0</version>
     <name>Puppet Wrapper</name>
 
 	<properties>
@@ -12,7 +12,7 @@
 		<!-- This properties will be added to sonar as manual measures -->
 		<product.area.name>Industrial IoT</product.area.name>
 		<product.name>FIWARE</product.name>
-		<product.release>4.2.2</product.release>
+		<product.release>4.2.3</product.release>
 
 		<repoName>fiware-puppetwrapper</repoName>
 
@@ -534,10 +534,10 @@ echo "installing now"
 if [ ! -f /etc/keystorejetty ] ; then
   # Get the IP of the host; first try external with a timeout of 15s
   ip=$(/usr/bin/curl -m15 -s http://ifconfig.me/ip)
-  if ! echo $ip |grep -E [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+ >/dev/null ; then
+  if ! echo $ip |grep -E [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+ &gt;/dev/null ; then
     ip=$(hostname -i)
   fi
-  if echo $ip |grep  ^127 >/dev/null; then
+  if echo $ip |grep  ^127 &gt;/dev/null; then
      defaultdev=$(/sbin/route  | awk  '/^default/ { print $8}')
      ip=$(ip addr show dev $defaultdev |awk '/inet / { X = split($2, A, "/") ; print A[1]}')
   fi
