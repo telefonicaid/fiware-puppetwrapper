@@ -230,7 +230,7 @@ following:
      - "node/%{::fqdn}"
      - common
 
-Install PuppetWtapper from RPM
+Install PuppetWrapper from RPM
 ------------------------------
   
 The PuppetWrapper is packaged as RPM and stored in the rpm repository. Thus, the first thing to do is to create a file 
