@@ -215,7 +215,7 @@ following:
      cd /etc/puppet
      mkdir hieradata
      cd hieradata
-     mkdir node`
+     mkdir node
 
 -  create $confdir/hiera.yaml (normally /etc/puppet/hiera.yaml) with
    content:
