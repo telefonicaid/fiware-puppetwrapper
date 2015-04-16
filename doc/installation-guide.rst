@@ -210,7 +210,7 @@ following:
 
 -  execute
 
-.. code ..
+.. code ::
 
      cd /etc/puppet
      mkdir hieradata
@@ -494,3 +494,59 @@ Known issues
 
 -  On instalation, a task finished on success even though the manifest execution has failed. We rely on the "catalog_timestamp" value that indicates a catalog execution. It does not tell whether the execution was correct or not. In fact even when the execution fails, the "catalog_timestamp" value is updated.
 
+Sanity Checks
+=============
+
+Let's check the processes required to have this component up and running. We assume that all installation has been performed
+in the same virtual machine.
+
+- puppet processes: type the following command
+
+.. code ::
+
+     ps -ef | grep puppet
+
+and the output should be similar to:
+
+.. code::
+
+     avahi     1265     1  0 Apr15 ?        00:00:02 avahi-daemon: running [puppet-install-test.local]
+     puppet    1801     1  0 Apr15 ?        00:01:48 /usr/bin/ruby /usr/bin/puppet master
+     puppetdb  2161     1  0 Apr15 ?        00:02:07 /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -XX:OnOutOfMemoryError=kill -9 %p -Xmx192m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/puppetdb/puppetdb-oom.hprof -Djava.security.egd=file:/dev/urandom -cp /usr/share/puppetdb/puppetdb.jar clojure.main -m com.puppetlabs.puppetdb.core services -c /etc/puppetdb/conf.d
+     root      2736     1  0 Apr15 ?        00:01:15 /usr/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8585 -Dspring.profiles.active=fiware -Xmx1024m -Xms1024m -Djetty.state=/opt/fiware-puppetwrapper/jetty.state -Djetty.logs=/opt/fiware-puppetwrapper/logs -Djetty.home=/opt/fiware-puppetwrapper -Djetty.base=/opt/fiware-puppetwrapper -Djava.io.tmpdir=/tmp -jar /opt/fiware-puppetwrapper/start.jar jetty-logging.xml jetty-started.xml
+
+where we can find the puppet master process (PID=1801), puppetdb process (PID=2161) and puppetWrapper process (PID=2736).
+
+- mongo process: type the following command
+
+.. code::
+
+     ps -ef | grep mongo
+
+and the ouput should be similar to:
+
+.. code:: 
+ 
+     mongod    1723     1  0 Apr15 ?        00:02:43 /usr/bin/mongod -f /etc/mongod.conf
+
+- postgres process: type the following command
+
+.. code::
+
+     ps -ef | grep postgres
+
+and the output should be similar to:  
+
+.. code::
+
+     postgres  2425     1  0 Apr15 ?        00:00:00 /usr/bin/postmaster -p 5432 -D /var/lib/pgsql/data
+     postgres  2427  2425  0 Apr15 ?        00:00:01 postgres: logger process    
+     postgres  2429  2425  0 Apr15 ?        00:00:10 postgres: writer process    
+     postgres  2430  2425  0 Apr15 ?        00:00:08 postgres: wal writer process
+     postgres  2431  2425  0 Apr15 ?        00:00:01 postgres: autovacuum launcher process
+     postgres  2432  2425  0 Apr15 ?        00:00:01 postgres: stats collector process
+
+which represents the processes associated to a Posgres 8.4 database.
+
+
+  
