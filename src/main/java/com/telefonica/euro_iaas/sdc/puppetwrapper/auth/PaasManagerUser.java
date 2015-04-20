@@ -24,16 +24,12 @@
 
 package com.telefonica.euro_iaas.sdc.puppetwrapper.auth;
 
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
-import org.springframework.security.core.userdetails.User;
 
 /**
  * @author dbermejo
  */
-public class PaasManagerUser extends User {
+public class PaasManagerUser {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
@@ -57,30 +53,11 @@ public class PaasManagerUser extends User {
      *            the username
      * @param password
      *            the password
-     * @param authorities
-     *            the authorities
      */
-    public PaasManagerUser(final String username, final String password,
-            final Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
+    public PaasManagerUser(final String username, final String password) {
         this.token = password;
         this.username = username;
     }
-
-    // /**
-    // * Constructor.
-    // */
-    // public OpenStackUser() {
-    // super("a", "a", new HashSet<GrantedAuthority>());
-    // // super(((OpenStackUser)
-    // SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername(),
-    // // ((OpenStackUser)
-    // SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getToken(),
-    // // ((OpenStackUser) SecurityContextHolder.getContext()
-    // // .getAuthentication().getPrincipal()).getAuthorities());
-    // // this.tenant = ((OpenStackUser) SecurityContextHolder.getContext()
-    // // .getAuthentication().getPrincipal()).getTenant();
-    // }
 
     /**
      * @return the token
@@ -143,8 +120,7 @@ public class PaasManagerUser extends User {
     }
 
     /**
-     * Constructs a <code>String</code> with all attributes in name = value
-     * format.
+     * Constructs a <code>String</code> with all attributes in name = value format.
      * 
      * @return a <code>String</code> representation of this object.
      */
