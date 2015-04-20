@@ -409,24 +409,6 @@
                     <descriptor>src/assembly/distribution.xml</descriptor>
                 </configuration>
             </plugin>
-            <!-- Modulo de validacion de token -->
-            <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.8.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <strict>false</strict>
-                    <verbose>true</verbose>
-                    <schemaDirectory>${basedir}/src/main/resources/keystone/</schemaDirectory>
-                </configuration>
-            </plugin>
         </plugins>
 
 
