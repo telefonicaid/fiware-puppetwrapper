@@ -1,0 +1,18 @@
+<ehcache>
+
+    <cache name="regions"
+           maxEntriesLocalHeap="500"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+    </cache>
+
+    <cache name="token"
+           maxEntriesLocalHeap="500"
+           eternal="false"
+           timeToIdleSeconds="1200"
+           timeToLiveSeconds="1200">
+    </cache>
+
+
+</ehcache>
