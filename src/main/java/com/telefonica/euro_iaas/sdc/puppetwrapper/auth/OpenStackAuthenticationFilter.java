@@ -172,7 +172,6 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
                     logger.info("OpenStack Authentication Authorization header " + "found for user '" + token
                             + "' and tenant " + tenantId);
                 }
-
                 UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(token,
                         tenantId);
                 authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
@@ -186,9 +185,9 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
 
                 logger.info("User: " + user.getUsername());
                 logger.info("Token: " + user.getPassword());
-
-                SecurityContextHolder.getContext().setAuthentication(authResult);
-                // SecurityContextHolder.setStrategyName("MODE_INHERITABLETHREADLOCAL");
+                if (authResult.isAuthenticated()) {
+                    SecurityContextHolder.getContext().setAuthentication(authResult);
+                }
 
                 rememberMeServices.loginSuccess(request, response, authResult);
 
