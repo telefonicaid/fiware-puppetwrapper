@@ -68,8 +68,7 @@
 
         <!-- sonar -->
         <!-- exclusions must be synchronized with cobertura-maven-plugin exclusions -->
-        <sonar.exclusions>com/telefonica/**/data/**/*, org/w3/**/*,
-			org/openstack/**/*,com/telefonica/**/dto/**/*</sonar.exclusions>
+        <sonar.exclusions>com/telefonica/**/data/**/*,com/telefonica/**/dto/**/*</sonar.exclusions>
         <sonar.dynamic>reuseReports</sonar.dynamic>
 
         <jersey2.version>2.14</jersey2.version>
@@ -338,14 +337,9 @@
                     <!-- aggregated reports for multi-module projects -->
                     <aggregate>true</aggregate>
                     <instrumentation>
-                        <ignores>
-                            <ignore>org.openstack.docs.common.api.v1.*</ignore>
-                        </ignores>
                         <excludes>
                             <exclude>**/*Test*.class</exclude>
                             <exclude>**/model/**.class</exclude>
-                            <exclude>org/openstack/**/*</exclude>
-                            <exclude>org/w3/**/*</exclude>
                         </excludes>
                     </instrumentation>
                 </configuration>
