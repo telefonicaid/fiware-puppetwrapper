@@ -19,4 +19,4 @@ SDC wrapper for puppet in order to deploy artifacts following puppet recipes.
 .. |Coverage Status| image:: https://coveralls.io/repos/telefonicaid/fiware-puppetwrapper/badge.png?branch=develop
    :target: https://coveralls.io/r/telefonicaid/fiware-puppetwrapper
 .. |StackOverflow| image:: http://b.repl.ca/v1/help-stackoverflow-orange.png
-   :target: https://travis-ci.org/telefonicaid/fiware-puppetwrapper
+   :target: http://stackoverflow.com/questions/tagged/fiware
