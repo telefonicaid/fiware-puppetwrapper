@@ -350,7 +350,7 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>2.2.0</version>
                 <configuration>
-                    <repoToken>udY6EhQuSfSatLQWMYC5kSYde7qWchS0z</repoToken>
+                    <repoToken>PfgjE3neMmbJhfFYAh7FHRFUJJNFQ3Wtx</repoToken>
                     <sourceEncoding>UTF-8</sourceEncoding>
                 </configuration>
             </plugin>
