@@ -42,6 +42,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.NullRememberMeServices;
 import org.springframework.security.web.authentication.RememberMeServices;
@@ -51,7 +52,6 @@ import org.springframework.web.filter.GenericFilterBean;
 
 /**
  * The Class OpenStackAuthenticationFilter.
- * 
  */
 public class OpenStackAuthenticationFilter extends GenericFilterBean {
 
@@ -100,10 +100,8 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
      * Creates an instance which will authenticate against the supplied.
      * 
      * @param pAuthenticationManager
-     *            the bean to submit authentication requests to
-     *            {@code AuthenticationManager} and which will ignore failed
-     *            authentication attempts, allowing the request to proceed down
-     *            the filter chain.
+     *            the bean to submit authentication requests to {@code AuthenticationManager} and which will ignore
+     *            failed authentication attempts, allowing the request to proceed down the filter chain.
      */
     public OpenStackAuthenticationFilter(final AuthenticationManager pAuthenticationManager) {
         this.authenticationManager = pAuthenticationManager;
@@ -116,11 +114,9 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
      * @param pAuthenticationManager
      *            the bean to submit authentication requests to
      * @param pAuthenticationEntryPoint
-     *            will be invoked when authentication fails. Typically an
-     *            instance of {@link BasicAuthenticationEntryPoint}.
-     *            {@code AuthenticationManager} and use the supplied
-     *            {@code AuthenticationEntryPoint} to handle authentication
-     *            failures.
+     *            will be invoked when authentication fails. Typically an instance of
+     *            {@link BasicAuthenticationEntryPoint}. {@code AuthenticationManager} and use the supplied
+     *            {@code AuthenticationEntryPoint} to handle authentication failures.
      */
     public OpenStackAuthenticationFilter(final AuthenticationManager pAuthenticationManager,
             final AuthenticationEntryPoint pAuthenticationEntryPoint) {
@@ -129,9 +125,8 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
     }
 
     /*
-     * (non-Javadoc) @see
-     * javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
-     * javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     * (non-Javadoc) @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse,
+     * javax.servlet.FilterChain)
      */
 
     public final void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
@@ -177,7 +172,6 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
                     logger.info("OpenStack Authentication Authorization header " + "found for user '" + token
                             + "' and tenant " + tenantId);
                 }
-
                 UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(token,
                         tenantId);
                 authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
@@ -187,15 +181,13 @@ public class OpenStackAuthenticationFilter extends GenericFilterBean {
                     logger.info("Authentication success: " + authResult);
                 }
 
-                PaasManagerUser user = (PaasManagerUser) authResult.getPrincipal();
+                UserDetails user = (UserDetails) authResult.getPrincipal();
 
                 logger.info("User: " + user.getUsername());
-                logger.info("Token: " + user.getToken());
-                logger.info("Tenant: " + user.getTenantId());
-                logger.info("TenantName - Org: " + user.getTenantName());
-
-                SecurityContextHolder.getContext().setAuthentication(authResult);
-                // SecurityContextHolder.setStrategyName("MODE_INHERITABLETHREADLOCAL");
+                logger.info("Token: " + user.getPassword());
+                if (authResult.isAuthenticated()) {
+                    SecurityContextHolder.getContext().setAuthentication(authResult);
+                }
 
                 rememberMeServices.loginSuccess(request, response, authResult);
 
