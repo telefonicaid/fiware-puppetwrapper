@@ -246,6 +246,7 @@ echo "Configuring Puppet Wrapper"
 keystone_url=
 keystone_user=
 keystone_passwd=
+tenant_id=
 puppetDBUrl=
 
 echo -n "Enter Keystone url > "
@@ -254,20 +255,24 @@ echo -n "Enter Keystone user > "
 read keystone_user
 echo -n "Enter Keystone passwd > "
 read keystone_passwd
+echo -n "Enter Admin Tenant ID > "
+read tenant_id
 echo -n "Enter PuppetDB url > "
 read puppetDBUrl
 
 echo "keystone_url:$keystone_url"
 echo "keystone_user:$keystone_user"
 echo "keystone_passwd:$keystone_passwd"
+echo "tenant_id:$tenant_id"
 echo "puppetDBUrl:$puppetDBUrl"
 
 echo "Modifying puppetWrapper.properties"
 puppetWrapperProperties_file=`find / -name puppetWrapper.properties`
-sed -i 's/keystoneURL=http:\/\/130.206.80.57:4731\/v2.0\//keystoneURL=$keystone_url/g' $puppetWrapperProperties_file
-sed -i 's/adminUser=admin/adminUser=$keystone_user/g' $puppetWrapperProperties_file
-sed -i 's/adminPass=8fa3c69e4c3e9fafa61/adminPass=$keystone_passwd/g' $puppetWrapperProperties_file
-sed -i 's/puppetDBUrl=http:\/\/puppet-master.dev-havana.fi-ware.org:8080/puppetDBUrl=$puppetDBUrl/g' $puppetWrapperProperties_file
+sed -i "s/keystoneURL=http:\/\/130.206.80.57:4731\/v2.0\//keystoneURL=$keystone_url/g" $puppetWrapperProperties_file
+sed -i "s/adminUser=admin/adminUser=$keystone_user/g" $puppetWrapperProperties_file
+sed -i "s/adminPass=8fa3c69e4c3e9fafa61/adminPass=$keystone_passwd/g" $puppetWrapperProperties_file
+sed -i "s/puppetDBUrl=http:\/\/puppet-master.dev-havana.fi-ware.org:8080/puppetDBUrl=$puppetDBUrl/g" $puppetWrapperProperties_file
+sed -i "s//adminTenant=admins/adminTenant=$tenant_id/g" $puppetWrapperProperties_file
 
 service fiware-puppetwrapper stop
 service fiware-puppetwrapper start
