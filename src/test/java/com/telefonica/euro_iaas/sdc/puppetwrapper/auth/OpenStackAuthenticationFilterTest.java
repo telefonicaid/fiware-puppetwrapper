@@ -40,6 +40,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 public class OpenStackAuthenticationFilterTest {
@@ -81,7 +82,7 @@ public class OpenStackAuthenticationFilterTest {
         FilterChain filterChain = mock(FilterChain.class);
         HttpSession httpSession = mock(HttpSession.class);
         Authentication authResult = mock(Authentication.class);
-        PaasManagerUser paasUser=mock(PaasManagerUser.class);
+        UserDetails userDetails =mock(UserDetails.class);
         
 
         when(servletRequest.getHeader(anyString())).thenReturn("3df25213cac246f8bccad5c70cb3582e")
@@ -91,7 +92,7 @@ public class OpenStackAuthenticationFilterTest {
         when(httpSession.getId()).thenReturn("1234");
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(authResult);
         
-        when(authResult.getPrincipal()).thenReturn(paasUser);
+        when(authResult.getPrincipal()).thenReturn(userDetails);
 
         openStackAuthenticationFilter.doFilter(servletRequest, servletResponse, filterChain);
     }
