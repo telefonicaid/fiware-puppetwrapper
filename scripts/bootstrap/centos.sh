@@ -1,5 +1,18 @@
 #!/bin/sh
 
+echo "Checking Linux Distribution before installing PuppetWrapper"
+
+yum install -y  redhat-lsb
+
+linux_distro=` lsb_release -a | grep ID | awk -F " " '{print $3}'`
+
+echo "$linux_distro"
+
+if [ "$linux_distro" != "CentOS" ]; then
+        echo "This script only works for CentOS linux distributions"
+        exit
+fi
+
 echo "Installing mongodb .."
 REPOFILE="/etc/yum.repos.d/mongodb.repo"
 
@@ -105,9 +118,7 @@ echo "puppetdb user:$db_user"
 echo "puppetdb password:$db_passwd"
 
 sudo -u postgres sh << EOF1
-dbname="postgres"
-username="postgres"
-psql $dbname $username << EOF
+psql postgres postgres << EOF
 alter user postgres with password 'postgres';
 create database $db_name;
 create user $db_user;
@@ -231,12 +242,32 @@ chkconfig fiware-puppetwrapper on
 service fiware-puppetwrapper start
 
 echo "Configuring Puppet Wrapper"
+
+keystone_url=
+keystone_user=
+keystone_passwd=
+puppetDBUrl=
+
+echo -n "Enter Keystone url > "
+read keystone_url
+echo -n "Enter Keystone user > "
+read keystone_user
+echo -n "Enter Keystone passwd > "
+read keystone_passwd
+echo -n "Enter PuppetDB url > "
+read puppetDBUrl
+
+echo "keystone_url:$keystone_url"
+echo "keystone_user:$keystone_user"
+echo "keystone_passwd:$keystone_passwd"
+echo "puppetDBUrl:$puppetDBUrl"
+
 echo "Modifying puppetWrapper.properties"
 puppetWrapperProperties_file=`find / -name puppetWrapper.properties`
-sed -i 's/keystoneURL=http:\/\/130.206.80.57:4731\/v2.0\//keystoneURL=http:\/\/130.206.82.10:4731\/v2.0\//g' $puppetWrapperProperties_file
-sed -i 's/adminUser=admin/adminUser=admin-spain/g' $puppetWrapperProperties_file
-sed -i 's/adminPass=8fa3c69e4c3e9fafa61/adminPass=asXK3r9V4n1Ad93/g' $puppetWrapperProperties_file
-sed -i 's/puppetDBUrl=http:\/\/puppet-master.dev-havana.fi-ware.org:8080/puppetDBUrl=http:\/\/puppetdb:8080/g' $puppetWrapperProperties_file
+sed -i 's/keystoneURL=http:\/\/130.206.80.57:4731\/v2.0\//keystoneURL=$keystone_url/g' $puppetWrapperProperties_file
+sed -i 's/adminUser=admin/adminUser=$keystone_user/g' $puppetWrapperProperties_file
+sed -i 's/adminPass=8fa3c69e4c3e9fafa61/adminPass=$keystone_passwd/g' $puppetWrapperProperties_file
+sed -i 's/puppetDBUrl=http:\/\/puppet-master.dev-havana.fi-ware.org:8080/puppetDBUrl=$puppetDBUrl/g' $puppetWrapperProperties_file
 
 service fiware-puppetwrapper stop
 service fiware-puppetwrapper start
