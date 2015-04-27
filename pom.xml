@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.telefonica.iot</groupId>
     <artifactId>puppetwrapper</artifactId>
     <packaging>war</packaging>
-    <version>3.4.0-SNAPSHOT</version>
+    <version>3.4.0</version>
     <name>Puppet Wrapper</name>
 
     <properties>
@@ -13,7 +12,7 @@
         <!-- This properties will be added to sonar as manual measures -->
         <product.area.name>Industrial IoT</product.area.name>
         <product.name>FIWARE</product.name>
-        <product.release>4.2.3</product.release>
+        <product.release>4.3.1</product.release>
 
         <repoName>fiware-puppetwrapper</repoName>
 
