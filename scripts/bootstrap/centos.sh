@@ -272,7 +272,7 @@ sed -i "s/keystoneURL=http:\/\/130.206.80.57:4731\/v2.0\//keystoneURL=$keystone_
 sed -i "s/adminUser=admin/adminUser=$keystone_user/g" $puppetWrapperProperties_file
 sed -i "s/adminPass=8fa3c69e4c3e9fafa61/adminPass=$keystone_passwd/g" $puppetWrapperProperties_file
 sed -i "s/puppetDBUrl=http:\/\/puppet-master.dev-havana.fi-ware.org:8080/puppetDBUrl=$puppetDBUrl/g" $puppetWrapperProperties_file
-sed -i "s//adminTenant=admins/adminTenant=$tenant_id/g" $puppetWrapperProperties_file
+sed -i "s/adminTenant=admins/adminTenant=$tenant_id/g" $puppetWrapperProperties_file
 
 service fiware-puppetwrapper stop
 service fiware-puppetwrapper start
