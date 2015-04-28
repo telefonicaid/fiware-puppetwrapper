@@ -1,5 +1,5 @@
-Installation via script (for CentOS)
-====================================
+Installation Puppet Wrapper via script (for CentOS)
+===================================================
 
 The installation of fiware-puppetwrapper can be done in the easiest way by executing the script
 
@@ -598,9 +598,10 @@ In order to check that puppertWrapper is working, please make the following requ
 
 .. code::
 
-     curl -v -k -d @payload.txt -H 'Content-Type:application/json' -H 'Accept:application/json' -H 'X-Auth-Token: 13d5941be2c97d6a4f9c5bf377932d91' -H 'Tenant-Id: 00000000000000000000000000003237' -X POST 'https://localhost:8443/puppetwrapper/v2/node/<hostname>/install'
+     curl -v -k -d @payload.txt -H 'Content-Type:application/json' -H 'Accept:application/json' -H 'X-Auth-Token: <token-id>' -H 'Tenant-Id: <tenant-id>' -X POST 'https://localhost:8443/puppetwrapper/v2/node/<hostname>/install'
 
-where payload.txt is a file existing in the directory where the command is executed and includes the following content:
+where <tenant-id> should be a particular tenant-id user, the <token-id> should be a token returned by keystone and 
+payload.txt is a file existing in the directory where the command is executed and includes the following content:
 
 .. code::
 
@@ -620,7 +621,7 @@ it is required to installed a puppet agent following these instructions:
 
 .. code ::
      
-     sudo rpm -ivh https://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-7.noarch.rpm
+     rpm -ivh https://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-7.noarch.rpm
      yum install puppet
 
 to install the puppet agent add to /etc/puppet/puppet.conf : 
@@ -633,7 +634,7 @@ to install the puppet agent add to /etc/puppet/puppet.conf :
      runinterval = 45
 
 where puppet-master.novalocal should be the machine name where the master was installed. If it is in the same vm, 
-please rename the servar name or add puppet-master.novalocal to /etc/host associated to loaclhost.
+please rename the servar name or add puppet-master.novalocal to /etc/hosts associated to loaclhost.
 
 check first that the process puppet master is running (ps -ef | grep puppet) and finally run commands:
 
@@ -643,20 +644,31 @@ check first that the process puppet master is running (ps -ef | grep puppet) and
 
 a certificate should have been created at /var/lib/puppet/ssl/certs/<puppet-agent-machine-name>.pem
 
-Check if the certificate has been registeres by typing
+Check if the certificate has been registered by typing
 
 .. code ::
 
      puppet cert list -all
 
-A certificate should be listed associated to the vm wehre the puppet agent has been installed.
+A certificate should be listed associated to the vm wehre the puppet agent has been installed (note: If there is no any certificate
+, please kill the puppet master process and start it again by typing puppet master. Type again puppet cert list -all and check if 
+the corresponding certificate is listed)
 
 Now the following request can be performed in order to generate all files required to install sofwtyare in the node where puppet agent
 has been installed:
 
 .. code ::
 
-     curl -v -k -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'X-Auth-Token: 13d5941be2c97d6a4f9c5bf377932d91' -H 'Tenant-Id: 00000000000000000000000000003237' -X GET 'https://130.206.127.85:8443/puppetwrapper/v2/node/<hostname>/generate'
+     curl -v -k -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'X-Auth-Token: <token-id>' -H 'Tenant-Id: <tenant-id>' -X GET 'https://130.206.127.85:8443/puppetwrapper/v2/node/<hostname>/generate'
+
+the following response shuld have been obtained:
+
+.. code::
+
+     {"id":"<hostname>","groupName":"alberts","softwareList":[{"name":"testPuppet","version":"0.1","action":"INSTALL","attributes":[{"id":23119,"key":"clave","value":"valor"}]}],"manifestGenerated":true}
+
+where <hostname> is the hostname of the machine (with no damain). The corresponding manifests should have been created 
+together with the site.pp and the yaml file
 
 Finally for information purposes, we include the PuppetWrapper API for version2:
 
