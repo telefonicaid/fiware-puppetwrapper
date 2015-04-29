@@ -44,8 +44,8 @@ action has to be done manually. In order to complete the installation please ref
 keystone section from the SDC Installation guide at https://github.com/telefonicaid/fiware-sdc/blob/develop/doc/installation-guide.rst
 
 
-Installing puppet wrapper
-=========================
+Installing puppet wrapper manually
+==================================
 
 Install mongodb
 ---------------
@@ -543,7 +543,7 @@ Known issues
 Sanity Checks
 =============
 
-Let's check the processes required to have this component up and running. We assume that all installation has been performed
+Let's check the processes required to have this component up and running. We assume that all installations have been performed
 in the same virtual machine.
 
 - puppet processes: type the following command
@@ -608,7 +608,7 @@ payload.txt is a file existing in the directory where the command is executed an
      {"attributes":[{"value":"valor","key":"clave","id":23119,"description":null}],"version":"
      0.1","group":"alberts","softwareName":"testPuppet"}
 
-and the <hostname> should be the response to execute the command hostname in the virtual machine without the domain if exists
+and the <hostname> should be the response to execute the command 'hostname' in the virtual machine without the domain if exists
 
 The response should be:
 
@@ -628,12 +628,12 @@ to install the puppet agent add to /etc/puppet/puppet.conf :
 
 .. code ::
 
-     server = puppet-master.novalocal
+     server = <puppet-master-server>
 
      #How often puppet agent applies the client configuration; in seconds. Now: 30m (the default)  
      runinterval = 45
 
-where puppet-master.novalocal should be the machine name where the master was installed. If it is in the same vm, 
+where <puppet-master-server> should be the hostname where the master was installed. If it is in the same vm, 
 please rename the servar name or add puppet-master.novalocal to /etc/hosts associated to loaclhost.
 
 check first that the process puppet master is running (ps -ef | grep puppet) and finally run commands:
@@ -650,18 +650,18 @@ Check if the certificate has been registered by typing
 
      puppet cert list -all
 
-A certificate should be listed associated to the vm wehre the puppet agent has been installed (note: If there is no any certificate
-, please kill the puppet master process and start it again by typing puppet master. Type again puppet cert list -all and check if 
+A certificate should be listed associated to the vm where the puppet agent has been installed (note: If there is no any certificate
+, please kill the puppet master process and start it again by typing puppet master. Type again 'puppet cert list -all' and check if 
 the corresponding certificate is listed)
 
-Now the following request can be performed in order to generate all files required to install sofwtyare in the node where puppet agent
+Now the following request can be performed in order to generate all files required to install software in the node where puppet agent
 has been installed:
 
 .. code ::
 
      curl -v -k -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'X-Auth-Token: <token-id>' -H 'Tenant-Id: <tenant-id>' -X GET 'https://130.206.127.85:8443/puppetwrapper/v2/node/<hostname>/generate'
 
-the following response shuld have been obtained:
+the following response should have been obtained:
 
 .. code::
 
@@ -701,6 +701,7 @@ will download the source code from the given url under {moduleName} directory.
      ##will delete the node: nodeName 
 
      DELETE /puppetwrapper/v2/module/{modulename} 
-     ##will delete the module: moduleName 
+     ##will delete the module: moduleName
 
+this requests will delete the node: nodeName and the module: moduleName.
          
