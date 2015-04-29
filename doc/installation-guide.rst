@@ -704,4 +704,3 @@ will download the source code from the given url under {moduleName} directory.
      ##will delete the module: moduleName
 
 this requests will delete the node: nodeName and the module: moduleName.
-         
