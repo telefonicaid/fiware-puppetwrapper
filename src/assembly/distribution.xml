@@ -38,7 +38,13 @@
                 <include>*.war</include>
             </includes>
         </fileSet>
-
+		<fileSet>
+            <directory>${project.basedir}/target/puppetwrapper/WEB-INF/classes</directory>
+            <outputDirectory>/webapps</outputDirectory>
+            <includes>
+                <include>*.properties</include>
+            </includes>
+        </fileSet>
         <!-- create emtpy directories -->
         <fileSet>
             <directory>./</directory>

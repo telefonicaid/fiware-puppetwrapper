@@ -7,6 +7,10 @@ ____________________________
 
 SDC wrapper for puppet in order to deploy artifacts following puppet recipes.
 
+After cloning the fiware-puppetwrapper repository in your working machine, please fill in the values for adminUser and admiPass 
+properties in the files src/main/filters/mac.properties and src/main/filters/development.properties corresponding to the 
+user with admin privileges in keystone component.
+
 `Here <doc/installation-guide.rst>`__ you can find the installation guide.
 
 `Here <doc/api.rst>`__ you can find API reference.
