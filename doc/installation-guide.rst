@@ -1,5 +1,51 @@
-Installing puppet wrapper
-=========================
+Installation Puppet Wrapper via script (for CentOS)
+===================================================
+
+The installation of fiware-puppetwrapper can be done in the easiest way by executing the script
+
+.. code ::
+
+     scripts/bootstrap/centos.sh
+
+that is in the github repository of the project.
+
+In order to perform the installation via script, git should be installed (yum install git). 
+Just clone the github repository:
+
+.. code ::
+
+     git clone https://github.com/telefonicaid/fiware-puppetwrapper
+
+and go to the folder
+
+.. code ::
+
+     cd fiware-puppetwrapper/scripts/bootstrap
+
+Assign the corresponding permissions to the script centos.sh and execute under root user
+
+.. code ::
+
+     ./centos.sh
+     
+The script will ask you the following data:
+
+- The database name for the puppetdb
+- The database username for puppetdb database
+- The puppetdb username password
+- the keytone url to connect fiware-puppetwrapper for the authentication process
+- the admin keystone user for the authentication process
+- the admin password for the authentication process
+- the tenant id for admin user
+
+Once the script is finished, you will have fiware-puppetwrapper installed under /opt/fiware-puppetwrapper/ . Please go to the Sanity Check
+section in order to test the installation. This script does not insert the fiware-puppetwrapper data into the keystone, so this
+action has to be done manually. In order to complete the installation please refer to Register SDC application into 
+keystone section from the SDC Installation guide at https://github.com/telefonicaid/fiware-sdc/blob/develop/doc/installation-guide.rst
+
+
+Installing puppet wrapper manually
+==================================
 
 Install mongodb
 ---------------
@@ -210,7 +256,7 @@ following:
 
 -  execute
 
-.. code ..
+.. code ::
 
      cd /etc/puppet
      mkdir hieradata
@@ -494,3 +540,167 @@ Known issues
 
 -  On instalation, a task finished on success even though the manifest execution has failed. We rely on the "catalog_timestamp" value that indicates a catalog execution. It does not tell whether the execution was correct or not. In fact even when the execution fails, the "catalog_timestamp" value is updated.
 
+Sanity Checks
+=============
+
+Let's check the processes required to have this component up and running. We assume that all installations have been performed
+in the same virtual machine.
+
+- puppet processes: type the following command
+
+.. code ::
+
+     ps -ef | grep puppet
+
+and the output should be similar to:
+
+.. code::
+
+     avahi     1265     1  0 Apr15 ?        00:00:02 avahi-daemon: running [puppet-install-test.local]
+     puppet    1801     1  0 Apr15 ?        00:01:48 /usr/bin/ruby /usr/bin/puppet master
+     puppetdb  2161     1  0 Apr15 ?        00:02:07 /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java -XX:OnOutOfMemoryError=kill -9 %p -Xmx192m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/puppetdb/puppetdb-oom.hprof -Djava.security.egd=file:/dev/urandom -cp /usr/share/puppetdb/puppetdb.jar clojure.main -m com.puppetlabs.puppetdb.core services -c /etc/puppetdb/conf.d
+     root      2736     1  0 Apr15 ?        00:01:15 /usr/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8585 -Dspring.profiles.active=fiware -Xmx1024m -Xms1024m -Djetty.state=/opt/fiware-puppetwrapper/jetty.state -Djetty.logs=/opt/fiware-puppetwrapper/logs -Djetty.home=/opt/fiware-puppetwrapper -Djetty.base=/opt/fiware-puppetwrapper -Djava.io.tmpdir=/tmp -jar /opt/fiware-puppetwrapper/start.jar jetty-logging.xml jetty-started.xml
+
+where we can find the puppet master process (PID=1801), puppetdb process (PID=2161) and puppetWrapper process (PID=2736).
+
+- mongo process: type the following command
+
+.. code::
+
+     ps -ef | grep mongo
+
+and the ouput should be similar to:
+
+.. code:: 
+ 
+     mongod    1723     1  0 Apr15 ?        00:02:43 /usr/bin/mongod -f /etc/mongod.conf
+
+- postgres process: type the following command
+
+.. code::
+
+     ps -ef | grep postgres
+
+and the output should be similar to:  
+
+.. code::
+
+     postgres  2425     1  0 Apr15 ?        00:00:00 /usr/bin/postmaster -p 5432 -D /var/lib/pgsql/data
+     postgres  2427  2425  0 Apr15 ?        00:00:01 postgres: logger process    
+     postgres  2429  2425  0 Apr15 ?        00:00:10 postgres: writer process    
+     postgres  2430  2425  0 Apr15 ?        00:00:08 postgres: wal writer process
+     postgres  2431  2425  0 Apr15 ?        00:00:01 postgres: autovacuum launcher process
+     postgres  2432  2425  0 Apr15 ?        00:00:01 postgres: stats collector process
+
+which represents the processes associated to a Posgres 8.4 database.
+
+In order to check that puppertWrapper is working, please make the following request:
+
+.. code::
+
+     curl -v -k -d @payload.txt -H 'Content-Type:application/json' -H 'Accept:application/json' -H 'X-Auth-Token: <token-id>' -H 'Tenant-Id: <tenant-id>' -X POST 'https://localhost:8443/puppetwrapper/v2/node/<hostname>/install'
+
+where <tenant-id> should be a particular tenant-id user, the <token-id> should be a token returned by keystone and 
+payload.txt is a file existing in the directory where the command is executed and includes the following content:
+
+.. code::
+
+     {"attributes":[{"value":"valor","key":"clave","id":23119,"description":null}],"version":"
+     0.1","group":"alberts","softwareName":"testPuppet"}
+
+and the <hostname> should be the response to execute the command 'hostname' in the virtual machine without the domain if exists
+
+The response should be:
+
+.. code ::
+
+     {"id":"nodeNametest1","groupName":"alberts","softwareList":[{"name":"testPuppet","version":"0.1","action":"INSTALL","attributes":[{"id":23119,"key":"clave","value":"valor"}]}],"manifestGenerated":false}
+
+In order to check if the puppet agents registers correctly in the puppetMaster via puppetWrapper, 
+it is required to installed a puppet agent following these instructions:
+
+.. code ::
+     
+     rpm -ivh https://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-7.noarch.rpm
+     yum install puppet
+
+to install the puppet agent add to /etc/puppet/puppet.conf : 
+
+.. code ::
+
+     server = <puppet-master-server>
+
+     #How often puppet agent applies the client configuration; in seconds. Now: 30m (the default)  
+     runinterval = 45
+
+where <puppet-master-server> should be the hostname where the master was installed. If it is in the same vm, 
+please rename the servar name or add puppet-master.novalocal to /etc/hosts associated to loaclhost.
+
+check first that the process puppet master is running (ps -ef | grep puppet) and finally run commands:
+
+.. code ::
+
+     service puppet start
+
+a certificate should have been created at /var/lib/puppet/ssl/certs/<puppet-agent-machine-name>.pem
+
+Check if the certificate has been registered by typing
+
+.. code ::
+
+     puppet cert list -all
+
+A certificate should be listed associated to the vm where the puppet agent has been installed (note: If there is no any certificate
+, please kill the puppet master process and start it again by typing puppet master. Type again 'puppet cert list -all' and check if 
+the corresponding certificate is listed)
+
+Now the following request can be performed in order to generate all files required to install software in the node where puppet agent
+has been installed:
+
+.. code ::
+
+     curl -v -k -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'X-Auth-Token: <token-id>' -H 'Tenant-Id: <tenant-id>' -X GET 'https://130.206.127.85:8443/puppetwrapper/v2/node/<hostname>/generate'
+
+the following response should have been obtained:
+
+.. code::
+
+     {"id":"<hostname>","groupName":"alberts","softwareList":[{"name":"testPuppet","version":"0.1","action":"INSTALL","attributes":[{"id":23119,"key":"clave","value":"valor"}]}],"manifestGenerated":true}
+
+where <hostname> is the hostname of the machine (with no damain). The corresponding manifests should have been created 
+together with the site.pp and the yaml file
+
+Finally for information purposes, we include the PuppetWrapper API for version2:
+
+.. code ::
+
+     POST /puppetwrapper/v2/node/{nodeName}/install 
+     ##json payload: 
+     {"attributes":[{"value":"valor","key":"clave","id":23119,"description":null}],"version":"0.1","group":"alberts","softwareName":"testPuppet"} 
+
+     POST /puppetwrapper/v2/node/{nodeName}/uninstall 
+     ##json payload: 
+     {"attributes":[{"value":"valor","key":"clave","id":23119,"description":null}],"version":"0.1","group":"alberts","softwareName":"testPuppet"} 
+
+     GET /puppetwrapper/v2/node/{nodeName}/generate ##will generate the following files in /etc/puppet/manifests 
+     
+add an import line to site.pp 
+generate the corresponding .pp file as group/nodeName.pp 
+
+.. code::
+
+     POST /puppetwrapper/module/{moduleName}/download 
+     ##payload : json as: {"url":”value”, ”repoSource”:”value”} 
+
+Value on repoSource can be: git /svn 
+will download the source code from the given url under {moduleName} directory. 
+
+.. code::
+
+     DELETE /puppetwrapper/v2/node/{nodeName} 
+     ##will delete the node: nodeName 
+
+     DELETE /puppetwrapper/v2/module/{modulename} 
+     ##will delete the module: moduleName
+
+this requests will delete the node: nodeName and the module: moduleName.
