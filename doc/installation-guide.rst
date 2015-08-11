@@ -1,3 +1,11 @@
+===============================================
+PuppetWrapper | Installation and administration
+===============================================
+
+This is the installation, configuration and administration guide for FIWARE PuppetWrapper component.
+
+
+
 Installation Puppet Wrapper via script (for CentOS)
 ===================================================
 
@@ -232,8 +240,8 @@ To configure PuppetDB to use this database, put the following in the
      username = <USERNAME>
      password = <PASSWORD> 
 
-Replace <HOST> with the DB server’s hostname. Replace <PORT> with the port on which PostgreSQL is listening.
-Replace <DATABASE> with the name of the database you’ve created for use with PuppetDB.
+Replace <HOST> with the DB server's hostname. Replace <PORT> with the port on which PostgreSQL is listening.
+Replace <DATABASE> with the name of the database you've created for use with PuppetDB.
 
 Install hiera
 -------------
@@ -534,7 +542,7 @@ If you have a different configuration, for example your organization has got its
  
 
 Known issues
-^^^^^^^^^^^^
+============
 
 -  When a puppet manifest is executed and the execution of a module fails, in the case where there's more than 1 module installed we don't know wich one has failed -> this information granularity is not provided by puppetdb, so we can't delete the module that caused the error in the manifest
 
@@ -690,7 +698,7 @@ generate the corresponding .pp file as group/nodeName.pp
 .. code::
 
      POST /puppetwrapper/module/{moduleName}/download 
-     ##payload : json as: {"url":”value”, ”repoSource”:”value”} 
+     ##payload : json as: {"url":'value', 'repoSource':'value'}
 
 Value on repoSource can be: git /svn 
 will download the source code from the given url under {moduleName} directory. 
