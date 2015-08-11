@@ -235,14 +235,15 @@ the `Sanity Checks documentation <./doc/installation-guide.rst#sanity-checks>`_
 Testing
 =======
 
-Acceptance: Component and E2E testing
--------------------------------------
 
-How to run these test cases, prerequisites and all related documentation is described on
-`PuppetWrapper Acceptance Tests <./acceptance_tests>`_ project.
+End to end testing (Sanity status)
+----------------------------------
+In order to check the status of all installed services, follow the checks detailed on
+`Sanity Checks documentation <./doc/installation-guide.rst#sanity-checks>`_.
 
-Unit tests
-----------
+
+Unit testing
+------------
 
 Unittests are located in ``src/test``. To run them using Maven, execute following command from command-line:
 
@@ -251,7 +252,11 @@ Unittests are located in ``src/test``. To run them using Maven, execute followin
     # mvn test
 
 
+Acceptance testing
+------------------
 
+How to run these test cases, prerequisites and all related documentation is described on
+`PuppetWrapper Acceptance Tests <./acceptance_tests>`_ project.
 
 
 API Overview
