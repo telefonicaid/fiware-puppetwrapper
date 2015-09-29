@@ -1,5 +1,21 @@
+====================
 PuppetWrapper API v2
-~~~~~~~~~~~~~~~~~~~~
+====================
+
+This is the PuppetWrapper API reference documentation.
+
+
+
+Auth headers
+------------
+
+* Tenant-Id: Tenant-Id of the User (OpenStack IdM/Keystone)
+* X-Auth-Token: Valid auth token retrieved for this User from Keystone.
+
+
+
+API Reference
+-------------
 
 -  POST /puppetwrapper/v2/node/{nodeName}/install
 
